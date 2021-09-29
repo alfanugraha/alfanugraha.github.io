@@ -1,0 +1,25 @@
+name: "tugas-sta561"
+navbar:
+  title: "Tugas UTS Praktikum STA561"
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: "Soal 1"
+      href: soal1.html
+    - text: "Soal 2"
+      href: soal2.html
+    - text: "Soal 3"
+      href: soal3.html
+    - text: "Soal 4"
+      href: soal4.html
+    - text: "Soal 5"
+      href: soal5.html
+  right:
+    - icon: fa-book-open
+      href: sumber.html
+output:
+  html_document:
+    theme: yeti
+    css: style.css
+    toc: true
+    toc_float: true

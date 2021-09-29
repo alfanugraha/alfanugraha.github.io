@@ -1,0 +1,48 @@
+---
+title: "Soal 5"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(reshape)
+```
+
+### Filter data
+
+```{r,render=F, results='hold'}
+ipmdata <- read.table('ipm_metode_comb2.csv', header = T, sep = ";")
+prov <- unique(ipmdata$Provinsi)
+colnames(ipmdata)[5:13] <- c(2010:2018)
+
+ipmfilter <- ipmdata %>% filter(Komponen == "IPM" & Provinsi == "ACEH") %>% dplyr::select(-Komponen, -Provinsi)
+ipmfilter <- ipmfilter[2:nrow(ipmfilter), ]
+ipmselected <- ipmfilter %>% melt(id=c("Kode","KabKota")) %>% mutate(kategori=ifelse(value > 80, "IPM Sangat Tinggi", ifelse(value > 70, "IPM Tinggi", "IPM Sedang")))
+
+tahun <- 2010
+ipmtahun <- ipmselected %>% filter(variable == 2010) %>% arrange(desc(value))
+ipmtahun$value <- as.numeric(ipmtahun$value)
+```
+
+
+### Plot menggunakan plotly
+
+```{r, render=F, results='hold', eval=FALSE}
+plot_ly(x = ~ipmtahun$value, y = ~reorder(ipmtahun$KabKota, tahun), color = ipmtahun$kategori, type = 'bar', orientation = 'h') %>% 
+  layout(xaxis = list(range = c(55,83))) %>%
+  layout(title = 'Index Pembangunan Manusia Kabupaten X Tahun Y',
+                 xaxis = list(title = ''),
+                 yaxis = list(title = ''),
+                 legend = list(x = 0.729, y = 0.138,font = list(size = 10)),
+                 margin = list(l = 100, r = 20, t = 70, b = 70),
+                 paper_bgcolor = 'rgb(248, 248, 255)',
+                 plot_bgcolor = 'rgb(248, 248, 255)')
+```
+
+
+### Visualisasi interaktif menggunakan Shiny
+
+```{r out.width="120%"}
+knitr::include_app("https://alfanugraha.shinyapps.io/soal5/", height = "1300px")
+```
+

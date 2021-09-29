@@ -1,0 +1,110 @@
+---
+title: "Soal 1"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(DT)
+```
+
+Buatlah program R untuk melakukan proses berikut ini! \
+- Bangkitkanlah data populasi yang terdiri atas 1000 amatan dengan peubah: \
+    * No : 1 sd 500, 9001 sd 9500 (integer) \
+    * ID : G0001 sd G0500, G9001 sd G9500 (diperoleh berdasarkan kolom No, dengan penambahan huruf “G” didepan No dan jumlah digitnya harus 4) \
+    * Kelas : "Paralel 1" jika ID genap, dan "Paralel 2" jika ID ganjil (factor) \
+    * UTS : Diperoleh dengan membangkitkan bilangan acak yang menyebar $N(\mu = 70, \sigma= 25)$ \
+    * Indeks : Diperoleh dengan membangkitkan bilangan acak yang menyebar $Exponential(\theta = 1)$ \
+-Hilangkan data peubah Indeks yang bernilai lebih dari 1 (menjadi missing value) \
+-Hitunglah rata-rata dari UTS yang Indeks-nya ada \
+-Buatlah data sampel berukuran 100 amatan dari Kelas "Paralel 1" yang Indeks-nya ada \
+-Hitunglah rata-rata dari UTS pada data sampel yang terambil, lalu bandingkan dengan populasi \
+
+### Membangkitkan data populasi
+
+```{r}
+# Peubah No
+No <- c(seq(500),seq(9001, 9500))
+
+# Peubah ID
+ID <- sprintf("G%04d", No)
+
+#Peubah Kelas
+Kelas <- factor(ifelse(No %% 2 == 0, "Paralel 1", "Paralel 2"))
+
+
+#Peubah UTS
+set.seed(5612) #set.seed dibuat 5612 menandakan STA561 kelompok 2
+UTS <- round(rnorm(1000, 70, 5),4) #membangkitkan bilangan acak yang menyebar normal dengan 4 angka di belakang koma
+
+#Peubah Indeks
+set.seed(5612) #set.seed dibuat 5612 menandakan STA561 kelompok 2
+Indeks <- round(rexp(1000, 1),4) #membangkitkan bilangan acak yang menyebar eksponensial dengan 4 angka di belakang koma
+
+# Membuat Data Frame data.Populasi
+data.Populasi <- data.frame(No, ID, Kelas, UTS, Indeks)
+
+# Menampilkan data frame data populasi dengan menggunakan formatStyle
+data.Populasi %>%  datatable(data.Populasi, class = 'cell-border stripe')  %>%
+formatStyle('Indeks',  color = styleInterval(1, c('black', 'red')), backgroundColor = '#b3ffb3', fontWeight = 'bold',) 
+```
+
+### Menghilangkan data indeks > 1
+
+```{r}
+#Mengubah data indeks > 1 menjadi NA
+data.Populasi$Indeks <- ifelse(data.Populasi$Indeks >1, NA, data.Populasi$Indeks)
+
+#Menampilkan tabel data populasi dengan formatStyle
+data.Populasi %>%  datatable(data.Populasi, class = 'cell-border stripe')  %>%
+formatStyle('Indeks',  color = styleInterval(1, c('black', '  ')), backgroundColor = '#b3ffb3', fontWeight = 'bold',)
+```
+
+
+### Menghitung rata-rata UTS yang ada indexnya
+
+```{r}
+# Filter data untuk yang ada Indeks nya
+data.adaindeks <- data.Populasi %>% 
+  filter(!is.na(Indeks)) 
+
+# Menghitung Rata-rata UTS yang ada indeksnya
+rata2UTS <- mean(data.adaindeks$UTS)
+cat("rata-rata dari UTS yang Indeks-nya ada sebesar", rata2UTS)
+```
+
+
+### Menarik 100 sampel kelas Paralel 1 yang ada indexnya
+
+```{r}
+# Filter data untuk kelas Paralel 1
+data.adaindekspar1 <- data.adaindeks %>% 
+  filter(Kelas =="Paralel 1")
+
+# Menarik sampel dari populasi dengan 100 amatan
+set.seed(5612) #set.seed dibuat 5612 menandakan STA561 kelompok 2
+data.sampel <- data.adaindekspar1 %>% 
+  sample_n(100)
+
+# Menampilkan data sampel dengan formatStyle
+data.sampel %>%  datatable(data.sampel, class = 'cell-border stripe')  %>%
+formatStyle('Kelas',  color = ' ', backgroundColor = '#b3ffb3', fontWeight = 'bold',) %>%
+formatStyle('Indeks',  color = ' ', backgroundColor = '#b3ffb3', fontWeight = 'bold',) 
+```
+
+
+### Menghitung rata-rata UTS
+
+```{r}
+# Menghitung rata-rata UTS data sampel
+rata2UTSsampel <- mean(data.sampel$UTS)
+cat("rata-rata dari UTS pada data sampel yang terambil sebesar", rata2UTSsampel)
+```
+
+```{r}
+# Menghitung rata-rata UTS data populasi
+rata2UTSpop <- mean(data.Populasi$UTS)
+cat("rata-rata dari UTS pada data populasi sebesar", rata2UTSpop)
+```
+
+Rata-rata dari 100 sampel acak yang dipilh tidak jauh berbeda dengan rata-rata populasi. Adapun rata-rata dari populasi adalah 70.09699, dan rata-rata sampel adalah 71.34412.

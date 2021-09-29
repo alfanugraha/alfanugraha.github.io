@@ -1,0 +1,78 @@
+---
+title: "Soal 2"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Buatlah fungsi di R yang bernama RKU yang dapat digunakan untuk menghitung regresi komponen utama (principal component regression) dengan output utama adalah koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X!
+
+### Pembahasan
+
+Tahapan dalam menghitung regresi komponen utama (principal component regression):\
+
+1. Melakukan transformasi data X (peubah bebas) ke Komponen Utama. Dalam transformasi, dilakukan juga penghitungan vektor ciri dan akar ciri.\
+2. Memilih komponen utama dengan akar ciri >= 1 (Sriningsih, M., Hatidja, D., dan Prang, J.D. (2018))\
+3. Membuat dataframe komponen utama terpilih dengan data y (peubah respon)\
+4. Melakukan pendugaan koefisien regresi komponen utama dan menyusun modelnya\
+5. Melakukan transformasi balik model regresi komponen utama menjadi peubah asal x (NCSS LLC 2019)\
+6. Menghitung intercept penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))\
+7. Menampilkan Output berupa list yang berisi vektor koefisien RKU untuk X, vektor koefisien RKU untuk PC, matriks skor komponen utama, dan list akar ciri-vektor ciri
+
+```{r}
+RKU <- function(data.x, data.y){
+  
+  #Transformasi Ke Komponen Utama
+  pca <- prcomp(data.x, center=TRUE, scale.=TRUE) #melakukan analisis komponen utama
+  
+  vektor.ciri <- pca$rotation #vektor ciri 
+  matriks.vector.ciri <- as.data.frame(vektor.ciri) #Matriks Vector Ciri
+  akar.ciri <- pca$sdev #akar ciri
+  
+  # Memilih komponen utama dengan akar ciri >= 1 (Sriningsih, M., Hatidja, D., dan Prang, J.D. (2018))
+  k <- which(akar.ciri >= 1, arr.ind = TRUE)
+  k <- as.integer(k)
+  
+  # Memilih komponen utama yang bersesuaian dengan akar ciri 
+  PKU = c();
+  for(i in 1:length(k)){
+    PKU[i+1] <-paste0("PC",k[i])
+  }
+  
+  # Membuat matriks vektor ciri terpilih
+  eigen.baru <- matriks.vector.ciri[names(matriks.vector.ciri)[names(matriks.vector.ciri) %in% PKU]]
+  eigen.baru <- as.matrix(eigen.baru)
+  
+  
+  #Membuat dataframe komponen utama terpilih dan y
+  matriks.skor <- pca$x #matriks skor komponen utama
+  pcs <- as.data.frame(matriks.skor) #membuat dataframe dari skor komponen utama
+  data.pcr <- cbind(data.y, pcs) #menambahkan data y
+  PKU.terpilih <- pcs[names(pcs)[names(pcs) %in% PKU]]
+  
+  
+  #Pemodelan Regresi Komponen Utama
+  pcr <- lm(data.y ~ ., data = data.pcr) #melakukan pendugaan koefisien regresi
+  beta.pcr <- as.matrix(pcr$coefficients[-1]) 
+  KoefisienPC <- as.vector(pcr$coefficients)[1:as.integer(max(k)+1)] #matriks koefisien regresi komponen utama
+  
+  #Transformasi Balik Model Regresi Komponen Utama ke Peubah X
+  V <- as.matrix(vektor.ciri) #matriks vektor ciri
+  beta.X <- V[,1:max(k)] %*% as.matrix(beta.pcr[1:max(k)]) #melakukan transformasi peubah komponen utama menjadi peubah asal x (NCSS LLC 2019)
+  
+  
+  #Menampilkan Output utama koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))
+  vector.xbar <- pca$center #vektor xbar (nilai tengah)
+  intersepTransformasi <- mean(data.y)- vector.xbar%*%beta.X #menghitung intercept akhir
+  namakolom=as.factor(colnames(data.x))
+  beta.X <- rbind(intersepTransformasi, beta.X)#menambahkan intercept akhir dan koefisien beta hasil transformasi
+  rownames(beta.X) = c("intercept",(if (length(colnames(data.x))==0) {rep(paste("beta",1:ncol(data.x),sep=""))} else {levels(namakolom)}))
+
+  #Menampilkan Output Keseluruhan
+  akarCiriTerpilih <- akar.ciri[1:max(k)] #memilih akar ciri terpilih
+    output <- list(Akar.Ciri = akarCiriTerpilih, Vektor.Ciri =eigen.baru,  skor.KU= datatable(PKU.terpilih, class = 'cell-border stripe'), Koefisien.PC = KoefisienPC, Koefisien.X = beta.X)
+  return(output)
+}
+```
+

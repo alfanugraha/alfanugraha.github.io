@@ -1,0 +1,156 @@
+---
+  title: "Soal 3"
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(MASS) 
+library(car)
+library(dplyr)
+RKU <- function(data.x, data.y){
+  
+  #Transformasi Ke Komponen Utama
+  pca <- prcomp(data.x, center=TRUE, scale.=TRUE) #melakukan analisis komponen utama
+  
+  vektor.ciri <- pca$rotation #vektor ciri 
+  matriks.vector.ciri <- as.data.frame(vektor.ciri) #Matriks Vector Ciri
+  akar.ciri <- pca$sdev #akar ciri
+  
+  # Memilih komponen utama dengan akar ciri >= 1 (Sriningsih, M., Hatidja, D., dan Prang, J.D. (2018))
+  k <- which(akar.ciri >= 1, arr.ind = TRUE)
+  k <- as.integer(k)
+  
+  # Memilih komponen utama yang bersesuaian dengan akar ciri 
+  PKU = c();
+  for(i in 1:length(k)){
+    PKU[i+1] <-paste0("PC",k[i])
+  }
+  
+  # Membuat matriks vektor ciri terpilih
+  eigen.baru <- matriks.vector.ciri[names(matriks.vector.ciri)[names(matriks.vector.ciri) %in% PKU]]
+  eigen.baru <- as.matrix(eigen.baru)
+  
+  
+  #Membuat dataframe komponen utama terpilih dan y
+  matriks.skor <- pca$x #matriks skor komponen utama
+  pcs <- as.data.frame(matriks.skor) #membuat dataframe dari skor komponen utama
+  data.pcr <- cbind(data.y, pcs) #menambahkan data y
+  PKU.terpilih <- pcs[names(pcs)[names(pcs) %in% PKU]]
+  
+  
+  #Pemodelan Regresi Komponen Utama
+  pcr <- lm(data.y ~ ., data = data.pcr) #melakukan pendugaan koefisien regresi
+  beta.pcr <- as.matrix(pcr$coefficients[-1]) 
+  KoefisienPC <- as.vector(pcr$coefficients)[1:as.integer(max(k)+1)] #matriks koefisien regresi komponen utama
+  
+  #Transformasi Balik Model Regresi Komponen Utama ke Peubah X
+  V <- as.matrix(vektor.ciri) #matriks vektor ciri
+  beta.X <- V[,1:max(k)] %*% as.matrix(beta.pcr[1:max(k)]) #melakukan transformasi peubah komponen utama menjadi peubah asal x (NCSS LLC 2019)
+  
+  
+  #Menampilkan Output utama koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))
+  vector.xbar <- pca$center #vektor xbar (nilai tengah)
+  intersepTransformasi <- mean(data.y)- vector.xbar%*%beta.X #menghitung intercept akhir
+  namakolom=as.factor(colnames(data.x))
+  beta.X <- rbind(intersepTransformasi, beta.X)#menambahkan intercept akhir dan koefisien beta hasil transformasi
+  rownames(beta.X) = c("intercept",(if (length(colnames(data.x))==0) {rep(paste("beta",1:ncol(data.x),sep=""))} else {levels(namakolom)}))
+
+  #Menampilkan Output Keseluruhan
+  akarCiriTerpilih <- akar.ciri[1:max(k)] #memilih akar ciri terpilih
+    output <- list(Akar.Ciri = akarCiriTerpilih, Vektor.Ciri =eigen.baru,  skor.KU= DT::datatable(PKU.terpilih, class = 'cell-border stripe'), Koefisien.PC = KoefisienPC, Koefisien.X = beta.X)
+  return(output)
+}
+```
+
+Bangkitkan peubah $Y, X_1, X_2, X_3$ sebanyak 1000 amatan berdasarkan model regresi linear berganda berikut ini:
+
+$Y = 10 + 3X_1 + 5X_2 + 7X_3 + \epsilon$
+
+dengan mengasumsikan bahwa $\epsilon \sim N(\mu=0, \sigma^2 = 30)$ dan antara peubah bebas terjadi multikolinearitas (tidak ada batasan fungsi/package yang digunakan)!
+
+Kemudian hitung koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik menggunakan fungsi RKU yang sudah dibuat di nomor 2!
+
+
+### Membangkitkan data
+  
+Tahapan dalam melakukan pembangkitan data:\
+
+1. Mendefinisikan model regresi linier $Y = 10 + 3X_1 + 5X_2 + 7X_3 + \epsilon$\
+2. Menentukan matriks ragam peragam dengan menggunakan besarnya korelasi antarpeubah bebas adalah 0.96 (antara peubah bebas terjadi multikolinearitas)\
+3. Membangkitkan data $\epsilon$ sebanyak 1000 dengan mengasumsikan bahwa $\epsilon \sim N(\mu=0, \sigma^2 = 30)$ \
+4. Melakukan pendugaan koefisien regresi komponen utama dan menyusun modelnya\
+5. Menentukan nilai tengah peubah bebas sebesar 1\
+6. Menghitung intercept penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))\
+7. Menampilkan Output berupa list yang berisi vektor koefisien RKU untuk X, vektor koefisien RKU untuk PC, matriks skor komponen utama, dan list akar ciri-vektor ciri
+
+```{r}
+# Misal Besar korelasi antarpeubah bebas adalah 0.96
+b0 <- 10; b1 <- 3; b2 <- 5; b3 <- 7  #𝑌 = 10 + 3𝑋1 + 5𝑋2 + 7𝑋3 + 𝜀
+b0topi <- NULL; b1topi <- NULL; b2topi <- NULL; b3topi <- NULL 
+Sigma <- matrix(c(1,0.96,0.96,0.96,1,0.96,0.96,0.96,1),nrow=3,ncol=3) #matriks ragam peragam
+
+#membangkitkan data sebanyak 1000
+set.seed(5612) #set.seed dibuat 5612 menandakan STA561 kelompok 2
+eps <- rnorm(1000, mean = 0, sd = sqrt(30)) # membangkitkan e~N(0,30) sebanyak 1000
+mu <- c(1, 1, 1)
+x <- round(mvrnorm(1000,mu,Sigma),4) #membangkitkan peubah X dengan ketentuan 4 angka di belakang koma
+y <- round((b0 + b1*x[,1] + b2*x[,2] + b3*x[,3]+ eps),4) #menghitung peubah y dengan ketentuan 4 angka di belakang koma
+ 
+
+pembangkitandata <- data.frame(y,x) #peubah Y dan X yang telah dibangkitkan
+
+
+# Menampilkan data yang telah dibangkitkan dengan datatable
+DT::datatable(pembangkitandata, class = 'cell-border stripe') 
+```
+
+### Memeriksa data yang telah dibangkitkan
+
+Tahapan yang dilakukan dalam memeriksa data yang telah dibangkitkan:
+
+1. Menampilkan nilai korelasi antar peubah bebas \
+2. Melakukan pengecekan multikolinieritas dengan VIF \
+
+```{r}
+#menampilkan nilai korelasi antar peubah bebas
+data_cor <- cor(x)
+korelasi <- function(data_cor){
+  hasil <- data_cor %>% corrplot::corrplot(method="color",  
+                      type="upper", 
+                      order="hclust", 
+                      addCoef.col = "white",
+                      tl.col="black", 
+                      insig = "blank",
+                      diag=FALSE) 
+  return(hasil)
+}
+korelasi(data_cor)
+```
+
+```{r}
+#Melakukan pengecekan multikolinieritas dengan VIF
+cekmultikolinearitas <-lm(pembangkitandata$y~pembangkitandata$X1+pembangkitandata$X2+pembangkitandata$X3)
+vif(cekmultikolinearitas)
+```
+
+Karena nilai VIF > 10 maka potensi penyebab kolinearitas.
+
+### Menghitung koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik menggunakan fungsi RKU
+
+Tahapan yang dilakukan:
+
+1. Memasukkan argumen input x dan y yang telah dibangkitkan ke dalam fungsi RKU \
+2. Menampilkan koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik menggunakan fungsi RKU yang sudah dibuat di soal nomor 2 \
+
+```{r}
+PCR = RKU(x,y)
+PCR$skor.KU
+```
+
+```{r }
+PCR
+```
+
+Maka persamaan regresi hasil RKU yang sudah ditransformasi balik adalah:
+
+$\hat Y = 9.888810+5.065503X_1+5.064814X_2+5.066601X_3$
