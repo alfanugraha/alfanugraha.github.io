@@ -4,8 +4,13 @@ title: ""
 
 ## Referensi
 
-https://tanahair.indonesia.go.id/portal-web
+1. Jollife, I. T. (2002). Principal Component Analysis (2nd ed). New York: Springer-Verlag.
 
-https://www.worldagroforestry.org/publication/pengukuran-cadangan-karbon-dari-tingkat-lahan-ke-bentang-lahan-edisi-ke-2
+2. Ohyver, M. (2012).Pemodelan Principal Component Regression dengan Software R. ComTech, 3(1), 177-185.https://media.neliti.com/media/publications/166152-ID-pemodelan-principal-component-regression.pdf
 
-https://prada.bappenas.go.id/dashboard/makro
+3. BAppenas. Profil dan Analisis Daerah. Retrieved from https://prada.bappenas.go.id/dashboard/makro
+
+4. Ramalho, Lucca d.F., and Washington R.d.C. Segundo 2020. "R-Shiny as an Interface for Data Visualization and Data Analysis on the Brazilian Digital Library of Theses and Dissertations (BDTD)" Publications 8, no. 2: 24. https://doi.org/10.3390/publications8020024
+
+5. Raharjo, Mulianto. 2021. STA561 Pemrograman Statistika: Pembangkitan Bilangan Acak. Retrieved from https://newlms.ipb.ac.id/
+

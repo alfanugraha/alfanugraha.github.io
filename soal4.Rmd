@@ -1,5 +1,5 @@
 ---
-title: "Soal 4"
+title: " Soal 4"
 ---
 
 ```{r setup, include=FALSE}
@@ -7,8 +7,32 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(DT)
 ```
+Lakukan suatu proses manajemen data frame/data munging dengan ketentuan sebagai berikut:
+
+1. Kasus (data) dan fungsi (jenis manajemen) bebas (tidak ditentukan).
+2. Data yang digunakan dapat berupa:
+   a. Data yang dibangkitkan secara acak
+   b. Data yang dibangkitkan secara manual (seperti membuat objek baru)
+   c. Data sekunder yang sudah ada, baik data di internet ataupun milik pribadi
+3. Raw data atau syntax pembangkitan data wajib dilampirkan saat pengumpulan tugas.
+4. Software yang digunakan tidak dibatasi hanya menggunakan R.
+5. Fungsi dan package/modul yang digunakan juga tidak ditentukan (boleh menggunakan package base, stat, dplyr, ataupun yang lainnya).
+6. Akan lebih baik jika proses manajemen data frame yang dilakukan memiliki "tujuan/cerita."
+
+
+Soal nomer 4 akan dijawab dengan memanfaatkan package tidyverse. Dalam package tidyverse ini memuat beberapa kumpulan package yaitu:
+
+1. readr digunakan untuk mengimpor data
+2. tidyr digunakan untuk merapihkan data
+3. dply digunakan untuk manipulasi data
+4. ggplot2 digunakan untuk visualisasi data
+
+Data yang digunakan untuk menjawab soal nomer 4 ini diambil dari data set iris yang sudah tersedia di R.
 
 ## Membuat peubah baru
+
+Langkah pertama yaitu membuat peubah baru. Membuat peubah baru dapat menggunakan fungsi mutate. Peubah baru yang dibuat dalam menjawab soal 4 ini yaitu Sepal dan Petal.
+
 ```{r}
 data("iris")
 iris <- iris %>% mutate(Petal=Petal.Length+Petal.Width)
@@ -19,21 +43,23 @@ head(iris)
 
 ## Data munging
 
-Subsetting baris dengan menggunakan fungsi filter
+Dalam data munging yang pertama yaitu dilakukan subsetting data dalam kasus ini subsetting data dibagi menjadi dua yaitu subsetting baris dengan menggunakan fungsi filter.
 
 ```{r}
 datatable(iris %>% filter(Species=="versicolor") )
 ```
 
 
-Subsetting baris dengan menggunakan fungsi select
+Subsetting kedua yaitu subsetting data pada kolom dengan menggunakan fungsi select.
 
 ```{r}
-datatable(iris %>% dplyr::select(Species,Sepal,Petal))
+datatable(iris %>% select(Species,Sepal,Petal) )
 ```
 
 
 ##Data Sorting
+
+setelah dilakukan subsetting terhadap baris dan kolom, data munging yang kedua yaitu dilakukan sorting. Dalam menjawab soal nomer 4 ini sorting ditunjukkan dengan dua cara yaitu dengan sorting secara ascending dan secara descending. Fungsi yang digunakan untuk sorting yaitu dengan menggunakan arrange.
 
 ```{r}
 #scr ascending
@@ -41,17 +67,19 @@ datatable(iris %>% arrange(Sepal))
 ```
 
 ```{r}
-#scr desc
+#scr descending
 datatable(iris %>% arrange(desc(Sepal.Length),desc(Sepal.Width)))
 ```
 
 ```{r}
-#scr
 datatable(iris<-iris %>% arrange(Petal,desc(Sepal)))
 ```
 
 
 ##Join data frame
+
+setelah dilakukan subsetting terhadap baris dan kolom kemudian dilakukan sorting, data munging yang ketiga yaitu dilakukan join data frame. Dalam join data frame dapat dilakukan dengan menggunakan beberapa fungsi yaitu inner_join, full_join, left_join, dan right_join.
+
 
 ```{r}
 irisx<-data.frame(Jenis=c("setosa","versicolor","rose"),kode=c(1,2,3))
@@ -88,7 +116,11 @@ datatable(y)
 
 ##Agregat
 
+Data munging yang terakhir yaitu agregating. Agregating yang sering digunakan yaitu fungsi summarise dan group by. 
+
 ###summarise
+
+Menghitung banyaknya observasi, nilai maksimum, nilai minimum, dan rataan dari peubah Sepal dan Petal yang telah ditambahkan di awal.
 
 ```{r}
 iris1<-iris %>% summarise(n=n(), maks=max(Sepal), min=min(Sepal), rataan=mean(Sepal))
