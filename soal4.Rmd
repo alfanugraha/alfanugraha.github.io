@@ -53,7 +53,7 @@ datatable(iris %>% filter(Species=="versicolor") )
 Subsetting kedua yaitu subsetting data pada kolom dengan menggunakan fungsi select.
 
 ```{r}
-datatable(iris %>% select(Species,Sepal,Petal) )
+datatable(iris %>% dplyr::select(Species,Sepal,Petal) )
 ```
 
 
