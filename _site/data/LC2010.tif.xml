@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xml:lang="en"><Esri><CreaDate>20191121</CreaDate><CreaTime>14304600</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process ToolSource="c:\program files (x86)\arcgis\desktop10.5\ArcToolbox\Toolboxes\Spatial Analyst Tools.tbx\ExtractByMask" Date="20191121" Time="143046">ExtractByMask lc2010_sumsel_v2.tif batas_kec2.tif D:\Project\LUMENS\Lahat2019\data\raster_baru\LC2010.tif</Process></lineage></DataProperties></Esri></metadata>

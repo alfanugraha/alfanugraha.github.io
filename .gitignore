@@ -2,7 +2,6 @@
 .Rhistory
 .Rapp.history
 *.Rproj
-_site/*
 
 # Session Data files
 .RData
