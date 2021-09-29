@@ -16,10 +16,8 @@ ui <- fluidPage(
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
-            selectInput("prov", label = "Provinsi:",
-                        choices = prov),
-            selectInput("tahun", label = "Tahun:",
-                        choices = c(2010:2018))
+            selectInput("prov", label = "Provinsi:", choices = prov),
+            selectInput("tahun", label = "Tahun:", choices = c(2010:2018))
         ),
 
         # Show a plot of the generated distribution
@@ -44,7 +42,7 @@ server <- function(input, output) {
         ipmtahun$value <- as.numeric(ipmtahun$value)
         
         fig <- plot_ly(x = ~ipmtahun$value, y = ~reorder(ipmtahun$KabKota, ipmtahun$value), color = ipmtahun$kategori, type = 'bar', orientation = 'h') %>% 
-            layout(fig, xaxis = list(range = c(30,83))) %>%
+            layout(xaxis = list(range = c(30,83))) %>%
             layout(title = paste0('Index Pembangunan Manusia Kab/Kota Provinsi ', input$prov,  ' Tahun ', tahun),
                    xaxis = list(title = ''),
                    yaxis = list(title = ''),

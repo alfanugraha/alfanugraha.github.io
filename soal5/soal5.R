@@ -4,7 +4,7 @@ library(plotly)
 library(dplyr)
 library(reshape)
 
-
+## Menampilkan IPM
 ipmdata <- read.table('ipm_metode_comb2.csv', header = T, sep = ";")
 prov <- unique(ipmdata$Provinsi)
 colnames(ipmdata)[5:13] <- c(2010:2018)
@@ -28,7 +28,7 @@ fig <- plot_ly(x = ~ipmtahun$value, y = ~reorder(ipmtahun$KabKota, ipmtahun$valu
                  plot_bgcolor = 'rgb(248, 248, 255)')
 fig
 
-
+## Menampilkan EYS
 ipmfilter_eys <- ipmdata %>% filter(Komponen == "EYS" & Provinsi == "ACEH") %>% select(-Komponen, -Provinsi)
 ipmfilter_eys <- ipmfilter_eys[2:nrow(ipmfilter_eys), ]
 ipmselected_eys <- ipmfilter_eys %>% melt(id=c("Kode","KabKota")) %>% mutate(kategori=ifelse(value > 13, "Nilai/Angka di atas Prov & Nasional", ifelse(value > 12, "Nilai/Angka di antara Prov & Nasional", "Nilai/Angka di bawah Prov & Nasional")))
@@ -46,7 +46,7 @@ fig <- plot_ly(x = ~ipmtahun_eys$value, y = ~reorder(ipmtahun_eys$KabKota, ipmta
          margin = list(l = 100, r = 20, t = 70, b = 70))
 fig
 
-
+## Menampilkan MYS
 ipmfilter_mys <- ipmdata %>% filter(Komponen == "MYS" & Provinsi == "ACEH") %>% select(-Komponen, -Provinsi)
 ipmfilter_mys <- ipmfilter_mys[2:nrow(ipmfilter_mys), ]
 ipmselected_mys <- ipmfilter_mys %>% melt(id=c("Kode","KabKota")) %>% mutate(kategori=ifelse(value > 9, "Nilai/Angka di atas Prov & Nasional", ifelse(value > 6, "Nilai/Angka di antara Prov & Nasional", "Nilai/Angka di bawah Prov & Nasional")))

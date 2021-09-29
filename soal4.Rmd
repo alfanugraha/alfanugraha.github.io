@@ -1,5 +1,5 @@
 ---
-title: " "
+title: "Soal 4"
 ---
 
 ```{r setup, include=FALSE}
@@ -29,7 +29,7 @@ datatable(iris %>% filter(Species=="versicolor") )
 Subsetting baris dengan menggunakan fungsi select
 
 ```{r}
-datatable(iris %>% select(Species,Sepal,Petal) )
+datatable(iris %>% dplyr::select(Species,Sepal,Petal))
 ```
 
 
