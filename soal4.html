@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Soal 4</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.18/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tugas UTS Praktikum STA561</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="soal1.html">Soal 1</a>
+</li>
+<li>
+  <a href="soal2.html">Soal 2</a>
+</li>
+<li>
+  <a href="soal3.html">Soal 3</a>
+</li>
+<li>
+  <a href="soal4.html">Soal 4</a>
+</li>
+<li>
+  <a href="soal5.html">Soal 5</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="sumber.html">
+    <span class="fa fa-book-open"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Soal 4</h1>
+
+</div>
+
+
+<div id="topik" class="section level3">
+<h3>Topik</h3>
+<p>Pada proses manajemen data frame akan ditunjukkan karakteristik wilayah melalui analisis perubahan penggunaan lahan. Analisis perubahan tutupan lahan dilakukan untuk mengetahui kecenderungan perubahan tutupan lahan di suatu daerah pada satu kurun waktu. Analisis ini dilakukan dengan menggunakan data peta tutupan lahan pada dua periode waktu yang berbeda. Selain itu, dengan memasukkan batas administratif, dapat diketahui kecenderungan perubahan tutupan pada pada wilayah administratif yang ada.</p>
+<p>Informasi yang dihasilkan melalui analisis ini dapat digunakan dalam proses perencanaan untuk berbagai hal diantaranya adalah:<br />
+- menentukan prioritas pembangunan,<br />
+- mengetahui faktor pemicu perubahan penggunaan lahan,<br />
+- merencanakan skenario pembangunan di masa yang akan datang,<br />
+- dan lain sebagainya</p>
+</div>
+<div id="data-dan-package" class="section level3">
+<h3>Data dan Package</h3>
+<p>Data yang digunakan adalah data keruangan/spasial pada dua titik waktu yang berbeda dan data batas wilayah administratif. Selain itu digunakan pula data tabular yang berisi atribut dari tipe tutupan lahan maupun nama dari batas wilayah tersebut.</p>
+<p>Data dapat diakses di</p>
+<p>Package yang digunakan adalah</p>
+<div id="praproses-data" class="section level4">
+<h4>Praproses data</h4>
+<p>Tahap pertama adalah membaca data tabular yang berisi legenda tutupan lahan dan wilayah administratif</p>
+<pre class="r"><code># tbl_admin &lt;- read.table(&#39;data/batas_kec.csv&#39;, header = T, sep = &#39;;&#39;)
+tbl_legenda &lt;- read.table(&#39;data/tupla.csv&#39;, header = T, sep = &#39;;&#39;)</code></pre>
+<pre class="r"><code># batas &lt;- raster(&#39;data/batas_kec3.tif&#39;)
+tupla2010 &lt;- raster(&#39;data/LC2010.tif&#39;)
+tupla2014 &lt;- raster(&#39;data/LC2014.tif&#39;)
+plot(tupla2010)</code></pre>
+<p><img src="soal4_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>plot(tupla2014)</code></pre>
+<p><img src="soal4_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+</div>
+<div id="membangkitkan-data-area-tutupan-lahan" class="section level4">
+<h4>Membangkitkan data area tutupan lahan</h4>
+<pre class="r"><code># luas_batas &lt;- data.frame(freq(batas))
+# luas_batas &lt;- na.omit(luas_batas)
+# colnames(luas_batas) &lt;- c(&#39;ID&#39;, &#39;Luas&#39;) 
+# luas_batas
+luas_tupla2010 &lt;- data.frame(freq(tupla2010))
+luas_tupla2010 &lt;- na.omit(luas_tupla2010)
+colnames(luas_tupla2010) &lt;- c(&#39;ID&#39;, &#39;Luas&#39;) 
+luas_tupla2010</code></pre>
+<pre><code>##    ID   Luas
+## 1   0   9842
+## 2   1  53668
+## 3   2  22013
+## 4   3   1372
+## 5   4     42
+## 6   5      3
+## 7   8  15030
+## 8   9   3462
+## 9  10  94328
+## 10 11  32067
+## 11 12 119796
+## 12 13  65551
+## 13 15     50
+## 14 16  12209
+## 15 18      6
+## 16 19   1459
+## 17 20   1551
+## 18 21      9
+## 19 22    461
+## 20 23    236
+## 21 24   2539
+## 22 26   1158</code></pre>
+<pre class="r"><code>luas_tupla2014 &lt;- data.frame(freq(tupla2014))
+luas_tupla2014 &lt;- na.omit(luas_tupla2014)
+colnames(luas_tupla2014) &lt;- c(&#39;ID&#39;, &#39;Luas&#39;) 
+luas_tupla2014</code></pre>
+<pre><code>##    ID   Luas
+## 1   0   3783
+## 2   1  44230
+## 3   2  27338
+## 4   3    349
+## 5   4     42
+## 6   5      3
+## 7   8  18821
+## 8   9   1824
+## 9  10  95476
+## 10 11  22433
+## 11 12 117543
+## 12 13  80345
+## 13 15     49
+## 14 16  10856
+## 15 17      3
+## 16 18      5
+## 17 19   2840
+## 18 20   1239
+## 19 21     59
+## 20 22   1262
+## 21 23   1674
+## 22 24   4196
+## 23 26   2482</code></pre>
+</div>
+</div>
+<div id="manajemen-data-frame" class="section level3">
+<h3>Manajemen data frame</h3>
+<p>Untuk mendapatkan informasi yang lebih lengkap terhadap ID yang sudah diperoleh dari praproses data, maka dilakukan data munging. Hal pertama yang dilakukan adalah menggabungkannya dengan data tabular yang berisi legenda dari tutupan lahan dan nama wilayah administratif.</p>
+<pre class="r"><code># luas_batas &lt;- merge(luas_batas, tbl_admin, by=&#39;ID&#39;)
+luas_tupla2010 &lt;- merge(luas_tupla2010, tbl_legenda, by=&#39;ID&#39;)
+luas_tupla2014 &lt;- merge(luas_tupla2014, tbl_legenda, by=&#39;ID&#39;)
+
+luas_tupla1014 &lt;- merge(luas_tupla2010, luas_tupla2014, by=c(&#39;ID&#39;, &#39;Tupla&#39;))
+colnames(luas_tupla1014) &lt;- c(&#39;ID&#39;, &#39;Tutupan_lahan&#39;, &#39;Luas_10&#39;, &#39;Luas_14&#39;)</code></pre>
+<p>Lakukan analisis sederhana untuk melihat tren perubahan</p>
+<pre class="r"><code>DT::datatable(luas_tupla1014 %&gt;% mutate(luasan_perubahan = Luas_14 - Luas_10) %&gt;% arrange(desc(luasan_perubahan)))</code></pre>
+<div id="htmlwidget-d1e92ce62bf8dbe772ca" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d1e92ce62bf8dbe772ca">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],[13,2,8,24,23,19,26,10,22,21,4,5,15,18,20,3,16,9,12,1,11],["Kelapa sawit skala besar","Hutan sekunder kerapatan tinggi","Tanaman kayu industri","Lahan terbuka","Tambang","Tebu","Tambak","Agroforestri kopi","Rerumputan","Semak belukar","Hutan rawa primer","Hutan rawa sekunder","Kelapa","Sawah tadah hujan","Tanaman semusim lain","Hutan sekunder kerapatan rendah","Teh","Kebun campuran","Karet","Hutan primer","Karet agroforestri"],[65551,22013,15030,2539,236,1459,1158,94328,461,9,42,3,50,6,1551,1372,12209,3462,119796,53668,32067],[80345,27338,18821,4196,1674,2840,2482,95476,1262,59,42,3,49,5,1239,349,10856,1824,117543,44230,22433],[14794,5325,3791,1657,1438,1381,1324,1148,801,50,0,0,-1,-1,-312,-1023,-1353,-1638,-2253,-9438,-9634]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>ID<\/th>\n      <th>Tutupan_lahan<\/th>\n      <th>Luas_10<\/th>\n      <th>Luas_14<\/th>\n      <th>luasan_perubahan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Hitung pula laju perubahan lahan per tahun dengan rumus:</p>
+<p><span class="math display">\[
+\frac{Luas_{t_{i+1}} - Luas_{t_i}}{Luas_{t_{i+1}}} \cdot \frac{1}{t_{i+1}-t_i} \cdot 100\%
+\]</span></p>
+<pre class="r"><code>luas_tupla1014 %&gt;% mutate(rerata_perubahan = ( (Luas_14 - Luas_10)/(Luas_14 * 4) ) * 100) %&gt;% arrange(desc(rerata_perubahan))</code></pre>
+<pre><code>##    ID                   Tutupan_lahan Luas_10 Luas_14
+## 1  23                         Tambang     236    1674
+## 2  21                   Semak belukar       9      59
+## 3  22                      Rerumputan     461    1262
+## 4  26                          Tambak    1158    2482
+## 5  19                            Tebu    1459    2840
+## 6  24                   Lahan terbuka    2539    4196
+## 7   8           Tanaman kayu industri   15030   18821
+## 8   2 Hutan sekunder kerapatan tinggi   22013   27338
+## 9  13        Kelapa sawit skala besar   65551   80345
+## 10 10               Agroforestri kopi   94328   95476
+## 11  4               Hutan rawa primer      42      42
+## 12  5             Hutan rawa sekunder       3       3
+## 13 12                           Karet  119796  117543
+## 14 15                          Kelapa      50      49
+## 15 16                             Teh   12209   10856
+## 16 18               Sawah tadah hujan       6       5
+## 17  1                    Hutan primer   53668   44230
+## 18 20            Tanaman semusim lain    1551    1239
+## 19 11              Karet agroforestri   32067   22433
+## 20  9                  Kebun campuran    3462    1824
+## 21  3 Hutan sekunder kerapatan rendah    1372     349
+##    rerata_perubahan
+## 1        21.4755078
+## 2        21.1864407
+## 3        15.8676704
+## 4        13.3360193
+## 5        12.1566901
+## 6         9.8724976
+## 7         5.0355985
+## 8         4.8695954
+## 9         4.6032734
+## 10        0.3005991
+## 11        0.0000000
+## 12        0.0000000
+## 13       -0.4791863
+## 14       -0.5102041
+## 15       -3.1157885
+## 16       -5.0000000
+## 17       -5.3346145
+## 18       -6.2953995
+## 19      -10.7364151
+## 20      -22.4506579
+## 21      -73.2808023</code></pre>
+<p>Lakukan analisis lain untuk menghasilkan 10 dominan perubahan lahan di Provinsi Lahat</p>
+<pre class="r"><code>dummy1&lt;-data.frame(nL1=1:nrow(tbl_legenda), divider=nrow(tbl_legenda):nrow(tbl_legenda))
+dummy1&lt;-expandRows(dummy1, &#39;divider&#39;)
+dummy2&lt;-data.frame(nL2=rep(1:nrow(tbl_legenda), nrow(tbl_legenda)))
+comb&lt;-cbind(dummy1, dummy2)
+
+R&lt;-(tupla2010*1) + (tupla2014*100^1)
+lu.db&lt;-as.data.frame(freq(R))
+lu.db&lt;-na.omit(lu.db)
+
+lu.db$value_temp&lt;-lu.db$value
+lu.db$Var1&lt;-lu.db$value_temp %% 100
+lu.db$Var2&lt;-floor(lu.db$value_temp/100)
+
+land_use_chg &lt;- lu.db %&gt;% dplyr::select(count, Var1, Var2)
+colnames(land_use_chg) &lt;- c(&quot;Luas&quot;, &quot;ID_LC1&quot;, &quot;ID_LC2&quot;)
+colnames(tbl_legenda) &lt;- c(&quot;ID_LC1&quot;, &quot;Tupla2010&quot;)
+land_use_chg &lt;- merge(land_use_chg, tbl_legenda, id=&quot;ID_LC1&quot;)
+colnames(tbl_legenda) &lt;- c(&quot;ID_LC2&quot;, &quot;Tupla2014&quot;)
+land_use_chg &lt;- merge(land_use_chg, tbl_legenda, id=&quot;ID_LC2&quot;)
+
+# top ten
+topten &lt;- land_use_chg %&gt;% mutate(perubahan = paste0(Tupla2010, &#39; ke &#39;, Tupla2014)) %&gt;% 
+                 filter(Tupla2010 != Tupla2014) %&gt;%
+                 dplyr::select(perubahan, Luas) %&gt;% 
+                 arrange(desc(Luas)) %&gt;%
+                 head(n=10)
+DT::datatable(topten)</code></pre>
+<div id="htmlwidget-13a58c709470e79c5526" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-13a58c709470e79c5526">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["Karet ke Kelapa sawit skala besar","Karet agroforestri ke Karet","Hutan primer ke Hutan sekunder kerapatan tinggi","Karet ke Tanaman kayu industri","Hutan primer ke Karet","Karet agroforestri ke Kelapa sawit skala besar","Hutan primer ke Kelapa sawit skala besar","Karet ke Tebu","Kebun campuran ke Karet","Teh ke Karet agroforestri"],[10886,7710,4850,3437,2253,1764,1338,1156,1071,955]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>perubahan<\/th>\n      <th>Luas<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>topten$kode&lt;-as.factor(toupper(abbreviate(topten$perubahan, minlength=5, strict=FALSE, method=&quot;both&quot;)))
+topten</code></pre>
+<pre><code>##                                          perubahan  Luas    kode
+## 1                Karet ke Kelapa sawit skala besar 10886  KKKSSB
+## 2                      Karet agroforestri ke Karet  7710   KRAKK
+## 3  Hutan primer ke Hutan sekunder kerapatan tinggi  4850 HPKHSKT
+## 4                   Karet ke Tanaman kayu industri  3437   KKTKI
+## 5                            Hutan primer ke Karet  2253   HTPKK
+## 6   Karet agroforestri ke Kelapa sawit skala besar  1764 KAKKSSB
+## 7         Hutan primer ke Kelapa sawit skala besar  1338 HPKKSSB
+## 8                                    Karet ke Tebu  1156   KRTKT
+## 9                          Kebun campuran ke Karet  1071   KBCKK
+## 10                       Teh ke Karet agroforestri   955   THKKA</code></pre>
+<pre class="r"><code>ggplot(data=topten, aes(x=reorder(kode, -Luas),y=Luas, fill=kode))+geom_bar(stat=&#39;identity&#39;,position=&#39;dodge&#39;)+
+  geom_text(data=topten, aes(x=kode, y=Luas, label=round(Luas, 1)),size=3, vjust=0.1) +
+  ggtitle(&quot;10 Perubahan Tutupan Lahan Dominan di Provinsi Lahat 2010 - 2014&quot;) +
+  labs(x = &#39;Jenis perubahan penutupan lahan&#39;, y=&#39;Luas area (Ha)&#39;) + guides(scale=&#39;none&#39;)+
+  theme(plot.title = element_text(lineheight= 5, face=&quot;bold&quot;)) + scale_y_continuous() +
+  theme(axis.title.x=element_blank(), axis.text.x = element_text(size=8),
+        panel.grid.major=element_blank(), panel.grid.minor=element_blank())</code></pre>
+<p><img src="soal4_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
