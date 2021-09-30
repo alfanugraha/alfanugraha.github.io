@@ -404,7 +404,7 @@ b0topi &lt;- b1topi &lt;- b2topi &lt;- b3topi &lt;- NULL
 Sigma &lt;- matrix(c(1,0.96,0.96,0.96,1,0.96,0.96,0.96,1),nrow=3,ncol=3) #matriks ragam peragam
 
 #membangkitkan data sebanyak 1000
-set.seed(4444) #set.seed dibuat 4444 menandakan STA561 kelompok 2
+set.seed(4444) #set.seed 
 eps &lt;- rnorm(1000, mean = 0, sd = sqrt(30)) # membangkitkan e~N(0,30) sebanyak 1000
 mu &lt;- c(1, 1, 1)
 x &lt;- round(mvrnorm(1000,mu,Sigma),4) #membangkitkan peubah X dengan ketentuan 4 angka di belakang koma
