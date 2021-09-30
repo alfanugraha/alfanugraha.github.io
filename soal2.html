@@ -371,15 +371,15 @@ div.tocify {
 <ol style="list-style-type: decimal">
 <li>Melakukan transformasi data X (peubah bebas) ke Komponen Utama. Dalam transformasi, dilakukan juga penghitungan vektor ciri dan akar ciri.<br />
 </li>
-<li>Memilih komponen utama dengan akar ciri &gt;= 1 (Sriningsih, M., Hatidja, D., dan Prang, J.D. (2018))<br />
+<li>Memilih komponen utama dengan akar ciri &gt;= 1<br />
 </li>
 <li>Membuat dataframe komponen utama terpilih dengan data y (peubah respon)<br />
 </li>
 <li>Melakukan pendugaan koefisien regresi komponen utama dan menyusun modelnya<br />
 </li>
-<li>Melakukan transformasi balik model regresi komponen utama menjadi peubah asal x (NCSS LLC 2019)<br />
+<li>Melakukan transformasi balik model regresi komponen utama menjadi peubah asal x<br />
 </li>
-<li>Menghitung intercept penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))<br />
+<li>Menghitung intercept penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X<br />
 </li>
 <li>Menampilkan Output berupa list yang berisi vektor koefisien RKU untuk X, vektor koefisien RKU untuk PC, matriks skor komponen utama, dan list akar ciri-vektor ciri</li>
 </ol>
@@ -392,7 +392,7 @@ div.tocify {
   matriks.vector.ciri &lt;- as.data.frame(vektor.ciri) #Matriks Vector Ciri
   akar.ciri &lt;- pca$sdev #akar ciri
   
-  # Memilih komponen utama dengan akar ciri &gt;= 1 (Sriningsih, M., Hatidja, D., dan Prang, J.D. (2018))
+  # Memilih komponen utama dengan akar ciri &gt;= 1 
   k &lt;- which(akar.ciri &gt;= 1, arr.ind = TRUE)
   k &lt;- as.integer(k)
   
@@ -421,10 +421,10 @@ div.tocify {
   
   #Transformasi Balik Model Regresi Komponen Utama ke Peubah X
   V &lt;- as.matrix(vektor.ciri) #matriks vektor ciri
-  beta.X &lt;- V[,1:max(k)] %*% as.matrix(beta.pcr[1:max(k)]) #melakukan transformasi peubah komponen utama menjadi peubah asal x (NCSS LLC 2019)
+  beta.X &lt;- V[,1:max(k)] %*% as.matrix(beta.pcr[1:max(k)]) #melakukan transformasi peubah komponen utama menjadi peubah asal x 
   
   
-  #Menampilkan Output utama koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))
+  #Menampilkan Output utama koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X 
   vector.xbar &lt;- pca$center #vektor xbar (nilai tengah)
   intersepTransformasi &lt;- mean(data.y)- vector.xbar%*%beta.X #menghitung intercept akhir
   namakolom=as.factor(colnames(data.x))
