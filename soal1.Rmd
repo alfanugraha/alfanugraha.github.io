@@ -8,17 +8,18 @@ library(tidyverse)
 library(DT)
 ```
 
-Buatlah program R untuk melakukan proses berikut ini! \
-- Bangkitkanlah data populasi yang terdiri atas 1000 amatan dengan peubah: \
-    * No : 1 sd 500, 9001 sd 9500 (integer) \
-    * ID : G0001 sd G0500, G9001 sd G9500 (diperoleh berdasarkan kolom No, dengan penambahan huruf “G” didepan No dan jumlah digitnya harus 4) \
-    * Kelas : "Paralel 1" jika ID genap, dan "Paralel 2" jika ID ganjil (factor) \
-    * UTS : Diperoleh dengan membangkitkan bilangan acak yang menyebar $N(\mu = 70, \sigma= 25)$ \
-    * Indeks : Diperoleh dengan membangkitkan bilangan acak yang menyebar $Exponential(\theta = 1)$ \
--Hilangkan data peubah Indeks yang bernilai lebih dari 1 (menjadi missing value) \
--Hitunglah rata-rata dari UTS yang Indeks-nya ada \
--Buatlah data sampel berukuran 100 amatan dari Kelas "Paralel 1" yang Indeks-nya ada \
--Hitunglah rata-rata dari UTS pada data sampel yang terambil, lalu bandingkan dengan populasi \
+Buatlah program R untuk melakukan proses berikut ini!
+
+1. Bangkitkanlah data populasi yang terdiri atas 1000 amatan dengan peubah: 
+   a. No : 1 sd 500, 9001 sd 9500 (integer) 
+   b. ID : G0001 sd G0500, G9001 sd G9500 (diperoleh berdasarkan kolom No, dengan penambahan huruf “G” didepan No dan jumlah digitnya harus 4) 
+   c. Kelas : "Paralel 1" jika ID genap, dan "Paralel 2" jika ID ganjil (factor) 
+   d. UTS : Diperoleh dengan membangkitkan bilangan acak yang menyebar $N(\mu = 70, \sigma= 25)$ 
+   e. Indeks : Diperoleh dengan membangkitkan bilangan acak yang menyebar $Exponential(\theta = 1)$ 
+2. Hilangkan data peubah Indeks yang bernilai lebih dari 1 (menjadi missing value) 
+3. Hitunglah rata-rata dari UTS yang memiliki indeks 
+4. Buatlah data sampel berukuran 100 amatan dari Kelas "Paralel 1" yang memiliki indeks 
+5. Hitunglah rata-rata dari UTS pada data sampel yang terambil, lalu bandingkan dengan populasi 
 
 ### Membangkitkan data populasi
 
@@ -61,7 +62,7 @@ formatStyle('Indeks',  color = styleInterval(1, c('black', '  ')), backgroundCol
 ```
 
 
-### Menghitung rata-rata UTS yang ada indexnya
+### Menghitung rata-rata UTS yang memiliki indeks
 
 ```{r}
 # Filter data untuk yang ada Indeks nya
@@ -74,7 +75,7 @@ cat("rata-rata dari UTS yang Indeks-nya ada sebesar", rata2UTS)
 ```
 
 
-### Menarik 100 sampel kelas Paralel 1 yang ada indexnya
+### Menarik 100 sampel kelas Paralel 1 yang memiliki indeks
 
 ```{r}
 # Filter data untuk kelas Paralel 1
@@ -93,7 +94,7 @@ formatStyle('Indeks',  color = ' ', backgroundColor = '#b3ffb3', fontWeight = 'b
 ```
 
 
-### Menghitung rata-rata UTS
+### Menghitung rata-rata nilai UTS
 
 ```{r}
 # Menghitung rata-rata UTS data sampel
@@ -107,4 +108,4 @@ rata2UTSpop <- mean(data.Populasi$UTS)
 cat("rata-rata dari UTS pada data populasi sebesar", rata2UTSpop)
 ```
 
-Rata-rata dari 100 sampel acak yang dipilh tidak jauh berbeda dengan rata-rata populasi. Adapun rata-rata dari populasi adalah 70.09699, dan rata-rata sampel adalah 71.34412.
+Rata-rata dari 100 sampel acak yang dipilh tidak jauh berbeda dengan rata-rata populasi, rata-rata dari populasi adalah 70.09699, dan rata-rata sampel adalah 71.34412.

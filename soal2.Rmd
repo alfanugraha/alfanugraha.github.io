@@ -10,14 +10,14 @@ Buatlah fungsi di R yang bernama RKU yang dapat digunakan untuk menghitung regre
 
 ### Pembahasan
 
-Tahapan dalam menghitung regresi komponen utama (principal component regression):\
+Tahapan dalam menghitung regresi komponen utama (principal component regression): \
 
-1. Melakukan transformasi data X (peubah bebas) ke Komponen Utama. Dalam transformasi, dilakukan juga penghitungan vektor ciri dan akar ciri.\
-2. Memilih komponen utama dengan akar ciri >= 1 (Sriningsih, M., Hatidja, D., dan Prang, J.D. (2018))\
-3. Membuat dataframe komponen utama terpilih dengan data y (peubah respon)\
-4. Melakukan pendugaan koefisien regresi komponen utama dan menyusun modelnya\
-5. Melakukan transformasi balik model regresi komponen utama menjadi peubah asal x (NCSS LLC 2019)\
-6. Menghitung intercept penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))\
+1. Melakukan transformasi data X (peubah bebas) ke Komponen Utama. Dalam transformasi, dilakukan juga penghitungan vektor ciri dan akar ciri. \
+2. Memilih komponen utama dengan akar ciri >= 1  \
+3. Membuat dataframe komponen utama terpilih dengan data y (peubah respon) \
+4. Melakukan pendugaan koefisien regresi komponen utama dan menyusun modelnya \
+5. Melakukan transformasi balik model regresi komponen utama menjadi peubah asal x  \
+6. Menghitung intercept penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X  \
 7. Menampilkan Output berupa list yang berisi vektor koefisien RKU untuk X, vektor koefisien RKU untuk PC, matriks skor komponen utama, dan list akar ciri-vektor ciri
 
 ```{r}
@@ -30,7 +30,7 @@ RKU <- function(data.x, data.y){
   matriks.vector.ciri <- as.data.frame(vektor.ciri) #Matriks Vector Ciri
   akar.ciri <- pca$sdev #akar ciri
   
-  # Memilih komponen utama dengan akar ciri >= 1 (Sriningsih, M., Hatidja, D., dan Prang, J.D. (2018))
+  # Memilih komponen utama dengan akar ciri >= 1 
   k <- which(akar.ciri >= 1, arr.ind = TRUE)
   k <- as.integer(k)
   
@@ -59,10 +59,10 @@ RKU <- function(data.x, data.y){
   
   #Transformasi Balik Model Regresi Komponen Utama ke Peubah X
   V <- as.matrix(vektor.ciri) #matriks vektor ciri
-  beta.X <- V[,1:max(k)] %*% as.matrix(beta.pcr[1:max(k)]) #melakukan transformasi peubah komponen utama menjadi peubah asal x (NCSS LLC 2019)
+  beta.X <- V[,1:max(k)] %*% as.matrix(beta.pcr[1:max(k)]) #melakukan transformasi peubah komponen utama menjadi peubah asal x 
   
   
-  #Menampilkan Output utama koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))
+  #Menampilkan Output utama koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X 
   vector.xbar <- pca$center #vektor xbar (nilai tengah)
   intersepTransformasi <- mean(data.y)- vector.xbar%*%beta.X #menghitung intercept akhir
   namakolom=as.factor(colnames(data.x))

@@ -57,7 +57,7 @@ datatable(iris %>% dplyr::select(Species,Sepal,Petal) )
 ```
 
 
-##Data Sorting
+## Data Sorting
 
 setelah dilakukan subsetting terhadap baris dan kolom, data munging yang kedua yaitu dilakukan sorting. Dalam menjawab soal nomer 4 ini sorting ditunjukkan dengan dua cara yaitu dengan sorting secara ascending dan secara descending. Fungsi yang digunakan untuk sorting yaitu dengan menggunakan arrange.
 
@@ -76,7 +76,7 @@ datatable(iris<-iris %>% arrange(Petal,desc(Sepal)))
 ```
 
 
-##Join data frame
+## Join data frame
 
 setelah dilakukan subsetting terhadap baris dan kolom kemudian dilakukan sorting, data munging yang ketiga yaitu dilakukan join data frame. Dalam join data frame dapat dilakukan dengan menggunakan beberapa fungsi yaitu inner_join, full_join, left_join, dan right_join.
 
@@ -86,39 +86,39 @@ irisx<-data.frame(Jenis=c("setosa","versicolor","rose"),kode=c(1,2,3))
 datatable(irisx)
 ```
 
-###innerjoin
+### innerjoin
 
 ```{r}
 x<-iris %>% inner_join(irisx,by=c("Species"="Jenis"))
 datatable(x)
 ```
 
-###leftjoin
+### leftjoin
 
 ```{r}
 y<-iris %>% left_join(irisx,by=c("Species"="Jenis"))
 datatable(y)
 ```
 
-###right join
+### right join
 
 ```{r}
 y<-iris %>% right_join(irisx,by=c("Species"="Jenis"))
 datatable(y)
 ```
 
-###fulljoin
+### fulljoin
 
 ```{r}
 y<-iris %>% full_join(irisx,by=c("Species"="Jenis"))
 datatable(y)
 ```
 
-##Agregat
+## Agregat
 
 Data munging yang terakhir yaitu agregating. Agregating yang sering digunakan yaitu fungsi summarise dan group by. 
 
-###summarise
+### summarise
 
 Menghitung banyaknya observasi, nilai maksimum, nilai minimum, dan rataan dari peubah Sepal dan Petal yang telah ditambahkan di awal.
 
@@ -133,7 +133,7 @@ datatable(iris2)
 ```
 
 
-###group by
+### group by
 
 ```{r}
 iris3<-iris %>% group_by(Species) %>% summarise(n=n(),rataan=mean(Sepal),s=sd(Sepal))

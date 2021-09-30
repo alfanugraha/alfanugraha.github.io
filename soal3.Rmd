@@ -73,24 +73,28 @@ Kemudian hitung koefisien penduga parameter regresi komponen utama yang sudah di
 
 ### Membangkitkan data
   
-Tahapan dalam melakukan pembangkitan data:\
+Tahapan dalam melakukan pembangkitan data: \
 
 1. Mendefinisikan model regresi linier $Y = 10 + 3X_1 + 5X_2 + 7X_3 + \epsilon$\
-2. Menentukan matriks ragam peragam dengan menggunakan besarnya korelasi antarpeubah bebas adalah 0.96 (antara peubah bebas terjadi multikolinearitas)\
+2. Menentukan matriks ragam peragam dengan menggunakan besarnya korelasi antarpeubah bebas adalah 0.96 (antara peubah bebas terjadi multikolinearitas) \
 3. Membangkitkan data $\epsilon$ sebanyak 1000 dengan mengasumsikan bahwa $\epsilon \sim N(\mu=0, \sigma^2 = 30)$ \
 4. Melakukan pendugaan koefisien regresi komponen utama dan menyusun modelnya\
 5. Menentukan nilai tengah peubah bebas sebesar 1\
-6. Menghitung intercept penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))\
+6. Menghitung intercept penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X \
 7. Menampilkan Output berupa list yang berisi vektor koefisien RKU untuk X, vektor koefisien RKU untuk PC, matriks skor komponen utama, dan list akar ciri-vektor ciri
 
 ```{r}
 # Misal Besar korelasi antarpeubah bebas adalah 0.96
-b0 <- 10; b1 <- 3; b2 <- 5; b3 <- 7  #𝑌 = 10 + 3𝑋1 + 5𝑋2 + 7𝑋3 + 𝜀
-b0topi <- NULL; b1topi <- NULL; b2topi <- NULL; b3topi <- NULL 
+# Y = 10 +3X1 + 5X2 + 7X3 + error
+b0 <- 10
+b1 <- 3 
+b2 <- 5
+b3 <- 7  
+b0topi <- b1topi <- b2topi <- b3topi <- NULL 
 Sigma <- matrix(c(1,0.96,0.96,0.96,1,0.96,0.96,0.96,1),nrow=3,ncol=3) #matriks ragam peragam
 
 #membangkitkan data sebanyak 1000
-set.seed(5612) #set.seed dibuat 5612 menandakan STA561 kelompok 2
+set.seed(4444) #set.seed dibuat 4444 menandakan STA561 kelompok 2
 eps <- rnorm(1000, mean = 0, sd = sqrt(30)) # membangkitkan e~N(0,30) sebanyak 1000
 mu <- c(1, 1, 1)
 x <- round(mvrnorm(1000,mu,Sigma),4) #membangkitkan peubah X dengan ketentuan 4 angka di belakang koma
@@ -153,4 +157,4 @@ PCR
 
 Maka persamaan regresi hasil RKU yang sudah ditransformasi balik adalah:
 
-$\hat Y = 9.888810+5.065503X_1+5.064814X_2+5.066601X_3$
+$\hat Y = 10.201317+4.969183X_1+4.967531X_2+4.969279X_3$
