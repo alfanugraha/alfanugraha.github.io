@@ -32,21 +32,20 @@ ID <- sprintf("G%04d", No)
 #Peubah Kelas
 Kelas <- factor(ifelse(No %% 2 == 0, "Paralel 1", "Paralel 2"))
 
-
 #Peubah UTS
-set.seed(5612) #set.seed dibuat 5612 menandakan STA561 kelompok 2
+set.seed(4444) #set.seed 
 UTS <- round(rnorm(1000, 70, 5),4) #membangkitkan bilangan acak yang menyebar normal dengan 4 angka di belakang koma
 
 #Peubah Indeks
-set.seed(5612) #set.seed dibuat 5612 menandakan STA561 kelompok 2
+set.seed(4444) #set.seed 
 Indeks <- round(rexp(1000, 1),4) #membangkitkan bilangan acak yang menyebar eksponensial dengan 4 angka di belakang koma
 
 # Membuat Data Frame data.Populasi
 data.Populasi <- data.frame(No, ID, Kelas, UTS, Indeks)
 
 # Menampilkan data frame data populasi dengan menggunakan formatStyle
-data.Populasi %>%  datatable(data.Populasi, class = 'cell-border stripe')  %>%
-formatStyle('Indeks',  color = styleInterval(1, c('black', 'red')), backgroundColor = '#b3ffb3', fontWeight = 'bold',) 
+data.Populasi %>% datatable(data.Populasi, class = 'cell-border stripe')  %>%
+                  formatStyle('Indeks',  color = styleInterval(1, c('black', 'red')), backgroundColor = '#b3ffb3', fontWeight = 'bold',) 
 ```
 
 ### Menghilangkan data indeks > 1
@@ -56,8 +55,8 @@ formatStyle('Indeks',  color = styleInterval(1, c('black', 'red')), backgroundCo
 data.Populasi$Indeks <- ifelse(data.Populasi$Indeks >1, NA, data.Populasi$Indeks)
 
 #Menampilkan tabel data populasi dengan formatStyle
-data.Populasi %>%  datatable(data.Populasi, class = 'cell-border stripe')  %>%
-formatStyle('Indeks',  color = styleInterval(1, c('black', '  ')), backgroundColor = '#b3ffb3', fontWeight = 'bold',)
+data.Populasi %>% datatable(data.Populasi, class = 'cell-border stripe')  %>%
+                  formatStyle('Indeks',  color = styleInterval(1, c('black', '  ')), backgroundColor = '#b3ffb3', fontWeight = 'bold',)
 ```
 
 
@@ -65,8 +64,7 @@ formatStyle('Indeks',  color = styleInterval(1, c('black', '  ')), backgroundCol
 
 ```{r}
 # Filter data untuk yang ada Indeks nya
-data.adaindeks <- data.Populasi %>% 
-  filter(!is.na(Indeks)) 
+data.adaindeks <- data.Populasi %>% filter(!is.na(Indeks)) 
 
 # Menghitung Rata-rata UTS yang ada indeksnya
 rata2UTS <- mean(data.adaindeks$UTS)
@@ -78,13 +76,11 @@ cat("rata-rata dari UTS yang Indeks-nya ada sebesar", rata2UTS)
 
 ```{r}
 # Filter data untuk kelas Paralel 1
-data.adaindekspar1 <- data.adaindeks %>% 
-  filter(Kelas =="Paralel 1")
+data.adaindekspar1 <- data.adaindeks %>%filter(Kelas =="Paralel 1")
 
 # Menarik sampel dari populasi dengan 100 amatan
-set.seed(5612) #set.seed dibuat 5612 menandakan STA561 kelompok 2
-data.sampel <- data.adaindekspar1 %>% 
-  sample_n(100)
+set.seed(4444) #set.seed 
+data.sampel <- data.adaindekspar1 %>% sample_n(100)
 
 # Menampilkan data sampel dengan formatStyle
 data.sampel %>%  datatable(data.sampel, class = 'cell-border stripe')  %>%
