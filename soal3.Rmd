@@ -16,7 +16,7 @@ RKU <- function(data.x, data.y){
   matriks.vector.ciri <- as.data.frame(vektor.ciri) #Matriks Vector Ciri
   akar.ciri <- pca$sdev #akar ciri
   
-  # Memilih komponen utama dengan akar ciri >= 1 (Sriningsih, M., Hatidja, D., dan Prang, J.D. (2018))
+  # Memilih komponen utama dengan akar ciri >= 1 
   k <- which(akar.ciri >= 1, arr.ind = TRUE)
   k <- as.integer(k)
   
@@ -45,10 +45,10 @@ RKU <- function(data.x, data.y){
   
   #Transformasi Balik Model Regresi Komponen Utama ke Peubah X
   V <- as.matrix(vektor.ciri) #matriks vektor ciri
-  beta.X <- V[,1:max(k)] %*% as.matrix(beta.pcr[1:max(k)]) #melakukan transformasi peubah komponen utama menjadi peubah asal x (NCSS LLC 2019)
+  beta.X <- V[,1:max(k)] %*% as.matrix(beta.pcr[1:max(k)]) #melakukan transformasi peubah komponen utama menjadi peubah asal x 
   
   
-  #Menampilkan Output utama koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X (Agustini N, Nugroho S dan Agustina D (2015))
+  #Menampilkan Output utama koefisien penduga parameter regresi komponen utama yang sudah ditransformasi balik untuk peubah X 
   vector.xbar <- pca$center #vektor xbar (nilai tengah)
   intersepTransformasi <- mean(data.y)- vector.xbar%*%beta.X #menghitung intercept akhir
   namakolom=as.factor(colnames(data.x))
@@ -94,7 +94,7 @@ b0topi <- b1topi <- b2topi <- b3topi <- NULL
 Sigma <- matrix(c(1,0.96,0.96,0.96,1,0.96,0.96,0.96,1),nrow=3,ncol=3) #matriks ragam peragam
 
 #membangkitkan data sebanyak 1000
-set.seed(4444) #set.seed dibuat 4444 menandakan STA561 kelompok 2
+set.seed(4444) #set.seed 
 eps <- rnorm(1000, mean = 0, sd = sqrt(30)) # membangkitkan e~N(0,30) sebanyak 1000
 mu <- c(1, 1, 1)
 x <- round(mvrnorm(1000,mu,Sigma),4) #membangkitkan peubah X dengan ketentuan 4 angka di belakang koma
