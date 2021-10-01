@@ -383,8 +383,8 @@ div.tocify {
 <div id="data-dan-package" class="section level3">
 <h3>Data dan Package</h3>
 <p>Data yang digunakan adalah data keruangan/spasial pada dua titik waktu yang berbeda dan data batas wilayah administratif. Selain itu digunakan pula data tabular yang berisi atribut dari tipe tutupan lahan maupun nama dari batas wilayah tersebut.</p>
-<p>Data dapat diakses di</p>
-<p>Package yang digunakan adalah</p>
+<p>Data dapat diakses di alamat berikut <a href="https://github.com/alfanugraha/alfanugraha.github.io/tree/master/data" class="uri">https://github.com/alfanugraha/alfanugraha.github.io/tree/master/data</a></p>
+<p>Package yang digunakan untuk memuat data spasial adalah <code>raster</code>.</p>
 <div id="praproses-data" class="section level4">
 <h4>Praproses data</h4>
 <p>Tahap pertama adalah membaca data tabular yang berisi legenda tutupan lahan dan wilayah administratif</p>
@@ -394,9 +394,9 @@ tbl_legenda &lt;- read.table(&#39;data/tupla.csv&#39;, header = T, sep = &#39;;&
 tupla2010 &lt;- raster(&#39;data/LC2010.tif&#39;)
 tupla2014 &lt;- raster(&#39;data/LC2014.tif&#39;)
 plot(tupla2010)</code></pre>
-<p><img src="soal4_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="soal4_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>plot(tupla2014)</code></pre>
-<p><img src="soal4_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p><img src="soal4_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
 </div>
 <div id="membangkitkan-data-area-tutupan-lahan" class="section level4">
 <h4>Membangkitkan data area tutupan lahan</h4>
@@ -472,8 +472,8 @@ luas_tupla1014 &lt;- merge(luas_tupla2010, luas_tupla2014, by=c(&#39;ID&#39;, &#
 colnames(luas_tupla1014) &lt;- c(&#39;ID&#39;, &#39;Tutupan_lahan&#39;, &#39;Luas_10&#39;, &#39;Luas_14&#39;)</code></pre>
 <p>Lakukan analisis sederhana untuk melihat tren perubahan</p>
 <pre class="r"><code>DT::datatable(luas_tupla1014 %&gt;% mutate(luasan_perubahan = Luas_14 - Luas_10) %&gt;% arrange(desc(luasan_perubahan)))</code></pre>
-<div id="htmlwidget-46cf690ce5062da4ca30" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-46cf690ce5062da4ca30">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],[13,2,8,24,23,19,26,10,22,21,4,5,15,18,20,3,16,9,12,1,11],["Kelapa sawit skala besar","Hutan sekunder kerapatan tinggi","Tanaman kayu industri","Lahan terbuka","Tambang","Tebu","Tambak","Agroforestri kopi","Rerumputan","Semak belukar","Hutan rawa primer","Hutan rawa sekunder","Kelapa","Sawah tadah hujan","Tanaman semusim lain","Hutan sekunder kerapatan rendah","Teh","Kebun campuran","Karet","Hutan primer","Karet agroforestri"],[65551,22013,15030,2539,236,1459,1158,94328,461,9,42,3,50,6,1551,1372,12209,3462,119796,53668,32067],[80345,27338,18821,4196,1674,2840,2482,95476,1262,59,42,3,49,5,1239,349,10856,1824,117543,44230,22433],[14794,5325,3791,1657,1438,1381,1324,1148,801,50,0,0,-1,-1,-312,-1023,-1353,-1638,-2253,-9438,-9634]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>ID<\/th>\n      <th>Tutupan_lahan<\/th>\n      <th>Luas_10<\/th>\n      <th>Luas_14<\/th>\n      <th>luasan_perubahan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a118da88c702144d1705" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a118da88c702144d1705">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],[13,2,8,24,23,19,26,10,22,21,4,5,15,18,20,3,16,9,12,1,11],["Kelapa sawit skala besar","Hutan sekunder kerapatan tinggi","Tanaman kayu industri","Lahan terbuka","Tambang","Tebu","Tambak","Agroforestri kopi","Rerumputan","Semak belukar","Hutan rawa primer","Hutan rawa sekunder","Kelapa","Sawah tadah hujan","Tanaman semusim lain","Hutan sekunder kerapatan rendah","Teh","Kebun campuran","Karet","Hutan primer","Karet agroforestri"],[65551,22013,15030,2539,236,1459,1158,94328,461,9,42,3,50,6,1551,1372,12209,3462,119796,53668,32067],[80345,27338,18821,4196,1674,2840,2482,95476,1262,59,42,3,49,5,1239,349,10856,1824,117543,44230,22433],[14794,5325,3791,1657,1438,1381,1324,1148,801,50,0,0,-1,-1,-312,-1023,-1353,-1638,-2253,-9438,-9634]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>ID<\/th>\n      <th>Tutupan_lahan<\/th>\n      <th>Luas_10<\/th>\n      <th>Luas_14<\/th>\n      <th>luasan_perubahan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>Hitung pula laju perubahan lahan per tahun dengan rumus:</p>
 <p><span class="math display">\[
 \frac{Luas_{t_{i+1}} - Luas_{t_i}}{Luas_{t_{i+1}}} \cdot \frac{1}{t_{i+1}-t_i} \cdot 100\%
@@ -529,8 +529,8 @@ topten &lt;- land_use_chg %&gt;% mutate(perubahan = paste0(Tupla2010, &#39; ke &
                  arrange(desc(Luas)) %&gt;%
                  head(n=10)
 DT::datatable(topten)</code></pre>
-<div id="htmlwidget-b5f104a2f13c53a1c7a2" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b5f104a2f13c53a1c7a2">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["Karet ke Kelapa sawit skala besar","Karet agroforestri ke Karet","Hutan primer ke Hutan sekunder kerapatan tinggi","Karet ke Tanaman kayu industri","Hutan primer ke Karet","Karet agroforestri ke Kelapa sawit skala besar","Hutan primer ke Kelapa sawit skala besar","Karet ke Tebu","Kebun campuran ke Karet","Teh ke Karet agroforestri"],[10886,7710,4850,3437,2253,1764,1338,1156,1071,955]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>perubahan<\/th>\n      <th>Luas<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-25b0ad39e1500abd2848" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-25b0ad39e1500abd2848">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["Karet ke Kelapa sawit skala besar","Karet agroforestri ke Karet","Hutan primer ke Hutan sekunder kerapatan tinggi","Karet ke Tanaman kayu industri","Hutan primer ke Karet","Karet agroforestri ke Kelapa sawit skala besar","Hutan primer ke Kelapa sawit skala besar","Karet ke Tebu","Kebun campuran ke Karet","Teh ke Karet agroforestri"],[10886,7710,4850,3437,2253,1764,1338,1156,1071,955]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>perubahan<\/th>\n      <th>Luas<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>topten$kode&lt;-as.factor(toupper(abbreviate(topten$perubahan, minlength=5, strict=FALSE, method=&quot;both&quot;)))
 topten</code></pre>
 <pre><code>##                                          perubahan  Luas    kode
@@ -551,7 +551,7 @@ topten</code></pre>
   theme(plot.title = element_text(lineheight= 5, face=&quot;bold&quot;)) + scale_y_continuous() +
   theme(axis.title.x=element_blank(), axis.text.x = element_text(size=8),
         panel.grid.major=element_blank(), panel.grid.minor=element_blank())</code></pre>
-<p><img src="soal4_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="soal4_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 
 

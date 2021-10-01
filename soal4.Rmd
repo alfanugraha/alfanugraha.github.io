@@ -24,13 +24,9 @@ Informasi yang dihasilkan melalui analisis ini dapat digunakan dalam proses pere
 
 Data yang digunakan adalah data keruangan/spasial pada dua titik waktu yang berbeda dan data batas wilayah administratif. Selain itu digunakan pula data tabular yang berisi atribut dari tipe tutupan lahan maupun nama dari batas wilayah tersebut.
 
-Data dapat diakses di 
+Data dapat diakses di alamat berikut <https://github.com/alfanugraha/alfanugraha.github.io/tree/master/data>
 
-Package yang digunakan adalah
-
-```{r eval=F}
-
-```
+Package yang digunakan untuk memuat data spasial adalah `raster`.
 
 #### Praproses data
 
