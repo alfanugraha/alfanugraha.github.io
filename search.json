@@ -1,0 +1,121 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\n\npd.__version__\n\n'2.2.3'"
+  },
+  {
+    "objectID": "index.html#load-library",
+    "href": "index.html#load-library",
+    "title": "Introduction",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\n\npd.__version__\n\n'2.2.3'"
+  },
+  {
+    "objectID": "index.html#data-preparation",
+    "href": "index.html#data-preparation",
+    "title": "Introduction",
+    "section": "Data preparation",
+    "text": "Data preparation\n\ncar = pd.read_csv('https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv')\ncar.head()\n\n\n\n\n\n\n\n\nengine_displacement\nnum_cylinders\nhorsepower\nvehicle_weight\nacceleration\nmodel_year\norigin\nfuel_type\ndrivetrain\nnum_doors\nfuel_efficiency_mpg\n\n\n\n\n0\n170\n3.0\n159.0\n3413.433759\n17.7\n2003\nEurope\nGasoline\nAll-wheel drive\n0.0\n13.231729\n\n\n1\n130\n5.0\n97.0\n3149.664934\n17.8\n2007\nUSA\nGasoline\nFront-wheel drive\n0.0\n13.688217\n\n\n2\n170\nNaN\n78.0\n3079.038997\n15.1\n2018\nEurope\nGasoline\nFront-wheel drive\n0.0\n14.246341\n\n\n3\n220\n4.0\nNaN\n2542.392402\n20.2\n2009\nUSA\nDiesel\nAll-wheel drive\n2.0\n16.912736\n\n\n4\n210\n1.0\n140.0\n3460.870990\n14.4\n2009\nEurope\nGasoline\nAll-wheel drive\n2.0\n12.488369"
+  },
+  {
+    "objectID": "index.html#record-count",
+    "href": "index.html#record-count",
+    "title": "Introduction",
+    "section": "Record count",
+    "text": "Record count\n\ncar.shape[0]\n\n9704"
+  },
+  {
+    "objectID": "index.html#fuel-types",
+    "href": "index.html#fuel-types",
+    "title": "Introduction",
+    "section": "Fuel types",
+    "text": "Fuel types\n\ncar.fuel_type.describe()\n\ncount         9704\nunique           2\ntop       Gasoline\nfreq          4898\nName: fuel_type, dtype: object\n\n\nThe distribution of the target variable fuel_efficiency_mpg looks like the normal distribution so no need the log transformation."
+  },
+  {
+    "objectID": "index.html#handling-missing-values",
+    "href": "index.html#handling-missing-values",
+    "title": "Introduction",
+    "section": "Handling missing values",
+    "text": "Handling missing values\n\ncar.isnull().sum()\n\nengine_displacement      0\nnum_cylinders          482\nhorsepower             708\nvehicle_weight           0\nacceleration           930\nmodel_year               0\norigin                   0\nfuel_type                0\ndrivetrain               0\nnum_doors              502\nfuel_efficiency_mpg      0\ndtype: int64\n\n\n\nMax fuel efficiency\n\ncar.groupby('origin').fuel_efficiency_mpg.max()\n\norigin\nAsia      23.759123\nEurope    25.967222\nUSA       24.971452\nName: fuel_efficiency_mpg, dtype: float64"
+  },
+  {
+    "objectID": "index.html#median-value-of-horsepower",
+    "href": "index.html#median-value-of-horsepower",
+    "title": "Introduction",
+    "section": "Median value of horsepower",
+    "text": "Median value of horsepower\n\ncar.horsepower\n\n0       159.0\n1        97.0\n2        78.0\n3         NaN\n4       140.0\n        ...  \n9699    164.0\n9700    154.0\n9701    138.0\n9702    177.0\n9703    140.0\nName: horsepower, Length: 9704, dtype: float64\n\n\n\nmed_before = car.horsepower.median()\nmed_before\n\nnp.float64(149.0)\n\n\n\nmost_freq = car.horsepower.mode()[0]\nmost_freq\n\nnp.float64(152.0)\n\n\n\ncar.horsepower = car.horsepower.fillna(most_freq)\ncar.horsepower\n\n0       159.0\n1        97.0\n2        78.0\n3       152.0\n4       140.0\n        ...  \n9699    164.0\n9700    154.0\n9701    138.0\n9702    177.0\n9703    140.0\nName: horsepower, Length: 9704, dtype: float64\n\n\n\nmed_after = car.horsepower.median()\nmed_after\n\nnp.float64(152.0)"
+  },
+  {
+    "objectID": "index.html#sum-of-weights",
+    "href": "index.html#sum-of-weights",
+    "title": "Introduction",
+    "section": "Sum of weights",
+    "text": "Sum of weights\n\nasian_car = car[car['origin'] == 'Asia']\nasian_car\n\n\n\n\n\n\n\n\nengine_displacement\nnum_cylinders\nhorsepower\nvehicle_weight\nacceleration\nmodel_year\norigin\nfuel_type\ndrivetrain\nnum_doors\nfuel_efficiency_mpg\n\n\n\n\n8\n250\n1.0\n174.0\n2714.219310\n10.3\n2016\nAsia\nDiesel\nFront-wheel drive\n-1.0\n16.823554\n\n\n12\n320\n5.0\n145.0\n2783.868974\n15.1\n2010\nAsia\nDiesel\nAll-wheel drive\n1.0\n16.175820\n\n\n14\n200\n6.0\n160.0\n3582.687368\n14.9\n2007\nAsia\nDiesel\nAll-wheel drive\n0.0\n11.871091\n\n\n20\n150\n3.0\n197.0\n2231.808142\n18.7\n2011\nAsia\nGasoline\nFront-wheel drive\n1.0\n18.889083\n\n\n21\n160\n4.0\n133.0\n2659.431451\nNaN\n2016\nAsia\nGasoline\nFront-wheel drive\n-1.0\n16.077730\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n9688\n260\n4.0\n152.0\n3948.404625\n15.5\n2018\nAsia\nDiesel\nAll-wheel drive\n-1.0\n11.054830\n\n\n9692\n180\n3.0\n188.0\n3680.341381\n18.0\n2016\nAsia\nGasoline\nFront-wheel drive\n1.0\n11.711653\n\n\n9693\n280\n2.0\n148.0\n2545.070139\n15.6\n2012\nAsia\nDiesel\nAll-wheel drive\n0.0\n17.202782\n\n\n9698\n180\n1.0\n131.0\n3107.427820\n13.2\n2005\nAsia\nGasoline\nFront-wheel drive\n-2.0\n13.933716\n\n\n9703\n270\n3.0\n140.0\n2908.043477\n14.7\n2005\nAsia\nDiesel\nAll-wheel drive\n-1.0\n14.884467\n\n\n\n\n3247 rows × 11 columns\n\n\n\n\nsel_asian_car = asian_car[['vehicle_weight', 'model_year']].head(7)\nsel_asian_car \n\n\n\n\n\n\n\n\nvehicle_weight\nmodel_year\n\n\n\n\n8\n2714.219310\n2016\n\n\n12\n2783.868974\n2010\n\n\n14\n3582.687368\n2007\n\n\n20\n2231.808142\n2011\n\n\n21\n2659.431451\n2016\n\n\n34\n2844.227534\n2014\n\n\n38\n3761.994038\n2019\n\n\n\n\n\n\n\n\nX = sel_asian_car.values\nX\n\narray([[2714.21930965, 2016.        ],\n       [2783.86897424, 2010.        ],\n       [3582.68736772, 2007.        ],\n       [2231.8081416 , 2011.        ],\n       [2659.43145076, 2016.        ],\n       [2844.22753389, 2014.        ],\n       [3761.99403819, 2019.        ]])\n\n\n\nXTX = X.T.dot(X)\nXTX_inv = np.linalg.inv(XTX)\ny = np.array([1100, 1300, 800, 900, 1000, 1100, 1200])\nw = XTX_inv.dot(X.T).dot(y)\nw.sum()\n\nnp.float64(0.5187709081074016)"
+  },
+  {
+    "objectID": "02_linear_regression.html",
+    "href": "02_linear_regression.html",
+    "title": "Linear Regression",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline"
+  },
+  {
+    "objectID": "02_linear_regression.html#load-library",
+    "href": "02_linear_regression.html#load-library",
+    "title": "Linear Regression",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline"
+  },
+  {
+    "objectID": "02_linear_regression.html#define-function",
+    "href": "02_linear_regression.html#define-function",
+    "title": "Linear Regression",
+    "section": "Define function",
+    "text": "Define function\n\ndef train_linear_regression(X, y):\n    ones = np.ones(X.shape[0])\n    X = np.column_stack([ones, X])\n\n    XTX = X.T.dot(X)\n    XTX_inv = np.linalg.inv(XTX)\n    w_full = XTX_inv.dot(X.T).dot(y)\n\n    return w_full[0], w_full[1:]\n\ndef train_linear_regression_reg(X, y, r=0.001):\n    ones = np.ones(X.shape[0])\n    X = np.column_stack([ones, X])\n\n    XTX = X.T.dot(X)\n    XTX = XTX + r * np.eye(XTX.shape[0])\n\n    XTX_inv = np.linalg.inv(XTX)\n    w_full = XTX_inv.dot(X.T).dot(y)\n\n    return w_full[0], w_full[1:]\n\ndef rmse(y, y_pred):\n    err = y - y_pred\n    se = err ** 2\n    mse = se.mean()\n    return np.sqrt(mse)"
+  },
+  {
+    "objectID": "02_linear_regression.html#data-preparation",
+    "href": "02_linear_regression.html#data-preparation",
+    "title": "Linear Regression",
+    "section": "Data preparation",
+    "text": "Data preparation\n\ncar = pd.read_csv('https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv')\ncar.head()\n\n\n\n\n\n\n\n\nengine_displacement\nnum_cylinders\nhorsepower\nvehicle_weight\nacceleration\nmodel_year\norigin\nfuel_type\ndrivetrain\nnum_doors\nfuel_efficiency_mpg\n\n\n\n\n0\n170\n3.0\n159.0\n3413.433759\n17.7\n2003\nEurope\nGasoline\nAll-wheel drive\n0.0\n13.231729\n\n\n1\n130\n5.0\n97.0\n3149.664934\n17.8\n2007\nUSA\nGasoline\nFront-wheel drive\n0.0\n13.688217\n\n\n2\n170\nNaN\n78.0\n3079.038997\n15.1\n2018\nEurope\nGasoline\nFront-wheel drive\n0.0\n14.246341\n\n\n3\n220\n4.0\nNaN\n2542.392402\n20.2\n2009\nUSA\nDiesel\nAll-wheel drive\n2.0\n16.912736\n\n\n4\n210\n1.0\n140.0\n3460.870990\n14.4\n2009\nEurope\nGasoline\nAll-wheel drive\n2.0\n12.488369\n\n\n\n\n\n\n\n\nbase = ['engine_displacement', 'horsepower', 'vehicle_weight', 'model_year', 'fuel_efficiency_mpg']\ndf = car[base].copy()\ndf.head()\n\n\n\n\n\n\n\n\nengine_displacement\nhorsepower\nvehicle_weight\nmodel_year\nfuel_efficiency_mpg\n\n\n\n\n0\n170\n159.0\n3413.433759\n2003\n13.231729\n\n\n1\n130\n97.0\n3149.664934\n2007\n13.688217\n\n\n2\n170\n78.0\n3079.038997\n2018\n14.246341\n\n\n3\n220\nNaN\n2542.392402\n2009\n16.912736\n\n\n4\n210\n140.0\n3460.870990\n2009\n12.488369\n\n\n\n\n\n\n\n\nDistribution of fuel mpg\n\nsns.histplot(df.fuel_efficiency_mpg, bins=50)\n\n\n\n\n\n\n\n\nThe distribution of the target variable fuel_efficiency_mpg looks like the normal distribution so no need the log transformation.\n\n\nHandling missing values\n\ndf.isnull().sum()\n\nengine_displacement      0\nhorsepower             708\nvehicle_weight           0\nmodel_year               0\nfuel_efficiency_mpg      0\ndtype: int64\n\n\nColumn horsepower has missing values.\n\n\nMedian of horsepower\n\nmedian_horsepower = df.horsepower.median()\nmedian_horsepower\n\nnp.float64(149.0)"
+  },
+  {
+    "objectID": "02_linear_regression.html#setup-the-framework",
+    "href": "02_linear_regression.html#setup-the-framework",
+    "title": "Linear Regression",
+    "section": "Setup the framework",
+    "text": "Setup the framework\n\nn = len(df)\nn_val = int(n * 0.2)\nn_test = int(n * 0.2)\nn_train = n - n_val - n_test\nn, n_val + n_test + n_train\n\n(9704, 9704)\n\n\n\nData partitioning\nSplit the data in train/val/test sets, with 60%/20%/20% distribution.\n\nn_val, n_test, n_train\n\n(1940, 1940, 5824)\n\n\n\n\nData shuffling\nShuffle the dataset, I use seed 42.\n\n# let's shuffle the records with index\nidx = np.arange(n)\nnp.random.seed(42)\nnp.random.shuffle(idx)\n\ndf_train = df.iloc[idx[:n_train]]\ndf_val = df.iloc[idx[n_train:n_train+n_val]]\ndf_test = df.iloc[idx[n_train+n_val:]]\n\ndf_train.head()\n\n\n\n\n\n\n\n\nengine_displacement\nhorsepower\nvehicle_weight\nmodel_year\nfuel_efficiency_mpg\n\n\n\n\n483\n220\n144.0\n2535.887591\n2009\n16.642943\n\n\n7506\n160\n141.0\n2741.170484\n2019\n16.298377\n\n\n8795\n230\n155.0\n2471.880237\n2017\n18.591822\n\n\n1688\n150\n206.0\n3748.164469\n2015\n11.818843\n\n\n6217\n300\n111.0\n2135.716359\n2006\n19.402209\n\n\n\n\n\n\n\n\nlen(df_train), len(df_val), len(df_test)\n\n(5824, 1940, 1940)\n\n\n\n\nRestating the index\n\ndf_train = df_train.reset_index(drop=True)\ndf_val = df_val.reset_index(drop=True)\ndf_test = df_test.reset_index(drop=True)\n\ny_train = df_train.fuel_efficiency_mpg.values\ny_val = df_val.fuel_efficiency_mpg.values\ny_test = df_test.fuel_efficiency_mpg.values\n\ndel df_train[\"fuel_efficiency_mpg\"]\ndel df_val[\"fuel_efficiency_mpg\"]\ndel df_test[\"fuel_efficiency_mpg\"]\n\ny_train\n\narray([16.64294342, 16.29837715, 18.59182197, ..., 17.59323665,\n       18.92574819, 17.96528447], shape=(5824,))"
+  },
+  {
+    "objectID": "02_linear_regression.html#baseline-model-to-predict-fuel_efficiency_mpg",
+    "href": "02_linear_regression.html#baseline-model-to-predict-fuel_efficiency_mpg",
+    "title": "Linear Regression",
+    "section": "Baseline model to predict fuel_efficiency_mpg",
+    "text": "Baseline model to predict fuel_efficiency_mpg\n\ncols = ['engine_displacement', 'horsepower', 'vehicle_weight', 'model_year']\ndef prepare_X_0(df):\n    df = df.copy()\n\n    df_num = df[cols]\n    df_num = df_num.fillna(0)\n    X = df_num.values\n    return X\n\ndef prepare_X_mean(df):\n    df = df.copy()\n\n    horsepower_mean = df['horsepower'].mean()\n    df['horsepower'] = df['horsepower'].fillna(horsepower_mean).values\n\n    # df['age'] = 2020 - df.model_year\n    # features = cols + ['age']\n\n    df_num = df[cols]\n    X = df_num.values\n    return X\n\n\nWith 0 for missing values\n\nX_train = prepare_X_0(df_train)\nw0, w = train_linear_regression(X_train, y_train)\ny_pred = w0 + X_train.dot(w)\nscore_0 = rmse(y_train, y_pred)\nscore_0\n\nnp.float64(0.5202614265099076)\n\n\n\n\nWith mean for missing values\n\nX_train = prepare_X_mean(df_train)\nw0, w = train_linear_regression(X_train, y_train)\ny_pred = w0 + X_train.dot(w)\nscore_mean = rmse(y_train, y_pred)\nscore_mean\n\nnp.float64(0.46244121379599645)\n\n\n\n\nWhich options gives better RMSE?\nImprove model with validation data set\n\nX_train = prepare_X_0(df_train)\nw0, w = train_linear_regression(X_train, y_train)\n\nX_val = prepare_X_0(df_val)\ny_pred = w0 + X_val.dot(w)\nscore_0 = rmse(y_val, y_pred).round(2)\nscore_0\n\nnp.float64(0.52)\n\n\n\nX_train = prepare_X_mean(df_train)\nw0, w = train_linear_regression(X_train, y_train)\n\nX_val = prepare_X_mean(df_val)\ny_pred = w0 + X_val.dot(w)\nscore_mean = rmse(y_val, y_pred).round(2)\nscore_mean\n\nnp.float64(0.46)\n\n\nThe option with mean for missing values gives better RMSE."
+  },
+  {
+    "objectID": "02_linear_regression.html#best-regularization-parameter",
+    "href": "02_linear_regression.html#best-regularization-parameter",
+    "title": "Linear Regression",
+    "section": "Best regularization parameter",
+    "text": "Best regularization parameter\n\nfor r in [0, 0.01, 0.1, 1, 5, 10, 100]:\n    X_train = prepare_X_0(df_train)\n    w0, w = train_linear_regression_reg(X_train, y_train, r=r)\n\n    X_val = prepare_X_0(df_val)\n    y_pred = w0 + X_val.dot(w)\n    score = rmse(y_val, y_pred).round(2)\n\n    print(r, w0, score)\n\n0 28.827365474598718 0.52\n0.01 24.926838421084422 0.52\n0.1 11.239661085047366 0.52\n1 1.7315979412398264 0.52\n5 0.36380750207153073 0.52\n10 0.18306246622476907 0.52\n100 0.01841801730804525 0.52\n\n\nThe best regularization parameter is 0.01."
+  },
+  {
+    "objectID": "02_linear_regression.html#rmse-standard-deviation",
+    "href": "02_linear_regression.html#rmse-standard-deviation",
+    "title": "Linear Regression",
+    "section": "RMSE Standard Deviation",
+    "text": "RMSE Standard Deviation\n\nall_scores = []\nfor seed in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:\n    np.random.seed(seed)\n\n    idx = np.arange(n)\n    np.random.shuffle(idx)\n\n    df_train = df.iloc[idx[:n_train]]\n    df_val = df.iloc[idx[n_train:n_train+n_val]]\n    df_test = df.iloc[idx[n_train+n_val:]]\n\n    df_train = df_train.reset_index(drop=True)\n    df_val = df_val.reset_index(drop=True)\n    df_test = df_test.reset_index(drop=True)\n\n    y_train = df_train.fuel_efficiency_mpg.values\n    y_val = df_val.fuel_efficiency_mpg.values\n    y_test = df_test.fuel_efficiency_mpg.values\n\n    del df_train[\"fuel_efficiency_mpg\"]\n    del df_val[\"fuel_efficiency_mpg\"]\n    del df_test[\"fuel_efficiency_mpg\"]\n\n    X_train = prepare_X_0(df_train)\n    w0, w = train_linear_regression(X_train, y_train)\n\n    X_val = prepare_X_0(df_val)\n    y_pred = w0 + X_val.dot(w)\n    score = rmse(y_val, y_pred)\n    all_scores.append(score)\n\n    print(seed, w0, score)\n\n0 27.376388746129475 0.5206531296297207\n1 29.022468555840756 0.5213388912866506\n2 25.904357611918527 0.5228069974913666\n3 28.015450068187377 0.5159516741255491\n4 25.93400040714799 0.5109129460116937\n5 25.89950696140074 0.5283406460212935\n6 25.91723093394924 0.5313910658190373\n7 28.414324731359304 0.509067038739038\n8 26.47841782776404 0.5147399129482789\n9 27.513852582351465 0.513186590829269\n\n\n\nnp.std(all_scores).round(3)\n\nnp.float64(0.007)"
+  },
+  {
+    "objectID": "02_linear_regression.html#evaluation-on-test",
+    "href": "02_linear_regression.html#evaluation-on-test",
+    "title": "Linear Regression",
+    "section": "Evaluation on test",
+    "text": "Evaluation on test\n\nnp.random.seed(9)\n\nidx = np.arange(n)\nnp.random.shuffle(idx)\n\ndf_train = df.iloc[idx[:n_train]]\ndf_val = df.iloc[idx[n_train:n_train+n_val]]\ndf_test = df.iloc[idx[n_train+n_val:]]\n\ndf_train = df_train.reset_index(drop=True)\ndf_val = df_val.reset_index(drop=True)\ndf_test = df_test.reset_index(drop=True)\n\ny_train = df_train.fuel_efficiency_mpg.values\ny_val = df_val.fuel_efficiency_mpg.values\ny_test = df_test.fuel_efficiency_mpg.values\n\ndel df_train[\"fuel_efficiency_mpg\"]\ndel df_val[\"fuel_efficiency_mpg\"]\ndel df_test[\"fuel_efficiency_mpg\"]\n\ndf_full_train = pd.concat([df_train, df_val])\ndf_full_train = df_full_train.reset_index(drop=True)\n\nX_full_train = prepare_X_0(df_full_train)\n\ny_full_train = np.concatenate([y_train, y_val])\nw0, w = train_linear_regression_reg(X_full_train, y_full_train, r=0.001)\n\nX_test = prepare_X_0(df_test)\ny_pred = w0 + X_test.dot(w)\nrmse(y_test, y_pred)\n\nnp.float64(0.5156261299185628)"
+  }
+]
