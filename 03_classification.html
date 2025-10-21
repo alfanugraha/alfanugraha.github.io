@@ -3914,6 +3914,10 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <a class="nav-link active" href="./03_classification.html" aria-current="page"> 
 <span class="menu-text">Logistic Regression</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./04_evaluation.html"> 
+<span class="menu-text">Evaluation</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -3981,7 +3985,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 
 <section id="import-library" class="level2">
 <h2 class="anchored" data-anchor-id="import-library">Import library</h2>
-<div id="342da729" class="cell" data-execution_count="1">
+<div id="624f80b7" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3999,7 +4003,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
 <p>We will use the lead scoring Bank Marketing dataset https://raw.githubusercontent.com/alexeygrigorev/datasets/master/course_lead_scoring.csv</p>
-<div id="9047c74d" class="cell" data-execution_count="2">
+<div id="78716418" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/alexeygrigorev/datasets/master/course_lead_scoring.csv&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -4090,7 +4094,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 <section id="missing-values-checking" class="level3">
 <h3 class="anchored" data-anchor-id="missing-values-checking">Missing values checking</h3>
-<div id="e9933041" class="cell" data-execution_count="3">
+<div id="b1d9ff65" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>lead_source                  object
@@ -4105,7 +4109,7 @@ converted                     int64
 dtype: object</code></pre>
 </div>
 </div>
-<div id="b271fc1f" class="cell" data-execution_count="4">
+<div id="6dfcfe3f" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>lead_source                 128
@@ -4122,14 +4126,14 @@ dtype: int64</code></pre>
 </div>
 <p>There are 5 columns with missing values: - <code>lead_source</code> as object - <code>industry</code> as object - <code>annual_income</code> as numeric - <code>employment_status</code> as object - <code>location</code> as object</p>
 <p>For categorical features, I replace them with <code>NA</code>, and for numerical features I replace it with with <code>0.0</code></p>
-<div id="1e6fc9ca" class="cell" data-execution_count="5">
+<div id="506e6662" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>categorical <span class="op">=</span> df.dtypes[df.dtypes <span class="op">==</span> <span class="st">&quot;object&quot;</span>].index.tolist()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>categorical</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>[&#39;lead_source&#39;, &#39;industry&#39;, &#39;employment_status&#39;, &#39;location&#39;]</code></pre>
 </div>
 </div>
-<div id="39c66d39" class="cell" data-execution_count="6">
+<div id="eec470e7" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>numerical <span class="op">=</span> df.dtypes[df.dtypes <span class="op">!=</span> <span class="st">&quot;object&quot;</span>].index.tolist()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>numerical</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -4140,7 +4144,7 @@ dtype: int64</code></pre>
  &#39;converted&#39;]</code></pre>
 </div>
 </div>
-<div id="52777cb7" class="cell" data-execution_count="7">
+<div id="2db4e763" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> categorical:</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    df[col] <span class="op">=</span> df[col].fillna(<span class="st">&quot;NA&quot;</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4164,7 +4168,7 @@ dtype: int64</code></pre>
 </section>
 <section id="the-most-frequent-category-in-industry" class="level3">
 <h3 class="anchored" data-anchor-id="the-most-frequent-category-in-industry">The most frequent category in <code>industry</code></h3>
-<div id="550e31c9" class="cell" data-execution_count="8">
+<div id="c9321d06" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&quot;industry&quot;</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>industry
@@ -4183,130 +4187,130 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="correlation-matrix-for-the-numerical-features" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-matrix-for-the-numerical-features">Correlation matrix for the numerical features</h3>
-<div id="91d1a6c4" class="cell" data-execution_count="9">
+<div id="2479156a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>corr_mtx <span class="op">=</span> df[numerical].corr()</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>corr_mtx.style.background_gradient(cmap<span class="op">=</span><span class="st">&#39;coolwarm&#39;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <style type="text/css">
-#T_9b93d_row0_col0, #T_9b93d_row1_col1, #T_9b93d_row2_col2, #T_9b93d_row3_col3, #T_9b93d_row4_col4 {
+#T_0f318_row0_col0, #T_0f318_row1_col1, #T_0f318_row2_col2, #T_0f318_row3_col3, #T_0f318_row4_col4 {
 background-color: #b40426;
 color: #f1f1f1;
 }
-#T_9b93d_row0_col1, #T_9b93d_row0_col2, #T_9b93d_row0_col3, #T_9b93d_row1_col4, #T_9b93d_row2_col0 {
+#T_0f318_row0_col1, #T_0f318_row0_col2, #T_0f318_row0_col3, #T_0f318_row1_col4, #T_0f318_row2_col0 {
 background-color: #3b4cc0;
 color: #f1f1f1;
 }
-#T_9b93d_row0_col4 {
+#T_0f318_row0_col4 {
 background-color: #c1d4f4;
 color: #000000;
 }
-#T_9b93d_row1_col0, #T_9b93d_row3_col2 {
+#T_0f318_row1_col0, #T_0f318_row3_col2 {
 background-color: #445acc;
 color: #f1f1f1;
 }
-#T_9b93d_row1_col2 {
+#T_0f318_row1_col2 {
 background-color: #4961d2;
 color: #f1f1f1;
 }
-#T_9b93d_row1_col3 {
+#T_0f318_row1_col3 {
 background-color: #4055c8;
 color: #f1f1f1;
 }
-#T_9b93d_row2_col1, #T_9b93d_row3_col0 {
+#T_0f318_row2_col1, #T_0f318_row3_col0 {
 background-color: #3f53c6;
 color: #f1f1f1;
 }
-#T_9b93d_row2_col3 {
+#T_0f318_row2_col3 {
 background-color: #3e51c5;
 color: #f1f1f1;
 }
-#T_9b93d_row2_col4 {
+#T_0f318_row2_col4 {
 background-color: #abc8fd;
 color: #000000;
 }
-#T_9b93d_row3_col1 {
+#T_0f318_row3_col1 {
 background-color: #3c4ec2;
 color: #f1f1f1;
 }
-#T_9b93d_row3_col4 {
+#T_0f318_row3_col4 {
 background-color: #688aef;
 color: #f1f1f1;
 }
-#T_9b93d_row4_col0 {
+#T_0f318_row4_col0 {
 background-color: #cedaeb;
 color: #000000;
 }
-#T_9b93d_row4_col1 {
+#T_0f318_row4_col1 {
 background-color: #485fd1;
 color: #f1f1f1;
 }
-#T_9b93d_row4_col2 {
+#T_0f318_row4_col2 {
 background-color: #bcd2f7;
 color: #000000;
 }
-#T_9b93d_row4_col3 {
+#T_0f318_row4_col3 {
 background-color: #7a9df8;
 color: #f1f1f1;
 }
 </style>
 
-<table id="T_9b93d" class="caption-top table table-sm table-striped small">
+<table id="T_0f318" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th"> </th>
-<th id="T_9b93d_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">number_of_courses_viewed</th>
-<th id="T_9b93d_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">annual_income</th>
-<th id="T_9b93d_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">interaction_count</th>
-<th id="T_9b93d_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">lead_score</th>
-<th id="T_9b93d_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">converted</th>
+<th id="T_0f318_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">number_of_courses_viewed</th>
+<th id="T_0f318_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">annual_income</th>
+<th id="T_0f318_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">interaction_count</th>
+<th id="T_0f318_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">lead_score</th>
+<th id="T_0f318_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">converted</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_9b93d_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">number_of_courses_viewed</th>
-<td id="T_9b93d_row0_col0" class="data row0 col0">1.000000</td>
-<td id="T_9b93d_row0_col1" class="data row0 col1">0.009770</td>
-<td id="T_9b93d_row0_col2" class="data row0 col2">-0.023565</td>
-<td id="T_9b93d_row0_col3" class="data row0 col3">-0.004879</td>
-<td id="T_9b93d_row0_col4" class="data row0 col4">0.435914</td>
+<th id="T_0f318_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">number_of_courses_viewed</th>
+<td id="T_0f318_row0_col0" class="data row0 col0">1.000000</td>
+<td id="T_0f318_row0_col1" class="data row0 col1">0.009770</td>
+<td id="T_0f318_row0_col2" class="data row0 col2">-0.023565</td>
+<td id="T_0f318_row0_col3" class="data row0 col3">-0.004879</td>
+<td id="T_0f318_row0_col4" class="data row0 col4">0.435914</td>
 </tr>
 <tr class="even">
-<th id="T_9b93d_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">annual_income</th>
-<td id="T_9b93d_row1_col0" class="data row1 col0">0.009770</td>
-<td id="T_9b93d_row1_col1" class="data row1 col1">1.000000</td>
-<td id="T_9b93d_row1_col2" class="data row1 col2">0.027036</td>
-<td id="T_9b93d_row1_col3" class="data row1 col3">0.015610</td>
-<td id="T_9b93d_row1_col4" class="data row1 col4">0.053131</td>
+<th id="T_0f318_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">annual_income</th>
+<td id="T_0f318_row1_col0" class="data row1 col0">0.009770</td>
+<td id="T_0f318_row1_col1" class="data row1 col1">1.000000</td>
+<td id="T_0f318_row1_col2" class="data row1 col2">0.027036</td>
+<td id="T_0f318_row1_col3" class="data row1 col3">0.015610</td>
+<td id="T_0f318_row1_col4" class="data row1 col4">0.053131</td>
 </tr>
 <tr class="odd">
-<th id="T_9b93d_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">interaction_count</th>
-<td id="T_9b93d_row2_col0" class="data row2 col0">-0.023565</td>
-<td id="T_9b93d_row2_col1" class="data row2 col1">0.027036</td>
-<td id="T_9b93d_row2_col2" class="data row2 col2">1.000000</td>
-<td id="T_9b93d_row2_col3" class="data row2 col3">0.009888</td>
-<td id="T_9b93d_row2_col4" class="data row2 col4">0.374573</td>
+<th id="T_0f318_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">interaction_count</th>
+<td id="T_0f318_row2_col0" class="data row2 col0">-0.023565</td>
+<td id="T_0f318_row2_col1" class="data row2 col1">0.027036</td>
+<td id="T_0f318_row2_col2" class="data row2 col2">1.000000</td>
+<td id="T_0f318_row2_col3" class="data row2 col3">0.009888</td>
+<td id="T_0f318_row2_col4" class="data row2 col4">0.374573</td>
 </tr>
 <tr class="even">
-<th id="T_9b93d_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">lead_score</th>
-<td id="T_9b93d_row3_col0" class="data row3 col0">-0.004879</td>
-<td id="T_9b93d_row3_col1" class="data row3 col1">0.015610</td>
-<td id="T_9b93d_row3_col2" class="data row3 col2">0.009888</td>
-<td id="T_9b93d_row3_col3" class="data row3 col3">1.000000</td>
-<td id="T_9b93d_row3_col4" class="data row3 col4">0.193673</td>
+<th id="T_0f318_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">lead_score</th>
+<td id="T_0f318_row3_col0" class="data row3 col0">-0.004879</td>
+<td id="T_0f318_row3_col1" class="data row3 col1">0.015610</td>
+<td id="T_0f318_row3_col2" class="data row3 col2">0.009888</td>
+<td id="T_0f318_row3_col3" class="data row3 col3">1.000000</td>
+<td id="T_0f318_row3_col4" class="data row3 col4">0.193673</td>
 </tr>
 <tr class="odd">
-<th id="T_9b93d_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">converted</th>
-<td id="T_9b93d_row4_col0" class="data row4 col0">0.435914</td>
-<td id="T_9b93d_row4_col1" class="data row4 col1">0.053131</td>
-<td id="T_9b93d_row4_col2" class="data row4 col2">0.374573</td>
-<td id="T_9b93d_row4_col3" class="data row4 col3">0.193673</td>
-<td id="T_9b93d_row4_col4" class="data row4 col4">1.000000</td>
+<th id="T_0f318_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">converted</th>
+<td id="T_0f318_row4_col0" class="data row4 col0">0.435914</td>
+<td id="T_0f318_row4_col1" class="data row4 col1">0.053131</td>
+<td id="T_0f318_row4_col2" class="data row4 col2">0.374573</td>
+<td id="T_0f318_row4_col3" class="data row4 col3">0.193673</td>
+<td id="T_0f318_row4_col4" class="data row4 col4">1.000000</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="1652ec6f" class="cell" data-execution_count="10">
+<div id="42580869" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">&#39;number_of_courses_viewed&#39;</span>, <span class="st">&#39;annual_income&#39;</span>, <span class="st">&#39;interaction_count&#39;</span>]].corrwith(df.lead_score).<span class="bu">abs</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>number_of_courses_viewed    0.004879
@@ -4315,7 +4319,7 @@ interaction_count           0.009888
 dtype: float64</code></pre>
 </div>
 </div>
-<div id="885a8647" class="cell" data-execution_count="11">
+<div id="a027f00c" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">&#39;number_of_courses_viewed&#39;</span>, <span class="st">&#39;annual_income&#39;</span>, <span class="st">&#39;lead_score&#39;</span>]].corrwith(df.interaction_count).<span class="bu">abs</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>number_of_courses_viewed    0.023565
@@ -4329,7 +4333,7 @@ dtype: float64</code></pre>
 <section id="splitting-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="splitting-the-data">Splitting the data</h3>
 <p>Perform the train/validation/test split with Scikit-Learn’s <code>train_test_split()</code> function.</p>
-<div id="f93a9927" class="cell" data-execution_count="12">
+<div id="85074bed" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_full_train, df_test <span class="op">=</span> train_test_split(df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df_full_train), <span class="bu">len</span>(df_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -4337,7 +4341,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>If we can get the 20% of the data for validation and 60% for training, we need to set the <code>test_size</code> parameter to 0.25 (because 0.25 * 0.8 = 0.2).</p>
-<div id="aca4a3b4" class="cell" data-execution_count="13">
+<div id="fd247acf" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_train, df_val <span class="op">=</span> train_test_split(df_full_train, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df_train), <span class="bu">len</span>(df_val), <span class="bu">len</span>(df_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -4345,7 +4349,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Make sure that the target value <code>converted</code> is not in the dataframe</p>
-<div id="8cacc943" class="cell" data-execution_count="14">
+<div id="1ea77e60" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> df_train.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>df_val <span class="op">=</span> df_val.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> df_test.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
@@ -4365,7 +4369,7 @@ dtype: float64</code></pre>
 <section id="the-biggest-of-mutual-information" class="level3">
 <h3 class="anchored" data-anchor-id="the-biggest-of-mutual-information">The biggest of mutual information</h3>
 <p>Mutual information is the concept from information theory that measures the amount of information obtained about one random variable through another random variable. In the context of feature selection for machine learning, mutual information can be used to quantify the dependency between a feature and the target variable.</p>
-<div id="0ce8847e" class="cell" data-execution_count="15">
+<div id="9714d889" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mutual_info_category_score(series):</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mutual_info_score(series, y_train)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4380,7 +4384,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>The biggest mutual information is <code>lead_source</code> with <code>0.04</code>.</p>
-<div id="99e46d67" class="cell" data-execution_count="16">
+<div id="9c6044dd" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df_train), <span class="bu">len</span>(df_val), <span class="bu">len</span>(df_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>(876, 293, 293)</code></pre>
@@ -4389,7 +4393,7 @@ dtype: float64</code></pre>
 </section>
 <section id="one-hot-encoding" class="level3">
 <h3 class="anchored" data-anchor-id="one-hot-encoding">One-hot encoding</h3>
-<div id="2d011e67" class="cell" data-execution_count="17">
+<div id="34cba234" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_train[categorical].nunique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>lead_source          6
@@ -4399,7 +4403,7 @@ location             8
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="2c8a8449" class="cell" data-execution_count="18">
+<div id="bbb33aba" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>numerical <span class="op">=</span> [<span class="st">&#39;number_of_courses_viewed&#39;</span>, <span class="st">&#39;annual_income&#39;</span>, <span class="st">&#39;interaction_count&#39;</span>, <span class="st">&#39;lead_score&#39;</span>]</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>train_dicts <span class="op">=</span> df_train[categorical <span class="op">+</span>  numerical].to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>train_dicts[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4414,7 +4418,7 @@ dtype: int64</code></pre>
  &#39;lead_score&#39;: 0.03}</code></pre>
 </div>
 </div>
-<div id="c63d51d6" class="cell" data-execution_count="19">
+<div id="af81b48a" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dv <span class="op">=</span> DictVectorizer(sparse<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>dv.fit(train_dicts)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>dv.get_feature_names_out()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4434,14 +4438,14 @@ dtype: int64</code></pre>
        &#39;number_of_courses_viewed&#39;], dtype=object)</code></pre>
 </div>
 </div>
-<div id="c738b5d7" class="cell" data-execution_count="20">
+<div id="39de4587" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> dv.transform(train_dicts)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>X_train.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>(876, 31)</code></pre>
 </div>
 </div>
-<div id="9c3a3d66" class="cell" data-execution_count="21">
+<div id="aeed6afd" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>val_dicts <span class="op">=</span> df_val[categorical <span class="op">+</span>  numerical].to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>X_val <span class="op">=</span> dv.transform(val_dicts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -4449,7 +4453,7 @@ dtype: int64</code></pre>
 </section>
 <section id="logistic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="logistic-regression">Logistic Regression</h2>
-<div id="e0ea0e37" class="cell" data-execution_count="22">
+<div id="ef03d43e" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(solver<span class="op">=</span><span class="st">&#39;liblinear&#39;</span>, C<span class="op">=</span><span class="fl">1.0</span>, max_iter<span class="op">=</span><span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
@@ -4804,7 +4808,7 @@ display: block;
 </div>
 </div>
 <p>Accuracy on the validation dataset</p>
-<div id="dce5e494" class="cell" data-execution_count="23">
+<div id="60b10556" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict_proba(X_val)[:, <span class="dv">1</span>]</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>conv_decision <span class="op">=</span> (y_pred <span class="op">&gt;=</span> <span class="fl">0.5</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>original_accuracy <span class="op">=</span> (y_val <span class="op">==</span> conv_decision).mean()</span>
@@ -4817,7 +4821,7 @@ display: block;
 <p>Original accuracy with all features: <code>0.70</code></p>
 <section id="feature-elimination-based-on-the-accuracy" class="level3">
 <h3 class="anchored" data-anchor-id="feature-elimination-based-on-the-accuracy">Feature elimination based on the accuracy</h3>
-<div id="14227066" class="cell" data-execution_count="24">
+<div id="9d342a2d" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> categorical <span class="op">+</span> numerical</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feature <span class="kw">in</span> features:</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    selected_features <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> features <span class="cf">if</span> f <span class="op">!=</span> feature]</span>
@@ -4855,7 +4859,7 @@ display: block;
 </section>
 <section id="best-regularization-parameter" class="level3">
 <h3 class="anchored" data-anchor-id="best-regularization-parameter">Best regularization parameter</h3>
-<div id="d14f0003" class="cell" data-execution_count="25">
+<div id="243b71f9" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> [<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>]</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> C <span class="kw">in</span> params:</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    train_dicts <span class="op">=</span> df_train[categorical <span class="op">+</span> numerical].to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
