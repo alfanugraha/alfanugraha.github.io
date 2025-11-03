@@ -3918,6 +3918,10 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <a class="nav-link" href="./04_evaluation.html"> 
 <span class="menu-text">Evaluation</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./05_development.html"> 
+<span class="menu-text">Deployment</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -3977,11 +3981,11 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 
 <section id="load-library" class="level2">
 <h2 class="anchored" data-anchor-id="load-library">Load library</h2>
-<div id="f5b8689e" class="cell" data-execution_count="1">
+<div id="6cf48b54" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="43c521d2" class="cell" data-execution_count="2">
+<div id="dff05fad" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pd.__version__</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>&#39;2.2.3&#39;</code></pre>
@@ -3990,7 +3994,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
-<div id="60708838" class="cell" data-execution_count="3">
+<div id="251d17e4" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>car <span class="op">=</span> pd.read_csv(<span class="st">&#39;https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv&#39;</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>car.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -4094,7 +4098,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="record-count" class="level2">
 <h2 class="anchored" data-anchor-id="record-count">Record count</h2>
-<div id="03e189c6" class="cell" data-execution_count="4">
+<div id="b48848b2" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>car.shape[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>9704</code></pre>
@@ -4103,7 +4107,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="fuel-types" class="level2">
 <h2 class="anchored" data-anchor-id="fuel-types">Fuel types</h2>
-<div id="643018a7" class="cell" data-execution_count="5">
+<div id="1b1edfaa" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>car.fuel_type.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>count         9704
@@ -4117,7 +4121,7 @@ Name: fuel_type, dtype: object</code></pre>
 </section>
 <section id="handling-missing-values" class="level2">
 <h2 class="anchored" data-anchor-id="handling-missing-values">Handling missing values</h2>
-<div id="e572acb0" class="cell" data-execution_count="6">
+<div id="f849a517" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>car.isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>engine_displacement      0
@@ -4136,7 +4140,7 @@ dtype: int64</code></pre>
 </div>
 <section id="max-fuel-efficiency" class="level3">
 <h3 class="anchored" data-anchor-id="max-fuel-efficiency">Max fuel efficiency</h3>
-<div id="3d19a195" class="cell" data-execution_count="7">
+<div id="0a50998b" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>car.groupby(<span class="st">&#39;origin&#39;</span>).fuel_efficiency_mpg.<span class="bu">max</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>origin
@@ -4150,7 +4154,7 @@ Name: fuel_efficiency_mpg, dtype: float64</code></pre>
 </section>
 <section id="median-value-of-horsepower" class="level2">
 <h2 class="anchored" data-anchor-id="median-value-of-horsepower">Median value of <code>horsepower</code></h2>
-<div id="5231517b" class="cell" data-execution_count="8">
+<div id="480001be" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>car.horsepower</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>0       159.0
@@ -4167,21 +4171,21 @@ Name: fuel_efficiency_mpg, dtype: float64</code></pre>
 Name: horsepower, Length: 9704, dtype: float64</code></pre>
 </div>
 </div>
-<div id="32679502" class="cell" data-execution_count="9">
+<div id="6a5df14c" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>med_before <span class="op">=</span> car.horsepower.median()</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>med_before</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>np.float64(149.0)</code></pre>
 </div>
 </div>
-<div id="552b801e" class="cell" data-execution_count="10">
+<div id="6604d486" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>most_freq <span class="op">=</span> car.horsepower.mode()[<span class="dv">0</span>]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>most_freq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>np.float64(152.0)</code></pre>
 </div>
 </div>
-<div id="a7756873" class="cell" data-execution_count="11">
+<div id="f7435f07" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>car.horsepower <span class="op">=</span> car.horsepower.fillna(most_freq)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>car.horsepower</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
@@ -4199,7 +4203,7 @@ Name: horsepower, Length: 9704, dtype: float64</code></pre>
 Name: horsepower, Length: 9704, dtype: float64</code></pre>
 </div>
 </div>
-<div id="e1e801eb" class="cell" data-execution_count="12">
+<div id="f0b6adfa" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>med_after <span class="op">=</span> car.horsepower.median()</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>med_after</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -4209,7 +4213,7 @@ Name: horsepower, Length: 9704, dtype: float64</code></pre>
 </section>
 <section id="sum-of-weights" class="level2">
 <h2 class="anchored" data-anchor-id="sum-of-weights">Sum of weights</h2>
-<div id="0bbc6b5b" class="cell" data-execution_count="13">
+<div id="d017a0b9" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>asian_car <span class="op">=</span> car[car[<span class="st">&#39;origin&#39;</span>] <span class="op">==</span> <span class="st">&#39;Asia&#39;</span>]</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>asian_car</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -4395,7 +4399,7 @@ Name: horsepower, Length: 9704, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="85b66954" class="cell" data-execution_count="14">
+<div id="e184c984" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sel_asian_car <span class="op">=</span> asian_car[[<span class="st">&#39;vehicle_weight&#39;</span>, <span class="st">&#39;model_year&#39;</span>]].head(<span class="dv">7</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sel_asian_car </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
@@ -4452,7 +4456,7 @@ Name: horsepower, Length: 9704, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="f2877b17" class="cell" data-execution_count="15">
+<div id="2984e308" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sel_asian_car.values</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>X</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
@@ -4465,7 +4469,7 @@ Name: horsepower, Length: 9704, dtype: float64</code></pre>
        [3761.99403819, 2019.        ]])</code></pre>
 </div>
 </div>
-<div id="007516b1" class="cell" data-execution_count="16">
+<div id="e016f3ea" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>XTX <span class="op">=</span> X.T.dot(X)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>XTX_inv <span class="op">=</span> np.linalg.inv(XTX)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="dv">1100</span>, <span class="dv">1300</span>, <span class="dv">800</span>, <span class="dv">900</span>, <span class="dv">1000</span>, <span class="dv">1100</span>, <span class="dv">1200</span>])</span>

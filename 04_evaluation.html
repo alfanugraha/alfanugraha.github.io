@@ -3918,6 +3918,10 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <a class="nav-link active" href="./04_evaluation.html" aria-current="page"> 
 <span class="menu-text">Evaluation</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./05_development.html"> 
+<span class="menu-text">Deployment</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -3975,7 +3979,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 
 <section id="import-library" class="level2">
 <h2 class="anchored" data-anchor-id="import-library">Import library</h2>
-<div id="3dfa435f" class="cell" data-execution_count="1">
+<div id="175ba7c8" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3996,7 +4000,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
 <p>We will use the lead scoring Bank Marketing dataset https://raw.githubusercontent.com/alexeygrigorev/datasets/master/course_lead_scoring.csv</p>
-<div id="4d8407df" class="cell" data-execution_count="2">
+<div id="1185226d" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/alexeygrigorev/datasets/master/course_lead_scoring.csv&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -4085,7 +4089,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 </div>
-<div id="711c6a46" class="cell" data-execution_count="3">
+<div id="bd5280b0" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> df.columns.<span class="bu">str</span>.lower().<span class="bu">str</span>.replace(<span class="st">&#39; &#39;</span>, <span class="st">&#39;_&#39;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>categorical_columns <span class="op">=</span> <span class="bu">list</span>(df.dtypes[df.dtypes <span class="op">==</span> <span class="st">&#39;object&#39;</span>].index)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>numeric_columns <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> df.columns <span class="cf">if</span> pd.api.types.is_numeric_dtype(df[c])]</span>
@@ -4101,7 +4105,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
       dtype=&#39;object&#39;)</code></pre>
 </div>
 </div>
-<div id="546f04b7" class="cell" data-execution_count="4">
+<div id="155978ef" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>lead_source                 128
@@ -4118,7 +4122,7 @@ dtype: int64</code></pre>
 </div>
 <p>There are 5 columns with missing values: - <code>lead_source</code> as object - <code>industry</code> as object - <code>annual_income</code> as numeric - <code>employment_status</code> as object - <code>location</code> as object</p>
 <p>For categorical features, I replace them with <code>NA</code>, and for numerical features I replace it with with <code>0.0</code></p>
-<div id="1b7865b7" class="cell" data-execution_count="5">
+<div id="699462b4" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> categorical_columns:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    df[col] <span class="op">=</span> df[col].fillna(<span class="st">&quot;NA&quot;</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4139,7 +4143,7 @@ converted                   0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="afe51e1d" class="cell" data-execution_count="6">
+<div id="506bc667" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">&#39;converted&#39;</span>]</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(<span class="st">&#39;converted&#39;</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4158,7 +4162,7 @@ Test: 293 (20%)</code></pre>
 </section>
 <section id="roc-auc-feature-importance" class="level2">
 <h2 class="anchored" data-anchor-id="roc-auc-feature-importance">ROC AUC feature importance</h2>
-<div id="3263a318" class="cell" data-execution_count="7">
+<div id="e2769bb9" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>variables_to_test <span class="op">=</span> [<span class="st">&#39;lead_score&#39;</span>, <span class="st">&#39;number_of_courses_viewed&#39;</span>, <span class="st">&#39;interaction_count&#39;</span>, <span class="st">&#39;annual_income&#39;</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>auc_scores <span class="op">=</span> {}</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4187,7 +4191,7 @@ Highest AUC: number_of_courses_viewed (0.7652)</code></pre>
 </section>
 <section id="training-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="training-the-model">Training the model</h2>
-<div id="17535041" class="cell" data-execution_count="8">
+<div id="a8609c76" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>train_dicts <span class="op">=</span> X_train.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>val_dicts <span class="op">=</span> X_val.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4209,7 +4213,7 @@ Highest AUC: number_of_courses_viewed (0.7652)</code></pre>
 </section>
 <section id="percision-and-recall" class="level2">
 <h2 class="anchored" data-anchor-id="percision-and-recall">Percision and Recall</h2>
-<div id="5c6074ca" class="cell" data-execution_count="9">
+<div id="67804840" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> []</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> np.arange(<span class="fl">0.0</span>, <span class="fl">1.01</span>, <span class="fl">0.01</span>)</span>
@@ -4255,7 +4259,7 @@ Highest AUC: number_of_courses_viewed (0.7652)</code></pre>
 </div>
 </div>
 </div>
-<div id="2321bd1f" class="cell" data-execution_count="10">
+<div id="6850e144" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>precisions <span class="op">=</span> df_scores.precision</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>recalls <span class="op">=</span> df_scores.recall</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4275,7 +4279,7 @@ Recall: 0.807</code></pre>
 </section>
 <section id="f1-score" class="level2">
 <h2 class="anchored" data-anchor-id="f1-score">F1 score</h2>
-<div id="0ca2e5fe" class="cell" data-execution_count="11">
+<div id="189414bd" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_scores[<span class="st">&quot;f1&quot;</span>] <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>(df_scores.precision <span class="op">*</span> df_scores.recall) <span class="op">/</span> (df_scores.precision <span class="op">+</span> df_scores.recall)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>max_score_row <span class="op">=</span> df_scores[df_scores.f1 <span class="op">==</span> df_scores.f1.<span class="bu">max</span>()]</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(max_score_row)</span>
@@ -4299,7 +4303,7 @@ Recall: 0.807</code></pre>
 </section>
 <section id="fold-cross-validataion" class="level2">
 <h2 class="anchored" data-anchor-id="fold-cross-validataion">5-fold cross validataion</h2>
-<div id="731dbfcd" class="cell" data-execution_count="12">
+<div id="56bceea2" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>X_train_full <span class="op">=</span> np.concatenate([X_train_encoded, X_val_encoded], axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>y_train_full <span class="op">=</span> np.concatenate([y_train, y_val], axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4346,7 +4350,7 @@ Mean AUC: 0.8254 +- 0.0220</code></pre>
 </section>
 <section id="hyperparameter-tuning" class="level2">
 <h2 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter tuning</h2>
-<div id="4a437018" class="cell" data-execution_count="13">
+<div id="898ab1e9" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>C_values <span class="op">=</span> [<span class="fl">0.000001</span>, <span class="fl">0.001</span>, <span class="dv">1</span>]</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>kfold <span class="op">=</span> KFold(n_splits<span class="op">=</span><span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
