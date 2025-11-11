@@ -1,0 +1,211 @@
+---
+title: "Trees"
+author: "Alfa Pradana"
+---
+
+
+## Import library
+
+```{python}
+import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+import xgboost as xgb
+
+%matplotlib inline
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor, export_text, plot_tree
+from sklearn.feature_extraction import DictVectorizer
+
+from sklearn.ensemble import RandomForestRegressor
+
+def rmse(y, y_pred):
+    err = y - y_pred
+    se = err ** 2
+    mse = se.mean()
+    return np.sqrt(mse)
+```
+
+## Data preparation
+
+```{python}
+df = pd.read_csv("https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv")
+df.head()
+```
+
+```{python}
+df_car = df.fillna(0)
+df.isnull().sum()
+```
+
+### Partitioning data
+
+```{python}
+df_full_train, df_test = train_test_split(df_car, test_size=0.2, random_state=1)
+df_train, df_val = train_test_split(df_full_train, test_size=0.25, random_state=1)
+
+df_train = df_train.reset_index(drop=True)
+df_val = df_val.reset_index(drop=True)
+df_test = df_test.reset_index(drop=True)
+
+y_train = df_train.fuel_efficiency_mpg.values
+y_val = df_val.fuel_efficiency_mpg.values
+y_test = df_test.fuel_efficiency_mpg.values
+
+del df_train["fuel_efficiency_mpg"]
+del df_val["fuel_efficiency_mpg"]
+del df_test["fuel_efficiency_mpg"]
+```
+
+### One-hot encoding
+
+```{python}
+train_dicts = df_train.to_dict(orient="records")
+val_dicts = df_val.to_dict(orient="records")
+
+dv = DictVectorizer(sparse=False)
+
+X_train = dv.fit_transform(train_dicts)
+X_val = dv.transform(val_dicts)
+```
+
+
+## Decision tree regressor
+
+```{python}
+dt = DecisionTreeRegressor(max_depth=1)
+dt.fit(X_train, y_train)
+
+print(export_text(dt, feature_names=dv.get_feature_names_out()))
+```
+
+`vehicle_weight` is used for splitting the data
+
+## Random forest regressor
+
+```{python}
+rf = RandomForestRegressor(n_estimators=10, random_state=1, n_jobs=-1)
+rf.fit(X_train, y_train)
+
+y_pred = rf.predict(X_val)
+print('RMSE on the validation dataset = %.5f' % rmse(y_val, y_pred))
+```
+
+### Tuning hyperparameter
+
+#### Number of estimators
+
+```{python}
+scores = []
+for n in range(10, 201, 10):
+    rf = RandomForestRegressor(n_estimators=n, random_state=1, n_jobs=-1)
+    rf.fit(X_train, y_train)
+
+    y_pred = rf.predict(X_val)
+    rmse_val = rmse(y_val, y_pred)
+    print('n_estimators=%d RMSE=%.3f' % (n, rmse_val))
+
+    scores.append((n, rmse_val))
+```
+
+```{python}
+df_scores = pd.DataFrame(scores, columns=['n_estimators', 'rmse'])
+plt.plot(df_scores.n_estimators, df_scores.rmse)
+```
+
+#### Max depth 
+
+```{python}
+scores = []
+mean_rmse = []
+for d in [10, 15, 20, 25]:
+    for n in range(10, 201, 10):
+        rf = RandomForestRegressor(n_estimators=n, max_depth=d, random_state=1, n_jobs=-1)
+        rf.fit(X_train, y_train)
+
+        y_pred = rf.predict(X_val)
+        rmse_val = rmse(y_val, y_pred)
+        # print('max_depth=%d n_estimators=%d RMSE=%.3f' % (d, n, rmse_val))
+
+        scores.append((d, n, rmse_val))
+    
+    # Calculate mean RMSE for this depth
+    rmse_values = [s[2] for s in scores if s[0] == d]
+    mean_rmse.append((d, np.mean(rmse_values)))
+
+df_scores = pd.DataFrame(scores, columns=['max_depth', 'n_estimators', 'rmse'])
+df_scores
+```
+
+```{python}
+mean_rmse
+```
+
+### Feature importance
+
+```{python}
+rf = RandomForestRegressor(n_estimators=10, max_depth=20, random_state=1, n_jobs=-1)
+rf.fit(X_train, y_train)
+
+importances = rf.feature_importances_
+feature_names = dv.get_feature_names_out()
+feature_importances = pd.Series(importances, index=feature_names).sort_values(ascending=False)
+feature_importances
+```
+
+```{python}
+sns.barplot(x=feature_importances.values, y=feature_importances.index)
+```
+
+## XGBoost Regressor
+
+
+```{python}
+features = dv.get_feature_names_out().tolist()
+dtrain = xgb.DMatrix(X_train, label=y_train, feature_names=features)
+dval = xgb.DMatrix(X_val, label=y_val, feature_names=features)
+watchlist = [(dtrain, 'train'), (dval, 'val')]
+```
+
+```{python}
+xgb_params = {
+    'eta': 0.3, 
+    'max_depth': 6,
+    'min_child_weight': 1,
+    
+    'objective': 'reg:squarederror',
+    'nthread': 8,
+    
+    'seed': 1,
+    'verbosity': 1,
+}
+model = xgb.train(xgb_params, dtrain, num_boost_round=100)
+
+y_pred = model.predict(dval)
+rmse(y_val, y_pred)
+```
+
+```{python}
+xgb_params = {
+    'eta': 0.1, 
+    'max_depth': 6,
+    'min_child_weight': 1,
+    
+    'objective': 'reg:squarederror',
+    'nthread': 8,
+    
+    'seed': 1,
+    'verbosity': 1,
+}
+
+model = xgb.train(xgb_params, dtrain, num_boost_round=100)
+
+y_pred = model.predict(dval)
+rmse(y_val, y_pred)
+```
+
+The best RMSE score is achieved from `eta=0.1` with 0.426

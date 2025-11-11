@@ -1,0 +1,310 @@
+---
+title: "Linear Regression"
+author: "Alfa Pradana"
+---
+
+## Load library
+
+```{python}
+import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+%matplotlib inline
+```
+
+## Define function
+
+```{python}
+def train_linear_regression(X, y):
+    ones = np.ones(X.shape[0])
+    X = np.column_stack([ones, X])
+
+    XTX = X.T.dot(X)
+    XTX_inv = np.linalg.inv(XTX)
+    w_full = XTX_inv.dot(X.T).dot(y)
+
+    return w_full[0], w_full[1:]
+
+def train_linear_regression_reg(X, y, r=0.001):
+    ones = np.ones(X.shape[0])
+    X = np.column_stack([ones, X])
+
+    XTX = X.T.dot(X)
+    XTX = XTX + r * np.eye(XTX.shape[0])
+
+    XTX_inv = np.linalg.inv(XTX)
+    w_full = XTX_inv.dot(X.T).dot(y)
+
+    return w_full[0], w_full[1:]
+
+def rmse(y, y_pred):
+    err = y - y_pred
+    se = err ** 2
+    mse = se.mean()
+    return np.sqrt(mse)
+```
+
+## Data preparation
+
+```{python}
+car = pd.read_csv('https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv')
+car.head()
+```
+
+
+
+```{python}
+base = ['engine_displacement', 'horsepower', 'vehicle_weight', 'model_year', 'fuel_efficiency_mpg']
+df = car[base].copy()
+df.head()
+```
+
+### Distribution of fuel mpg
+
+```{python}
+sns.histplot(df.fuel_efficiency_mpg, bins=50)
+```
+
+The distribution of the target variable `fuel_efficiency_mpg` looks like the normal distribution so no need the log transformation.
+
+### Handling missing values
+
+```{python}
+df.isnull().sum()
+```
+
+Column `horsepower` has missing values.
+
+### Median of `horsepower`
+
+```{python}
+median_horsepower = df.horsepower.median()
+median_horsepower
+```
+
+## Setup the framework
+
+```{python}
+n = len(df)
+n_val = int(n * 0.2)
+n_test = int(n * 0.2)
+n_train = n - n_val - n_test
+n, n_val + n_test + n_train
+```
+
+### Data partitioning
+
+Split the data in train/val/test sets, with 60%/20%/20% distribution.
+
+```{python}
+n_val, n_test, n_train
+```
+
+### Data shuffling
+
+Shuffle the dataset, I use seed `42`.
+
+```{python}
+# let's shuffle the records with index
+idx = np.arange(n)
+np.random.seed(42)
+np.random.shuffle(idx)
+
+df_train = df.iloc[idx[:n_train]]
+df_val = df.iloc[idx[n_train:n_train+n_val]]
+df_test = df.iloc[idx[n_train+n_val:]]
+
+df_train.head()
+```
+
+
+```{python}
+len(df_train), len(df_val), len(df_test)
+```
+
+### Restating the index
+
+```{python}
+df_train = df_train.reset_index(drop=True)
+df_val = df_val.reset_index(drop=True)
+df_test = df_test.reset_index(drop=True)
+
+y_train = df_train.fuel_efficiency_mpg.values
+y_val = df_val.fuel_efficiency_mpg.values
+y_test = df_test.fuel_efficiency_mpg.values
+
+del df_train["fuel_efficiency_mpg"]
+del df_val["fuel_efficiency_mpg"]
+del df_test["fuel_efficiency_mpg"]
+
+y_train
+```
+
+## Baseline model to predict `fuel_efficiency_mpg`
+
+```{python}
+cols = ['engine_displacement', 'horsepower', 'vehicle_weight', 'model_year']
+def prepare_X_0(df):
+    df = df.copy()
+
+    df_num = df[cols]
+    df_num = df_num.fillna(0)
+    X = df_num.values
+    return X
+
+def prepare_X_mean(df):
+    df = df.copy()
+
+    horsepower_mean = df['horsepower'].mean()
+    df['horsepower'] = df['horsepower'].fillna(horsepower_mean).values
+
+    # df['age'] = 2020 - df.model_year
+    # features = cols + ['age']
+
+    df_num = df[cols]
+    X = df_num.values
+    return X
+```
+
+### With `0` for missing values
+
+```{python}
+X_train = prepare_X_0(df_train)
+w0, w = train_linear_regression(X_train, y_train)
+y_pred = w0 + X_train.dot(w)
+score_0 = rmse(y_train, y_pred)
+score_0
+```
+
+### With `mean` for missing values
+
+```{python}
+X_train = prepare_X_mean(df_train)
+w0, w = train_linear_regression(X_train, y_train)
+y_pred = w0 + X_train.dot(w)
+score_mean = rmse(y_train, y_pred)
+score_mean
+```
+
+### Which options gives better RMSE?
+
+Improve model with validation data set
+
+```{python}
+X_train = prepare_X_0(df_train)
+w0, w = train_linear_regression(X_train, y_train)
+
+X_val = prepare_X_0(df_val)
+y_pred = w0 + X_val.dot(w)
+score_0 = rmse(y_val, y_pred).round(2)
+score_0
+```
+
+```{python}
+X_train = prepare_X_mean(df_train)
+w0, w = train_linear_regression(X_train, y_train)
+
+X_val = prepare_X_mean(df_val)
+y_pred = w0 + X_val.dot(w)
+score_mean = rmse(y_val, y_pred).round(2)
+score_mean
+```
+
+The option with `mean` for missing values gives better RMSE.
+
+## Best regularization parameter
+
+```{python}
+for r in [0, 0.01, 0.1, 1, 5, 10, 100]:
+    X_train = prepare_X_0(df_train)
+    w0, w = train_linear_regression_reg(X_train, y_train, r=r)
+
+    X_val = prepare_X_0(df_val)
+    y_pred = w0 + X_val.dot(w)
+    score = rmse(y_val, y_pred).round(2)
+
+    print(r, w0, score)
+```
+
+The best regularization parameter is `0.01`.
+
+## RMSE Standard Deviation
+
+```{python}
+all_scores = []
+for seed in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
+    np.random.seed(seed)
+
+    idx = np.arange(n)
+    np.random.shuffle(idx)
+
+    df_train = df.iloc[idx[:n_train]]
+    df_val = df.iloc[idx[n_train:n_train+n_val]]
+    df_test = df.iloc[idx[n_train+n_val:]]
+
+    df_train = df_train.reset_index(drop=True)
+    df_val = df_val.reset_index(drop=True)
+    df_test = df_test.reset_index(drop=True)
+
+    y_train = df_train.fuel_efficiency_mpg.values
+    y_val = df_val.fuel_efficiency_mpg.values
+    y_test = df_test.fuel_efficiency_mpg.values
+
+    del df_train["fuel_efficiency_mpg"]
+    del df_val["fuel_efficiency_mpg"]
+    del df_test["fuel_efficiency_mpg"]
+
+    X_train = prepare_X_0(df_train)
+    w0, w = train_linear_regression(X_train, y_train)
+
+    X_val = prepare_X_0(df_val)
+    y_pred = w0 + X_val.dot(w)
+    score = rmse(y_val, y_pred)
+    all_scores.append(score)
+
+    print(seed, w0, score)
+```
+
+```{python}
+np.std(all_scores).round(3)
+```
+
+## Evaluation on test
+
+```{python}
+np.random.seed(9)
+
+idx = np.arange(n)
+np.random.shuffle(idx)
+
+df_train = df.iloc[idx[:n_train]]
+df_val = df.iloc[idx[n_train:n_train+n_val]]
+df_test = df.iloc[idx[n_train+n_val:]]
+
+df_train = df_train.reset_index(drop=True)
+df_val = df_val.reset_index(drop=True)
+df_test = df_test.reset_index(drop=True)
+
+y_train = df_train.fuel_efficiency_mpg.values
+y_val = df_val.fuel_efficiency_mpg.values
+y_test = df_test.fuel_efficiency_mpg.values
+
+del df_train["fuel_efficiency_mpg"]
+del df_val["fuel_efficiency_mpg"]
+del df_test["fuel_efficiency_mpg"]
+
+df_full_train = pd.concat([df_train, df_val])
+df_full_train = df_full_train.reset_index(drop=True)
+
+X_full_train = prepare_X_0(df_full_train)
+
+y_full_train = np.concatenate([y_train, y_val])
+w0, w = train_linear_regression_reg(X_full_train, y_full_train, r=0.001)
+
+X_test = prepare_X_0(df_test)
+y_pred = w0 + X_test.dot(w)
+rmse(y_test, y_pred)
+```

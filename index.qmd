@@ -1,0 +1,101 @@
+---
+title: "Introduction"
+author: "Alfa Pradana"
+---
+
+## Load library
+
+```{python}
+import pandas as pd
+import numpy as np
+```
+
+```{python}
+pd.__version__
+```
+
+## Data preparation
+
+```{python}
+car = pd.read_csv('https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv')
+car.head()
+```
+
+## Record count
+
+```{python}
+car.shape[0]
+```
+
+## Fuel types
+
+```{python}
+car.fuel_type.describe()
+```
+
+The distribution of the target variable `fuel_efficiency_mpg` looks like the normal distribution so no need the log transformation.
+
+## Handling missing values
+
+```{python}
+car.isnull().sum()
+```
+
+### Max fuel efficiency
+
+```{python}
+car.groupby('origin').fuel_efficiency_mpg.max()
+```
+
+## Median value of `horsepower`
+
+```{python}
+car.horsepower
+```
+
+
+```{python}
+med_before = car.horsepower.median()
+med_before
+```
+
+```{python}
+most_freq = car.horsepower.mode()[0]
+most_freq
+```
+
+```{python}
+car.horsepower = car.horsepower.fillna(most_freq)
+car.horsepower
+```
+
+```{python}
+med_after = car.horsepower.median()
+med_after
+```
+
+## Sum of weights
+
+```{python}
+asian_car = car[car['origin'] == 'Asia']
+asian_car
+```
+
+```{python}
+sel_asian_car = asian_car[['vehicle_weight', 'model_year']].head(7)
+sel_asian_car 
+```
+
+```{python}
+X = sel_asian_car.values
+X
+```
+
+```{python}
+XTX = X.T.dot(X)
+XTX_inv = np.linalg.inv(XTX)
+y = np.array([1100, 1300, 800, 900, 1000, 1100, 1200])
+w = XTX_inv.dot(X.T).dot(y)
+w.sum()
+```
+

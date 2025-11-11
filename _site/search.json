@@ -1,0 +1,289 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\n\npd.__version__\n\n'2.2.3'"
+  },
+  {
+    "objectID": "index.html#load-library",
+    "href": "index.html#load-library",
+    "title": "Introduction",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\n\npd.__version__\n\n'2.2.3'"
+  },
+  {
+    "objectID": "index.html#data-preparation",
+    "href": "index.html#data-preparation",
+    "title": "Introduction",
+    "section": "Data preparation",
+    "text": "Data preparation\n\ncar = pd.read_csv('https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv')\ncar.head()\n\n\n\n\n\n\n\n\nengine_displacement\nnum_cylinders\nhorsepower\nvehicle_weight\nacceleration\nmodel_year\norigin\nfuel_type\ndrivetrain\nnum_doors\nfuel_efficiency_mpg\n\n\n\n\n0\n170\n3.0\n159.0\n3413.433759\n17.7\n2003\nEurope\nGasoline\nAll-wheel drive\n0.0\n13.231729\n\n\n1\n130\n5.0\n97.0\n3149.664934\n17.8\n2007\nUSA\nGasoline\nFront-wheel drive\n0.0\n13.688217\n\n\n2\n170\nNaN\n78.0\n3079.038997\n15.1\n2018\nEurope\nGasoline\nFront-wheel drive\n0.0\n14.246341\n\n\n3\n220\n4.0\nNaN\n2542.392402\n20.2\n2009\nUSA\nDiesel\nAll-wheel drive\n2.0\n16.912736\n\n\n4\n210\n1.0\n140.0\n3460.870990\n14.4\n2009\nEurope\nGasoline\nAll-wheel drive\n2.0\n12.488369"
+  },
+  {
+    "objectID": "index.html#record-count",
+    "href": "index.html#record-count",
+    "title": "Introduction",
+    "section": "Record count",
+    "text": "Record count\n\ncar.shape[0]\n\n9704"
+  },
+  {
+    "objectID": "index.html#fuel-types",
+    "href": "index.html#fuel-types",
+    "title": "Introduction",
+    "section": "Fuel types",
+    "text": "Fuel types\n\ncar.fuel_type.describe()\n\ncount         9704\nunique           2\ntop       Gasoline\nfreq          4898\nName: fuel_type, dtype: object\n\n\nThe distribution of the target variable fuel_efficiency_mpg looks like the normal distribution so no need the log transformation."
+  },
+  {
+    "objectID": "index.html#handling-missing-values",
+    "href": "index.html#handling-missing-values",
+    "title": "Introduction",
+    "section": "Handling missing values",
+    "text": "Handling missing values\n\ncar.isnull().sum()\n\nengine_displacement      0\nnum_cylinders          482\nhorsepower             708\nvehicle_weight           0\nacceleration           930\nmodel_year               0\norigin                   0\nfuel_type                0\ndrivetrain               0\nnum_doors              502\nfuel_efficiency_mpg      0\ndtype: int64\n\n\n\nMax fuel efficiency\n\ncar.groupby('origin').fuel_efficiency_mpg.max()\n\norigin\nAsia      23.759123\nEurope    25.967222\nUSA       24.971452\nName: fuel_efficiency_mpg, dtype: float64"
+  },
+  {
+    "objectID": "index.html#median-value-of-horsepower",
+    "href": "index.html#median-value-of-horsepower",
+    "title": "Introduction",
+    "section": "Median value of horsepower",
+    "text": "Median value of horsepower\n\ncar.horsepower\n\n0       159.0\n1        97.0\n2        78.0\n3         NaN\n4       140.0\n        ...  \n9699    164.0\n9700    154.0\n9701    138.0\n9702    177.0\n9703    140.0\nName: horsepower, Length: 9704, dtype: float64\n\n\n\nmed_before = car.horsepower.median()\nmed_before\n\nnp.float64(149.0)\n\n\n\nmost_freq = car.horsepower.mode()[0]\nmost_freq\n\nnp.float64(152.0)\n\n\n\ncar.horsepower = car.horsepower.fillna(most_freq)\ncar.horsepower\n\n0       159.0\n1        97.0\n2        78.0\n3       152.0\n4       140.0\n        ...  \n9699    164.0\n9700    154.0\n9701    138.0\n9702    177.0\n9703    140.0\nName: horsepower, Length: 9704, dtype: float64\n\n\n\nmed_after = car.horsepower.median()\nmed_after\n\nnp.float64(152.0)"
+  },
+  {
+    "objectID": "index.html#sum-of-weights",
+    "href": "index.html#sum-of-weights",
+    "title": "Introduction",
+    "section": "Sum of weights",
+    "text": "Sum of weights\n\nasian_car = car[car['origin'] == 'Asia']\nasian_car\n\n\n\n\n\n\n\n\nengine_displacement\nnum_cylinders\nhorsepower\nvehicle_weight\nacceleration\nmodel_year\norigin\nfuel_type\ndrivetrain\nnum_doors\nfuel_efficiency_mpg\n\n\n\n\n8\n250\n1.0\n174.0\n2714.219310\n10.3\n2016\nAsia\nDiesel\nFront-wheel drive\n-1.0\n16.823554\n\n\n12\n320\n5.0\n145.0\n2783.868974\n15.1\n2010\nAsia\nDiesel\nAll-wheel drive\n1.0\n16.175820\n\n\n14\n200\n6.0\n160.0\n3582.687368\n14.9\n2007\nAsia\nDiesel\nAll-wheel drive\n0.0\n11.871091\n\n\n20\n150\n3.0\n197.0\n2231.808142\n18.7\n2011\nAsia\nGasoline\nFront-wheel drive\n1.0\n18.889083\n\n\n21\n160\n4.0\n133.0\n2659.431451\nNaN\n2016\nAsia\nGasoline\nFront-wheel drive\n-1.0\n16.077730\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n9688\n260\n4.0\n152.0\n3948.404625\n15.5\n2018\nAsia\nDiesel\nAll-wheel drive\n-1.0\n11.054830\n\n\n9692\n180\n3.0\n188.0\n3680.341381\n18.0\n2016\nAsia\nGasoline\nFront-wheel drive\n1.0\n11.711653\n\n\n9693\n280\n2.0\n148.0\n2545.070139\n15.6\n2012\nAsia\nDiesel\nAll-wheel drive\n0.0\n17.202782\n\n\n9698\n180\n1.0\n131.0\n3107.427820\n13.2\n2005\nAsia\nGasoline\nFront-wheel drive\n-2.0\n13.933716\n\n\n9703\n270\n3.0\n140.0\n2908.043477\n14.7\n2005\nAsia\nDiesel\nAll-wheel drive\n-1.0\n14.884467\n\n\n\n\n3247 rows × 11 columns\n\n\n\n\nsel_asian_car = asian_car[['vehicle_weight', 'model_year']].head(7)\nsel_asian_car \n\n\n\n\n\n\n\n\nvehicle_weight\nmodel_year\n\n\n\n\n8\n2714.219310\n2016\n\n\n12\n2783.868974\n2010\n\n\n14\n3582.687368\n2007\n\n\n20\n2231.808142\n2011\n\n\n21\n2659.431451\n2016\n\n\n34\n2844.227534\n2014\n\n\n38\n3761.994038\n2019\n\n\n\n\n\n\n\n\nX = sel_asian_car.values\nX\n\narray([[2714.21930965, 2016.        ],\n       [2783.86897424, 2010.        ],\n       [3582.68736772, 2007.        ],\n       [2231.8081416 , 2011.        ],\n       [2659.43145076, 2016.        ],\n       [2844.22753389, 2014.        ],\n       [3761.99403819, 2019.        ]])\n\n\n\nXTX = X.T.dot(X)\nXTX_inv = np.linalg.inv(XTX)\ny = np.array([1100, 1300, 800, 900, 1000, 1100, 1200])\nw = XTX_inv.dot(X.T).dot(y)\nw.sum()\n\nnp.float64(0.5187709081074016)"
+  },
+  {
+    "objectID": "05_development.html",
+    "href": "05_development.html",
+    "title": "Development",
+    "section": "",
+    "text": "import os\nos.getcwd()\n\n'D:\\\\My_Course\\\\Zoomcamp\\\\mlzoomcamp-homework\\\\linear_regression'\n\n\n\nUse --version to find out uv version\n\n\n!uv --version\n\n'uv' is not recognized as an internal or external command,\noperable program or batch file.\n\n\n\nThe first hash for Scikit-Learn you get in the lock file\n\nsha256:b4fc2525eca2c69a59260f583c56a7557c6ccdf8deafdba6e060f94c1c59738e"
+  },
+  {
+    "objectID": "05_development.html#checking-workdir",
+    "href": "05_development.html#checking-workdir",
+    "title": "Development",
+    "section": "",
+    "text": "import os\nos.getcwd()\n\n'D:\\\\My_Course\\\\Zoomcamp\\\\mlzoomcamp-homework\\\\linear_regression'\n\n\n\nUse --version to find out uv version\n\n\n!uv --version\n\n'uv' is not recognized as an internal or external command,\noperable program or batch file.\n\n\n\nThe first hash for Scikit-Learn you get in the lock file\n\nsha256:b4fc2525eca2c69a59260f583c56a7557c6ccdf8deafdba6e060f94c1c59738e"
+  },
+  {
+    "objectID": "05_development.html#model",
+    "href": "05_development.html#model",
+    "title": "Development",
+    "section": "Model",
+    "text": "Model\nPrepare a pipeline with a dictionary vectorizer and a model.\n\ncategorical = ['lead_source']\nnumeric = ['number_of_courses_viewed', 'annual_income']\n\ndf[categorical] = df[categorical].fillna('NA')\ndf[numeric] = df[numeric].fillna(0)\n\ntrain_dict = df[categorical + numeric].to_dict(orient='records')\n\npipeline = make_pipeline(\n    DictVectorizer(),\n    LogisticRegression(solver='liblinear')\n)\n\npipeline.fit(train_dict, y_train)"
+  },
+  {
+    "objectID": "05_development.html#publishing-to-docker-hub",
+    "href": "05_development.html#publishing-to-docker-hub",
+    "title": "Development",
+    "section": "Publishing to Docker hub",
+    "text": "Publishing to Docker hub\nDockerfile_base:\n#| eval: false\nFROM agrigorev/zoomcamp-model:2025\nWORKDIR /code\n\nCOPY pyproject.toml pyproject.toml\nRUN pip install .\n\nCOPY load_fastapi.py load_fastapi.py\nCOPY pipeline_v1.bin pipeline_v1.bin\nCOPY test.py test.py\n\nEXPOSE 9696\nENTRYPOINT [\"uvicorn\", \"load_fastapi:app\", \"--host\", \"0.0.0.0\", \"--port\", \"9696\"]\nPublishing:\n#| eval: false\ndocker build -t hw05 .\ndocker run -it --rm -p 9696:9696 hw05\nuv run python test.py"
+  },
+  {
+    "objectID": "03_classification.html",
+    "href": "03_classification.html",
+    "title": "Classification",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline\n\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mutual_info_score\nfrom sklearn.feature_extraction import DictVectorizer\nfrom sklearn.linear_model import LogisticRegression"
+  },
+  {
+    "objectID": "03_classification.html#import-library",
+    "href": "03_classification.html#import-library",
+    "title": "Classification",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline\n\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mutual_info_score\nfrom sklearn.feature_extraction import DictVectorizer\nfrom sklearn.linear_model import LogisticRegression"
+  },
+  {
+    "objectID": "03_classification.html#data-preparation",
+    "href": "03_classification.html#data-preparation",
+    "title": "Classification",
+    "section": "Data preparation",
+    "text": "Data preparation\nWe will use the lead scoring Bank Marketing dataset https://raw.githubusercontent.com/alexeygrigorev/datasets/master/course_lead_scoring.csv\n\ndf = pd.read_csv(\"https://raw.githubusercontent.com/alexeygrigorev/datasets/master/course_lead_scoring.csv\")\ndf.head()\n\n\n\n\n\n\n\n\nlead_source\nindustry\nnumber_of_courses_viewed\nannual_income\nemployment_status\nlocation\ninteraction_count\nlead_score\nconverted\n\n\n\n\n0\npaid_ads\nNaN\n1\n79450.0\nunemployed\nsouth_america\n4\n0.94\n1\n\n\n1\nsocial_media\nretail\n1\n46992.0\nemployed\nsouth_america\n1\n0.80\n0\n\n\n2\nevents\nhealthcare\n5\n78796.0\nunemployed\naustralia\n3\n0.69\n1\n\n\n3\npaid_ads\nretail\n2\n83843.0\nNaN\naustralia\n1\n0.87\n0\n\n\n4\nreferral\neducation\n3\n85012.0\nself_employed\neurope\n3\n0.62\n1\n\n\n\n\n\n\n\n\nMissing values checking\n\ndf.dtypes\n\nlead_source                  object\nindustry                     object\nnumber_of_courses_viewed      int64\nannual_income               float64\nemployment_status            object\nlocation                     object\ninteraction_count             int64\nlead_score                  float64\nconverted                     int64\ndtype: object\n\n\n\ndf.isnull().sum()\n\nlead_source                 128\nindustry                    134\nnumber_of_courses_viewed      0\nannual_income               181\nemployment_status           100\nlocation                     63\ninteraction_count             0\nlead_score                    0\nconverted                     0\ndtype: int64\n\n\nThere are 5 columns with missing values: - lead_source as object - industry as object - annual_income as numeric - employment_status as object - location as object\nFor categorical features, I replace them with NA, and for numerical features I replace it with with 0.0\n\ncategorical = df.dtypes[df.dtypes == \"object\"].index.tolist()\ncategorical\n\n['lead_source', 'industry', 'employment_status', 'location']\n\n\n\nnumerical = df.dtypes[df.dtypes != \"object\"].index.tolist()\nnumerical\n\n['number_of_courses_viewed',\n 'annual_income',\n 'interaction_count',\n 'lead_score',\n 'converted']\n\n\n\nfor col in categorical:\n    df[col] = df[col].fillna(\"NA\")\n\nfor col in numerical:\n    df[col] = df[col].fillna(0.0)\n\ndf.isnull().sum()\n\nlead_source                 0\nindustry                    0\nnumber_of_courses_viewed    0\nannual_income               0\nemployment_status           0\nlocation                    0\ninteraction_count           0\nlead_score                  0\nconverted                   0\ndtype: int64\n\n\n\n\nThe most frequent category in industry\n\ndf[\"industry\"].value_counts()\n\nindustry\nretail           203\nfinance          200\nother            198\nhealthcare       187\neducation        187\ntechnology       179\nmanufacturing    174\nNA               134\nName: count, dtype: int64\n\n\nretail is the most frequent category in industry with 203 occurrences.\n\n\nCorrelation matrix for the numerical features\n\ncorr_mtx = df[numerical].corr()\ncorr_mtx.style.background_gradient(cmap='coolwarm')\n\n\n\n\n\n\n \nnumber_of_courses_viewed\nannual_income\ninteraction_count\nlead_score\nconverted\n\n\n\n\nnumber_of_courses_viewed\n1.000000\n0.009770\n-0.023565\n-0.004879\n0.435914\n\n\nannual_income\n0.009770\n1.000000\n0.027036\n0.015610\n0.053131\n\n\ninteraction_count\n-0.023565\n0.027036\n1.000000\n0.009888\n0.374573\n\n\nlead_score\n-0.004879\n0.015610\n0.009888\n1.000000\n0.193673\n\n\nconverted\n0.435914\n0.053131\n0.374573\n0.193673\n1.000000\n\n\n\n\n\n\ndf[['number_of_courses_viewed', 'annual_income', 'interaction_count']].corrwith(df.lead_score).abs()\n\nnumber_of_courses_viewed    0.004879\nannual_income               0.015610\ninteraction_count           0.009888\ndtype: float64\n\n\n\ndf[['number_of_courses_viewed', 'annual_income', 'lead_score']].corrwith(df.interaction_count).abs()\n\nnumber_of_courses_viewed    0.023565\nannual_income               0.027036\nlead_score                  0.009888\ndtype: float64\n\n\nBased on the given correlation matrix above, the biggest correlation is annual_income with interaction_count with correlation of 0.027036.\n\n\nSplitting the data\nPerform the train/validation/test split with Scikit-Learn’s train_test_split() function.\n\ndf_full_train, df_test = train_test_split(df, test_size=0.2, random_state=42)\nlen(df_full_train), len(df_test)\n\n(1169, 293)\n\n\nIf we can get the 20% of the data for validation and 60% for training, we need to set the test_size parameter to 0.25 (because 0.25 * 0.8 = 0.2).\n\ndf_train, df_val = train_test_split(df_full_train, test_size=0.25, random_state=42)\nlen(df_train), len(df_val), len(df_test)\n\n(876, 293, 293)\n\n\nMake sure that the target value converted is not in the dataframe\n\ndf_train = df_train.reset_index(drop=True)\ndf_val = df_val.reset_index(drop=True)\ndf_test = df_test.reset_index(drop=True)\n\ny_train = df_train.converted.values\ny_val = df_val.converted.values\ny_test = df_test.converted.values\n\ndel df_train[\"converted\"]\ndel df_val[\"converted\"]\ndel df_test[\"converted\"]"
+  },
+  {
+    "objectID": "03_classification.html#feature-engineering",
+    "href": "03_classification.html#feature-engineering",
+    "title": "Classification",
+    "section": "Feature engineering",
+    "text": "Feature engineering\n\nThe biggest of mutual information\nMutual information is the concept from information theory that measures the amount of information obtained about one random variable through another random variable. In the context of feature selection for machine learning, mutual information can be used to quantify the dependency between a feature and the target variable.\n\ndef mutual_info_category_score(series):\n    return mutual_info_score(series, y_train)\n\nmi = df_train[categorical].apply(mutual_info_category_score)\nmi.sort_values(ascending=False).round(2)\n\nlead_source          0.04\nemployment_status    0.01\nindustry             0.01\nlocation             0.00\ndtype: float64\n\n\nThe biggest mutual information is lead_source with 0.04.\n\nlen(df_train), len(df_val), len(df_test)\n\n(876, 293, 293)\n\n\n\n\nOne-hot encoding\n\ndf_train[categorical].nunique()\n\nlead_source          6\nindustry             8\nemployment_status    5\nlocation             8\ndtype: int64\n\n\n\nnumerical = ['number_of_courses_viewed', 'annual_income', 'interaction_count', 'lead_score']\ntrain_dicts = df_train[categorical +  numerical].to_dict(orient='records')\ntrain_dicts[0]\n\n{'lead_source': 'paid_ads',\n 'industry': 'retail',\n 'employment_status': 'student',\n 'location': 'middle_east',\n 'number_of_courses_viewed': 0,\n 'annual_income': 58472.0,\n 'interaction_count': 5,\n 'lead_score': 0.03}\n\n\n\ndv = DictVectorizer(sparse=False)\ndv.fit(train_dicts)\ndv.get_feature_names_out()\n\narray(['annual_income', 'employment_status=NA',\n       'employment_status=employed', 'employment_status=self_employed',\n       'employment_status=student', 'employment_status=unemployed',\n       'industry=NA', 'industry=education', 'industry=finance',\n       'industry=healthcare', 'industry=manufacturing', 'industry=other',\n       'industry=retail', 'industry=technology', 'interaction_count',\n       'lead_score', 'lead_source=NA', 'lead_source=events',\n       'lead_source=organic_search', 'lead_source=paid_ads',\n       'lead_source=referral', 'lead_source=social_media', 'location=NA',\n       'location=africa', 'location=asia', 'location=australia',\n       'location=europe', 'location=middle_east',\n       'location=north_america', 'location=south_america',\n       'number_of_courses_viewed'], dtype=object)\n\n\n\nX_train = dv.transform(train_dicts)\nX_train.shape\n\n(876, 31)\n\n\n\nval_dicts = df_val[categorical +  numerical].to_dict(orient='records')\nX_val = dv.transform(val_dicts)"
+  },
+  {
+    "objectID": "03_classification.html#logistic-regression",
+    "href": "03_classification.html#logistic-regression",
+    "title": "Classification",
+    "section": "Logistic Regression",
+    "text": "Logistic Regression\n\nmodel = LogisticRegression(solver='liblinear', C=1.0, max_iter=1000, random_state=42)\nmodel.fit(X_train, y_train)\n\nLogisticRegression(max_iter=1000, random_state=42, solver='liblinear')In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.LogisticRegression?Documentation for LogisticRegressioniFittedLogisticRegression(max_iter=1000, random_state=42, solver='liblinear') \n\n\nAccuracy on the validation dataset\n\ny_pred = model.predict_proba(X_val)[:, 1]\nconv_decision = (y_pred &gt;= 0.5)\noriginal_accuracy = (y_val == conv_decision).mean()\nprint(f\"Original accuracy with all features: {original_accuracy:.2f}\\n\")\n\nOriginal accuracy with all features: 0.70\n\n\n\nOriginal accuracy with all features: 0.70\n\nFeature elimination based on the accuracy\n\nfeatures = categorical + numerical\nfor feature in features:\n    selected_features = [f for f in features if f != feature]\n\n    train_dicts = df_train[selected_features].to_dict(orient='records')\n    X_train = dv.transform(train_dicts)\n\n    val_dicts = df_val[selected_features].to_dict(orient='records')\n    X_val = dv.transform(val_dicts)\n\n    # train the model\n    model = LogisticRegression(solver='liblinear', C=1.0, max_iter=1000, random_state=42)\n    model.fit(X_train, y_train)\n\n    # evaluate the model\n    y_pred = model.predict_proba(X_val)[:, 1]\n    conv_decision = (y_pred &gt;= 0.5)\n    accuracy = (y_val == conv_decision).mean()\n\n    diff = np.abs(accuracy - original_accuracy)\n\n    print(f\"{accuracy:.5f} (difference: {diff:.5f}) accuracy with no '{feature}'\")\n\n0.70307 (difference: 0.00341) accuracy with no 'lead_source'\n0.69966 (difference: 0.00000) accuracy with no 'industry'\n0.69625 (difference: 0.00341) accuracy with no 'employment_status'\n0.70990 (difference: 0.01024) accuracy with no 'location'\n0.55631 (difference: 0.14334) accuracy with no 'number_of_courses_viewed'\n0.85324 (difference: 0.15358) accuracy with no 'annual_income'\n0.55631 (difference: 0.14334) accuracy with no 'interaction_count'\n0.70648 (difference: 0.00683) accuracy with no 'lead_score'\n\n\nThe smallest difference is industry, it means that if we drop industry feature, the accuracy will be the same as the original accuracy with all features.\n\n\nBest regularization parameter\n\nparams = [0.01, 0.1, 1, 10, 100]\nfor C in params:\n    train_dicts = df_train[categorical + numerical].to_dict(orient='records')\n    X_train = dv.transform(train_dicts)\n\n    model = LogisticRegression(solver='liblinear', C=C, max_iter=1000, random_state=42)\n    model.fit(X_train, y_train)\n\n    y_pred = model.predict_proba(X_val)[:, 1]\n    conv_decision = (y_pred &gt;= 0.5)\n    accuracy = (y_val == conv_decision).mean()\n\n    print(f\"{accuracy:.3f} for parameter C={C}\")\n\n0.700 for parameter C=0.01\n0.706 for parameter C=0.1\n0.706 for parameter C=1\n0.706 for parameter C=10\n0.706 for parameter C=100\n\n\nThe best tuning parameter C is 0.01."
+  },
+  {
+    "objectID": "02_linear_regression.html",
+    "href": "02_linear_regression.html",
+    "title": "Linear Regression",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline"
+  },
+  {
+    "objectID": "02_linear_regression.html#load-library",
+    "href": "02_linear_regression.html#load-library",
+    "title": "Linear Regression",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline"
+  },
+  {
+    "objectID": "02_linear_regression.html#define-function",
+    "href": "02_linear_regression.html#define-function",
+    "title": "Linear Regression",
+    "section": "Define function",
+    "text": "Define function\n\ndef train_linear_regression(X, y):\n    ones = np.ones(X.shape[0])\n    X = np.column_stack([ones, X])\n\n    XTX = X.T.dot(X)\n    XTX_inv = np.linalg.inv(XTX)\n    w_full = XTX_inv.dot(X.T).dot(y)\n\n    return w_full[0], w_full[1:]\n\ndef train_linear_regression_reg(X, y, r=0.001):\n    ones = np.ones(X.shape[0])\n    X = np.column_stack([ones, X])\n\n    XTX = X.T.dot(X)\n    XTX = XTX + r * np.eye(XTX.shape[0])\n\n    XTX_inv = np.linalg.inv(XTX)\n    w_full = XTX_inv.dot(X.T).dot(y)\n\n    return w_full[0], w_full[1:]\n\ndef rmse(y, y_pred):\n    err = y - y_pred\n    se = err ** 2\n    mse = se.mean()\n    return np.sqrt(mse)"
+  },
+  {
+    "objectID": "02_linear_regression.html#data-preparation",
+    "href": "02_linear_regression.html#data-preparation",
+    "title": "Linear Regression",
+    "section": "Data preparation",
+    "text": "Data preparation\n\ncar = pd.read_csv('https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv')\ncar.head()\n\n\n\n\n\n\n\n\nengine_displacement\nnum_cylinders\nhorsepower\nvehicle_weight\nacceleration\nmodel_year\norigin\nfuel_type\ndrivetrain\nnum_doors\nfuel_efficiency_mpg\n\n\n\n\n0\n170\n3.0\n159.0\n3413.433759\n17.7\n2003\nEurope\nGasoline\nAll-wheel drive\n0.0\n13.231729\n\n\n1\n130\n5.0\n97.0\n3149.664934\n17.8\n2007\nUSA\nGasoline\nFront-wheel drive\n0.0\n13.688217\n\n\n2\n170\nNaN\n78.0\n3079.038997\n15.1\n2018\nEurope\nGasoline\nFront-wheel drive\n0.0\n14.246341\n\n\n3\n220\n4.0\nNaN\n2542.392402\n20.2\n2009\nUSA\nDiesel\nAll-wheel drive\n2.0\n16.912736\n\n\n4\n210\n1.0\n140.0\n3460.870990\n14.4\n2009\nEurope\nGasoline\nAll-wheel drive\n2.0\n12.488369\n\n\n\n\n\n\n\n\nbase = ['engine_displacement', 'horsepower', 'vehicle_weight', 'model_year', 'fuel_efficiency_mpg']\ndf = car[base].copy()\ndf.head()\n\n\n\n\n\n\n\n\nengine_displacement\nhorsepower\nvehicle_weight\nmodel_year\nfuel_efficiency_mpg\n\n\n\n\n0\n170\n159.0\n3413.433759\n2003\n13.231729\n\n\n1\n130\n97.0\n3149.664934\n2007\n13.688217\n\n\n2\n170\n78.0\n3079.038997\n2018\n14.246341\n\n\n3\n220\nNaN\n2542.392402\n2009\n16.912736\n\n\n4\n210\n140.0\n3460.870990\n2009\n12.488369\n\n\n\n\n\n\n\n\nDistribution of fuel mpg\n\nsns.histplot(df.fuel_efficiency_mpg, bins=50)\n\n\n\n\n\n\n\n\nThe distribution of the target variable fuel_efficiency_mpg looks like the normal distribution so no need the log transformation.\n\n\nHandling missing values\n\ndf.isnull().sum()\n\nengine_displacement      0\nhorsepower             708\nvehicle_weight           0\nmodel_year               0\nfuel_efficiency_mpg      0\ndtype: int64\n\n\nColumn horsepower has missing values.\n\n\nMedian of horsepower\n\nmedian_horsepower = df.horsepower.median()\nmedian_horsepower\n\nnp.float64(149.0)"
+  },
+  {
+    "objectID": "02_linear_regression.html#setup-the-framework",
+    "href": "02_linear_regression.html#setup-the-framework",
+    "title": "Linear Regression",
+    "section": "Setup the framework",
+    "text": "Setup the framework\n\nn = len(df)\nn_val = int(n * 0.2)\nn_test = int(n * 0.2)\nn_train = n - n_val - n_test\nn, n_val + n_test + n_train\n\n(9704, 9704)\n\n\n\nData partitioning\nSplit the data in train/val/test sets, with 60%/20%/20% distribution.\n\nn_val, n_test, n_train\n\n(1940, 1940, 5824)\n\n\n\n\nData shuffling\nShuffle the dataset, I use seed 42.\n\n# let's shuffle the records with index\nidx = np.arange(n)\nnp.random.seed(42)\nnp.random.shuffle(idx)\n\ndf_train = df.iloc[idx[:n_train]]\ndf_val = df.iloc[idx[n_train:n_train+n_val]]\ndf_test = df.iloc[idx[n_train+n_val:]]\n\ndf_train.head()\n\n\n\n\n\n\n\n\nengine_displacement\nhorsepower\nvehicle_weight\nmodel_year\nfuel_efficiency_mpg\n\n\n\n\n483\n220\n144.0\n2535.887591\n2009\n16.642943\n\n\n7506\n160\n141.0\n2741.170484\n2019\n16.298377\n\n\n8795\n230\n155.0\n2471.880237\n2017\n18.591822\n\n\n1688\n150\n206.0\n3748.164469\n2015\n11.818843\n\n\n6217\n300\n111.0\n2135.716359\n2006\n19.402209\n\n\n\n\n\n\n\n\nlen(df_train), len(df_val), len(df_test)\n\n(5824, 1940, 1940)\n\n\n\n\nRestating the index\n\ndf_train = df_train.reset_index(drop=True)\ndf_val = df_val.reset_index(drop=True)\ndf_test = df_test.reset_index(drop=True)\n\ny_train = df_train.fuel_efficiency_mpg.values\ny_val = df_val.fuel_efficiency_mpg.values\ny_test = df_test.fuel_efficiency_mpg.values\n\ndel df_train[\"fuel_efficiency_mpg\"]\ndel df_val[\"fuel_efficiency_mpg\"]\ndel df_test[\"fuel_efficiency_mpg\"]\n\ny_train\n\narray([16.64294342, 16.29837715, 18.59182197, ..., 17.59323665,\n       18.92574819, 17.96528447], shape=(5824,))"
+  },
+  {
+    "objectID": "02_linear_regression.html#baseline-model-to-predict-fuel_efficiency_mpg",
+    "href": "02_linear_regression.html#baseline-model-to-predict-fuel_efficiency_mpg",
+    "title": "Linear Regression",
+    "section": "Baseline model to predict fuel_efficiency_mpg",
+    "text": "Baseline model to predict fuel_efficiency_mpg\n\ncols = ['engine_displacement', 'horsepower', 'vehicle_weight', 'model_year']\ndef prepare_X_0(df):\n    df = df.copy()\n\n    df_num = df[cols]\n    df_num = df_num.fillna(0)\n    X = df_num.values\n    return X\n\ndef prepare_X_mean(df):\n    df = df.copy()\n\n    horsepower_mean = df['horsepower'].mean()\n    df['horsepower'] = df['horsepower'].fillna(horsepower_mean).values\n\n    # df['age'] = 2020 - df.model_year\n    # features = cols + ['age']\n\n    df_num = df[cols]\n    X = df_num.values\n    return X\n\n\nWith 0 for missing values\n\nX_train = prepare_X_0(df_train)\nw0, w = train_linear_regression(X_train, y_train)\ny_pred = w0 + X_train.dot(w)\nscore_0 = rmse(y_train, y_pred)\nscore_0\n\nnp.float64(0.5202614265099076)\n\n\n\n\nWith mean for missing values\n\nX_train = prepare_X_mean(df_train)\nw0, w = train_linear_regression(X_train, y_train)\ny_pred = w0 + X_train.dot(w)\nscore_mean = rmse(y_train, y_pred)\nscore_mean\n\nnp.float64(0.46244121379599645)\n\n\n\n\nWhich options gives better RMSE?\nImprove model with validation data set\n\nX_train = prepare_X_0(df_train)\nw0, w = train_linear_regression(X_train, y_train)\n\nX_val = prepare_X_0(df_val)\ny_pred = w0 + X_val.dot(w)\nscore_0 = rmse(y_val, y_pred).round(2)\nscore_0\n\nnp.float64(0.52)\n\n\n\nX_train = prepare_X_mean(df_train)\nw0, w = train_linear_regression(X_train, y_train)\n\nX_val = prepare_X_mean(df_val)\ny_pred = w0 + X_val.dot(w)\nscore_mean = rmse(y_val, y_pred).round(2)\nscore_mean\n\nnp.float64(0.46)\n\n\nThe option with mean for missing values gives better RMSE."
+  },
+  {
+    "objectID": "02_linear_regression.html#best-regularization-parameter",
+    "href": "02_linear_regression.html#best-regularization-parameter",
+    "title": "Linear Regression",
+    "section": "Best regularization parameter",
+    "text": "Best regularization parameter\n\nfor r in [0, 0.01, 0.1, 1, 5, 10, 100]:\n    X_train = prepare_X_0(df_train)\n    w0, w = train_linear_regression_reg(X_train, y_train, r=r)\n\n    X_val = prepare_X_0(df_val)\n    y_pred = w0 + X_val.dot(w)\n    score = rmse(y_val, y_pred).round(2)\n\n    print(r, w0, score)\n\n0 28.827365474598718 0.52\n0.01 24.926838421084422 0.52\n0.1 11.239661085047366 0.52\n1 1.7315979412398264 0.52\n5 0.36380750207153073 0.52\n10 0.18306246622476907 0.52\n100 0.01841801730804525 0.52\n\n\nThe best regularization parameter is 0.01."
+  },
+  {
+    "objectID": "02_linear_regression.html#rmse-standard-deviation",
+    "href": "02_linear_regression.html#rmse-standard-deviation",
+    "title": "Linear Regression",
+    "section": "RMSE Standard Deviation",
+    "text": "RMSE Standard Deviation\n\nall_scores = []\nfor seed in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:\n    np.random.seed(seed)\n\n    idx = np.arange(n)\n    np.random.shuffle(idx)\n\n    df_train = df.iloc[idx[:n_train]]\n    df_val = df.iloc[idx[n_train:n_train+n_val]]\n    df_test = df.iloc[idx[n_train+n_val:]]\n\n    df_train = df_train.reset_index(drop=True)\n    df_val = df_val.reset_index(drop=True)\n    df_test = df_test.reset_index(drop=True)\n\n    y_train = df_train.fuel_efficiency_mpg.values\n    y_val = df_val.fuel_efficiency_mpg.values\n    y_test = df_test.fuel_efficiency_mpg.values\n\n    del df_train[\"fuel_efficiency_mpg\"]\n    del df_val[\"fuel_efficiency_mpg\"]\n    del df_test[\"fuel_efficiency_mpg\"]\n\n    X_train = prepare_X_0(df_train)\n    w0, w = train_linear_regression(X_train, y_train)\n\n    X_val = prepare_X_0(df_val)\n    y_pred = w0 + X_val.dot(w)\n    score = rmse(y_val, y_pred)\n    all_scores.append(score)\n\n    print(seed, w0, score)\n\n0 27.376388746129475 0.5206531296297207\n1 29.022468555840756 0.5213388912866506\n2 25.904357611918527 0.5228069974913666\n3 28.015450068187377 0.5159516741255491\n4 25.93400040714799 0.5109129460116937\n5 25.89950696140074 0.5283406460212935\n6 25.91723093394924 0.5313910658190373\n7 28.414324731359304 0.509067038739038\n8 26.47841782776404 0.5147399129482789\n9 27.513852582351465 0.513186590829269\n\n\n\nnp.std(all_scores).round(3)\n\nnp.float64(0.007)"
+  },
+  {
+    "objectID": "02_linear_regression.html#evaluation-on-test",
+    "href": "02_linear_regression.html#evaluation-on-test",
+    "title": "Linear Regression",
+    "section": "Evaluation on test",
+    "text": "Evaluation on test\n\nnp.random.seed(9)\n\nidx = np.arange(n)\nnp.random.shuffle(idx)\n\ndf_train = df.iloc[idx[:n_train]]\ndf_val = df.iloc[idx[n_train:n_train+n_val]]\ndf_test = df.iloc[idx[n_train+n_val:]]\n\ndf_train = df_train.reset_index(drop=True)\ndf_val = df_val.reset_index(drop=True)\ndf_test = df_test.reset_index(drop=True)\n\ny_train = df_train.fuel_efficiency_mpg.values\ny_val = df_val.fuel_efficiency_mpg.values\ny_test = df_test.fuel_efficiency_mpg.values\n\ndel df_train[\"fuel_efficiency_mpg\"]\ndel df_val[\"fuel_efficiency_mpg\"]\ndel df_test[\"fuel_efficiency_mpg\"]\n\ndf_full_train = pd.concat([df_train, df_val])\ndf_full_train = df_full_train.reset_index(drop=True)\n\nX_full_train = prepare_X_0(df_full_train)\n\ny_full_train = np.concatenate([y_train, y_val])\nw0, w = train_linear_regression_reg(X_full_train, y_full_train, r=0.001)\n\nX_test = prepare_X_0(df_test)\ny_pred = w0 + X_test.dot(w)\nrmse(y_test, y_pred)\n\nnp.float64(0.5156261299185628)"
+  },
+  {
+    "objectID": "04_evaluation.html",
+    "href": "04_evaluation.html",
+    "title": "Evaluation",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline\n\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mutual_info_score\n\nfrom sklearn.feature_extraction import DictVectorizer\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.metrics import  roc_auc_score, auc\nfrom sklearn.model_selection import KFold"
+  },
+  {
+    "objectID": "04_evaluation.html#import-library",
+    "href": "04_evaluation.html#import-library",
+    "title": "Evaluation",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline\n\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mutual_info_score\n\nfrom sklearn.feature_extraction import DictVectorizer\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.metrics import  roc_auc_score, auc\nfrom sklearn.model_selection import KFold"
+  },
+  {
+    "objectID": "04_evaluation.html#data-preparation",
+    "href": "04_evaluation.html#data-preparation",
+    "title": "Evaluation",
+    "section": "Data preparation",
+    "text": "Data preparation\nWe will use the lead scoring Bank Marketing dataset https://raw.githubusercontent.com/alexeygrigorev/datasets/master/course_lead_scoring.csv\n\ndf = pd.read_csv(\"https://raw.githubusercontent.com/alexeygrigorev/datasets/master/course_lead_scoring.csv\")\ndf.head()\n\n\n\n\n\n\n\n\nlead_source\nindustry\nnumber_of_courses_viewed\nannual_income\nemployment_status\nlocation\ninteraction_count\nlead_score\nconverted\n\n\n\n\n0\npaid_ads\nNaN\n1\n79450.0\nunemployed\nsouth_america\n4\n0.94\n1\n\n\n1\nsocial_media\nretail\n1\n46992.0\nemployed\nsouth_america\n1\n0.80\n0\n\n\n2\nevents\nhealthcare\n5\n78796.0\nunemployed\naustralia\n3\n0.69\n1\n\n\n3\npaid_ads\nretail\n2\n83843.0\nNaN\naustralia\n1\n0.87\n0\n\n\n4\nreferral\neducation\n3\n85012.0\nself_employed\neurope\n3\n0.62\n1\n\n\n\n\n\n\n\n\ndf.columns = df.columns.str.lower().str.replace(' ', '_')\ncategorical_columns = list(df.dtypes[df.dtypes == 'object'].index)\nnumeric_columns = [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c])]\n\nfor col in categorical_columns:\n    df[col] = df[col].str.lower().str.replace(' ', '_')\n\ndf.columns\n\nIndex(['lead_source', 'industry', 'number_of_courses_viewed', 'annual_income',\n       'employment_status', 'location', 'interaction_count', 'lead_score',\n       'converted'],\n      dtype='object')\n\n\n\ndf.isnull().sum()\n\nlead_source                 128\nindustry                    134\nnumber_of_courses_viewed      0\nannual_income               181\nemployment_status           100\nlocation                     63\ninteraction_count             0\nlead_score                    0\nconverted                     0\ndtype: int64\n\n\nThere are 5 columns with missing values: - lead_source as object - industry as object - annual_income as numeric - employment_status as object - location as object\nFor categorical features, I replace them with NA, and for numerical features I replace it with with 0.0\n\nfor col in categorical_columns:\n    df[col] = df[col].fillna(\"NA\")\n\nfor col in numeric_columns:\n    df[col] = df[col].fillna(0.0)\n\ndf.isnull().sum()\n\nlead_source                 0\nindustry                    0\nnumber_of_courses_viewed    0\nannual_income               0\nemployment_status           0\nlocation                    0\ninteraction_count           0\nlead_score                  0\nconverted                   0\ndtype: int64\n\n\n\ny = df['converted']\nX = df.drop('converted', axis=1)\n\nX_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.4, random_state=1)\nX_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=1)\n\nprint(f\"Train: {len(X_train)} ({len(X_train)/len(df)*100:.0f}%)\")\nprint(f\"Val: {len(X_val)} ({len(X_val)/len(df)*100:.0f}%)\")\nprint(f\"Test: {len(X_test)} ({len(X_test)/len(df)*100:.0f}%)\")\n\nTrain: 877 (60%)\nVal: 292 (20%)\nTest: 293 (20%)"
+  },
+  {
+    "objectID": "04_evaluation.html#roc-auc-feature-importance",
+    "href": "04_evaluation.html#roc-auc-feature-importance",
+    "title": "Evaluation",
+    "section": "ROC AUC feature importance",
+    "text": "ROC AUC feature importance\n\nvariables_to_test = ['lead_score', 'number_of_courses_viewed', 'interaction_count', 'annual_income']\nauc_scores = {}\n\nfor var in variables_to_test:\n    predictions = X_train[var]\n    auc = roc_auc_score(y_train, predictions)\n\n    if auc &lt; 0.5:\n        predictions = -X_train[var]\n        auc = roc_auc_score(y_train, predictions)\n\n    auc_scores[var] = auc\n    print(f\"{var}: {auc:.4f}\")\n\nbest_var = max(auc_scores, key=auc_scores.get)\nprint(f\"Highest AUC: {best_var} ({auc_scores[best_var]:.4f})\")\n\nlead_score: 0.6111\nnumber_of_courses_viewed: 0.7652\ninteraction_count: 0.7272\nannual_income: 0.5446\nHighest AUC: number_of_courses_viewed (0.7652)\n\n\nretail is the most frequent category in industry with 203 occurrences."
+  },
+  {
+    "objectID": "04_evaluation.html#training-the-model",
+    "href": "04_evaluation.html#training-the-model",
+    "title": "Evaluation",
+    "section": "Training the model",
+    "text": "Training the model\n\ntrain_dicts = X_train.to_dict(orient='records')\nval_dicts = X_val.to_dict(orient='records')\n\ndv = DictVectorizer(sparse=False)\nX_train_encoded = dv.fit_transform(train_dicts)\nX_val_encoded = dv.transform(val_dicts)\n\nmodel = LogisticRegression(solver='liblinear', C=1.0, max_iter=1000)\nmodel.fit(X_train_encoded, y_train)\n\ny_val_pred = model.predict_proba(X_val_encoded)[:, 1]\n\nauc = roc_auc_score(y_val, y_val_pred &gt;= 0.5)\nprint(f\"AUC on validation dataset: {round(auc, 3)}\")\n\nAUC on validation dataset: 0.691"
+  },
+  {
+    "objectID": "04_evaluation.html#percision-and-recall",
+    "href": "04_evaluation.html#percision-and-recall",
+    "title": "Evaluation",
+    "section": "Percision and Recall",
+    "text": "Percision and Recall\n\nscores = []\n\nthresholds = np.arange(0.0, 1.01, 0.01)\n\nfor t in thresholds:\n    actual_positive = (y_val == 1)\n    actual_negative = (y_val == 0)\n\n    predict_positive = (y_val_pred &gt;= t)\n    predict_negative = (y_val_pred &lt; t)\n\n    TP = (predict_positive & actual_positive).sum()\n    TN = (predict_negative & actual_negative).sum()\n\n    FP = (predict_positive & actual_negative).sum()\n    FN = (predict_negative & actual_positive).sum()\n\n    if TP + FP &gt; 0:\n        precision = TP / (TP + FP)\n    else:\n        precision = 0.0\n\n    if TP + FN &gt; 0:\n        recall = TP / (TP + FN)\n    else:\n        recall = 0.0\n\n    scores.append([t, precision, recall])\n\ndf_scores = pd.DataFrame(data=scores, columns=[\"threshold\", \"precision\", \"recall\"])\n\nplt.plot(df_scores.threshold, df_scores.precision, label='Precision')\nplt.plot(df_scores.threshold, df_scores.recall, label='Recall')\nplt.xlabel('Threshold')\nplt.ylabel('Score')\nplt.legend()\nplt.grid()\n\n\n\n\n\n\n\n\n\nprecisions = df_scores.precision\nrecalls = df_scores.recall\n\ndifferences = np.abs(precisions - recalls)\nintersection_idx = np.argmin(differences)\nintersection_threshold = thresholds[intersection_idx]\n\nprint(f\"Precision and recall intersect at threshold: {intersection_threshold:.3f}\")\nprint(f\"Precision: {precisions[intersection_idx]:.3f}\")\nprint(f\"Recall: {recalls[intersection_idx]:.3f}\")\n\nPrecision and recall intersect at threshold: 0.590\nPrecision: 0.807\nRecall: 0.807"
+  },
+  {
+    "objectID": "04_evaluation.html#f1-score",
+    "href": "04_evaluation.html#f1-score",
+    "title": "Evaluation",
+    "section": "F1 score",
+    "text": "F1 score\n\ndf_scores[\"f1\"] = 2*(df_scores.precision * df_scores.recall) / (df_scores.precision + df_scores.recall)\nmax_score_row = df_scores[df_scores.f1 == df_scores.f1.max()]\nprint(max_score_row)\n\nplt.plot(df_scores.threshold, df_scores.f1, label='F1')\nplt.xlabel('Threshold')\nplt.ylabel('F1 Score')\nplt.axvline(x=float(max_score_row.iloc[0].threshold), color='r', linestyle='--')\n\n    threshold  precision    recall        f1\n47       0.47   0.767932  0.947917  0.848485"
+  },
+  {
+    "objectID": "04_evaluation.html#fold-cross-validataion",
+    "href": "04_evaluation.html#fold-cross-validataion",
+    "title": "Evaluation",
+    "section": "5-fold cross validataion",
+    "text": "5-fold cross validataion\n\nX_train_full = np.concatenate([X_train_encoded, X_val_encoded], axis=0)\ny_train_full = np.concatenate([y_train, y_val], axis=0)\n\nprint(f\"X_train_full shape: {X_train_full.shape}\")\nprint(f\"y_train_full shape: {y_train_full.shape}\")\n\nkfold = KFold(n_splits=5, shuffle=True, random_state=1)\n\nauc_scores = []\n\nfor fold, (train_idx, val_idx) in enumerate(kfold.split(X_train_full), 1):\n    X_fold_train = X_train_full[train_idx]\n    X_fold_val = X_train_full[val_idx]\n    \n    y_fold_train = y_train_full[train_idx]\n    y_fold_val = y_train_full[val_idx]\n    \n    model_fold = LogisticRegression(solver='liblinear', C=1.0, max_iter=1000)\n    model_fold.fit(X_fold_train, y_fold_train)\n    \n    y_fold_pred = model_fold.predict_proba(X_fold_val)[:, 1]\n    auc_fold = roc_auc_score(y_fold_val, y_fold_pred)\n    auc_scores.append(auc_fold)\n    \n    print(f\"Fold {fold}: AUC = {auc_fold:.4f}\")\n\n# Calculate statistics\nauc_scores = np.array(auc_scores)\nmean_auc = auc_scores.mean()\nstd_auc = auc_scores.std()\n\nprint(f\"Mean AUC: {mean_auc:.4f} +- {std_auc:.4f}\")\n\nX_train_full shape: (1169, 31)\ny_train_full shape: (1169,)\nFold 1: AUC = 0.8067\nFold 2: AUC = 0.8068\nFold 3: AUC = 0.8648\nFold 4: AUC = 0.8334\nFold 5: AUC = 0.8154\nMean AUC: 0.8254 +- 0.0220"
+  },
+  {
+    "objectID": "04_evaluation.html#hyperparameter-tuning",
+    "href": "04_evaluation.html#hyperparameter-tuning",
+    "title": "Evaluation",
+    "section": "Hyperparameter tuning",
+    "text": "Hyperparameter tuning\n\nC_values = [0.000001, 0.001, 1]\n\nkfold = KFold(n_splits=5, shuffle=True, random_state=1)\n\nresults = {}\n\nfor C in C_values:\n    print(f\"Testing C = {C}\")\n    auc_scores = []\n\n    for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train_full), 1):\n        X_fold_train = X_train_full[train_idx]\n        X_fold_val = X_train_full[val_idx]\n        \n        y_fold_train = y_train_full[train_idx]\n        y_fold_val = y_train_full[val_idx]\n        \n        model_fold = LogisticRegression(solver='liblinear', C=C, max_iter=1000)\n        model_fold.fit(X_fold_train, y_fold_train)\n        \n        y_fold_pred = model_fold.predict_proba(X_fold_val)[:, 1]\n        auc_fold = roc_auc_score(y_fold_val, y_fold_pred)\n        auc_scores.append(auc_fold)\n    \n    auc_scores = np.array(auc_scores)\n    mean_auc = round(auc_scores.mean(), 3)\n    std_auc = round(auc_scores.std(), 3)\n    \n    results[C] = {'mean': mean_auc, 'std': std_auc}\n    print(f\"C = {C}: mean AUC = {mean_auc}, std = {std_auc}\")\n\nfor C in C_values:\n    print(f\"C = {C:&gt;8}: mean = {results[C]['mean']:.3f}, std = {results[C]['std']:.3f}\")\n\nbest_mean = max(r['mean'] for r in results.values())\ncandidates = [C for C in C_values if results[C]['mean'] == best_mean]\nbest_C = min(candidates)\n\nprint(f\"Best C: {best_C} (mean = {results[best_C]['mean']:.3f}, std = {results[best_C]['std']:.3f})\")\n\nTesting C = 1e-06\nC = 1e-06: mean AUC = 0.543, std = 0.025\nTesting C = 0.001\nC = 0.001: mean AUC = 0.864, std = 0.014\nTesting C = 1\nC = 1: mean AUC = 0.825, std = 0.022\nC =    1e-06: mean = 0.543, std = 0.025\nC =    0.001: mean = 0.864, std = 0.014\nC =        1: mean = 0.825, std = 0.022\nBest C: 0.001 (mean = 0.864, std = 0.014)"
+  },
+  {
+    "objectID": "06_trees.html",
+    "href": "06_trees.html",
+    "title": "Trees",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nimport xgboost as xgb\n\n%matplotlib inline\n\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeRegressor, export_text, plot_tree\nfrom sklearn.feature_extraction import DictVectorizer\n\nfrom sklearn.ensemble import RandomForestRegressor\n\ndef rmse(y, y_pred):\n    err = y - y_pred\n    se = err ** 2\n    mse = se.mean()\n    return np.sqrt(mse)"
+  },
+  {
+    "objectID": "06_trees.html#import-library",
+    "href": "06_trees.html#import-library",
+    "title": "Trees",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nimport xgboost as xgb\n\n%matplotlib inline\n\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeRegressor, export_text, plot_tree\nfrom sklearn.feature_extraction import DictVectorizer\n\nfrom sklearn.ensemble import RandomForestRegressor\n\ndef rmse(y, y_pred):\n    err = y - y_pred\n    se = err ** 2\n    mse = se.mean()\n    return np.sqrt(mse)"
+  },
+  {
+    "objectID": "06_trees.html#data-preparation",
+    "href": "06_trees.html#data-preparation",
+    "title": "Trees",
+    "section": "Data preparation",
+    "text": "Data preparation\n\ndf = pd.read_csv(\"https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv\")\ndf.head()\n\n\n\n\n\n\n\n\nengine_displacement\nnum_cylinders\nhorsepower\nvehicle_weight\nacceleration\nmodel_year\norigin\nfuel_type\ndrivetrain\nnum_doors\nfuel_efficiency_mpg\n\n\n\n\n0\n170\n3.0\n159.0\n3413.433759\n17.7\n2003\nEurope\nGasoline\nAll-wheel drive\n0.0\n13.231729\n\n\n1\n130\n5.0\n97.0\n3149.664934\n17.8\n2007\nUSA\nGasoline\nFront-wheel drive\n0.0\n13.688217\n\n\n2\n170\nNaN\n78.0\n3079.038997\n15.1\n2018\nEurope\nGasoline\nFront-wheel drive\n0.0\n14.246341\n\n\n3\n220\n4.0\nNaN\n2542.392402\n20.2\n2009\nUSA\nDiesel\nAll-wheel drive\n2.0\n16.912736\n\n\n4\n210\n1.0\n140.0\n3460.870990\n14.4\n2009\nEurope\nGasoline\nAll-wheel drive\n2.0\n12.488369\n\n\n\n\n\n\n\n\ndf_car = df.fillna(0)\ndf.isnull().sum()\n\nengine_displacement      0\nnum_cylinders          482\nhorsepower             708\nvehicle_weight           0\nacceleration           930\nmodel_year               0\norigin                   0\nfuel_type                0\ndrivetrain               0\nnum_doors              502\nfuel_efficiency_mpg      0\ndtype: int64\n\n\n\nPartitioning data\n\ndf_full_train, df_test = train_test_split(df_car, test_size=0.2, random_state=1)\ndf_train, df_val = train_test_split(df_full_train, test_size=0.25, random_state=1)\n\ndf_train = df_train.reset_index(drop=True)\ndf_val = df_val.reset_index(drop=True)\ndf_test = df_test.reset_index(drop=True)\n\ny_train = df_train.fuel_efficiency_mpg.values\ny_val = df_val.fuel_efficiency_mpg.values\ny_test = df_test.fuel_efficiency_mpg.values\n\ndel df_train[\"fuel_efficiency_mpg\"]\ndel df_val[\"fuel_efficiency_mpg\"]\ndel df_test[\"fuel_efficiency_mpg\"]\n\n\n\nOne-hot encoding\n\ntrain_dicts = df_train.to_dict(orient=\"records\")\nval_dicts = df_val.to_dict(orient=\"records\")\n\ndv = DictVectorizer(sparse=False)\n\nX_train = dv.fit_transform(train_dicts)\nX_val = dv.transform(val_dicts)"
+  },
+  {
+    "objectID": "06_trees.html#decision-tree-regressor",
+    "href": "06_trees.html#decision-tree-regressor",
+    "title": "Trees",
+    "section": "Decision tree regressor",
+    "text": "Decision tree regressor\n\ndt = DecisionTreeRegressor(max_depth=1)\ndt.fit(X_train, y_train)\n\nprint(export_text(dt, feature_names=dv.get_feature_names_out()))\n\n|--- vehicle_weight &lt;= 3022.11\n|   |--- value: [16.88]\n|--- vehicle_weight &gt;  3022.11\n|   |--- value: [12.94]\n\n\n\nvehicle_weight is used for splitting the data"
+  },
+  {
+    "objectID": "06_trees.html#random-forest-regressor",
+    "href": "06_trees.html#random-forest-regressor",
+    "title": "Trees",
+    "section": "Random forest regressor",
+    "text": "Random forest regressor\n\nrf = RandomForestRegressor(n_estimators=10, random_state=1, n_jobs=-1)\nrf.fit(X_train, y_train)\n\ny_pred = rf.predict(X_val)\nprint('RMSE on the validation dataset = %.5f' % rmse(y_val, y_pred))\n\nRMSE on the validation dataset = 0.45998\n\n\n\nTuning hyperparameter\n\nNumber of estimators\n\nscores = []\nfor n in range(10, 201, 10):\n    rf = RandomForestRegressor(n_estimators=n, random_state=1, n_jobs=-1)\n    rf.fit(X_train, y_train)\n\n    y_pred = rf.predict(X_val)\n    rmse_val = rmse(y_val, y_pred)\n    print('n_estimators=%d RMSE=%.3f' % (n, rmse_val))\n\n    scores.append((n, rmse_val))\n\nn_estimators=10 RMSE=0.460\nn_estimators=20 RMSE=0.454\nn_estimators=30 RMSE=0.451\nn_estimators=40 RMSE=0.448\nn_estimators=50 RMSE=0.446\nn_estimators=60 RMSE=0.445\nn_estimators=70 RMSE=0.445\nn_estimators=80 RMSE=0.445\nn_estimators=90 RMSE=0.445\nn_estimators=100 RMSE=0.444\nn_estimators=110 RMSE=0.443\nn_estimators=120 RMSE=0.444\nn_estimators=130 RMSE=0.443\nn_estimators=140 RMSE=0.443\nn_estimators=150 RMSE=0.443\nn_estimators=160 RMSE=0.443\nn_estimators=170 RMSE=0.443\nn_estimators=180 RMSE=0.442\nn_estimators=190 RMSE=0.443\nn_estimators=200 RMSE=0.443\n\n\n\ndf_scores = pd.DataFrame(scores, columns=['n_estimators', 'rmse'])\nplt.plot(df_scores.n_estimators, df_scores.rmse)\n\n\n\n\n\n\n\n\n\n\nMax depth\n\nscores = []\nmean_rmse = []\nfor d in [10, 15, 20, 25]:\n    for n in range(10, 201, 10):\n        rf = RandomForestRegressor(n_estimators=n, max_depth=d, random_state=1, n_jobs=-1)\n        rf.fit(X_train, y_train)\n\n        y_pred = rf.predict(X_val)\n        rmse_val = rmse(y_val, y_pred)\n        # print('max_depth=%d n_estimators=%d RMSE=%.3f' % (d, n, rmse_val))\n\n        scores.append((d, n, rmse_val))\n    \n    # Calculate mean RMSE for this depth\n    rmse_values = [s[2] for s in scores if s[0] == d]\n    mean_rmse.append((d, np.mean(rmse_values)))\n\ndf_scores = pd.DataFrame(scores, columns=['max_depth', 'n_estimators', 'rmse'])\ndf_scores\n\n\n\n\n\n\n\n\nmax_depth\nn_estimators\nrmse\n\n\n\n\n0\n10\n10\n0.451895\n\n\n1\n10\n20\n0.448719\n\n\n2\n10\n30\n0.446225\n\n\n3\n10\n40\n0.443877\n\n\n4\n10\n50\n0.442682\n\n\n...\n...\n...\n...\n\n\n75\n25\n160\n0.442689\n\n\n76\n25\n170\n0.442767\n\n\n77\n25\n180\n0.442415\n\n\n78\n25\n190\n0.442618\n\n\n79\n25\n200\n0.442660\n\n\n\n\n80 rows × 3 columns\n\n\n\n\nmean_rmse\n\n[(10, np.float64(0.44232130237115186)),\n (15, np.float64(0.4450599992013743)),\n (20, np.float64(0.4456441321803526)),\n (25, np.float64(0.44566060000292457))]\n\n\n\n\n\nFeature importance\n\nrf = RandomForestRegressor(n_estimators=10, max_depth=20, random_state=1, n_jobs=-1)\nrf.fit(X_train, y_train)\n\nimportances = rf.feature_importances_\nfeature_names = dv.get_feature_names_out()\nfeature_importances = pd.Series(importances, index=feature_names).sort_values(ascending=False)\nfeature_importances\n\nvehicle_weight                  0.959162\nhorsepower                      0.016040\nacceleration                    0.011471\nengine_displacement             0.003269\nmodel_year                      0.003182\nnum_cylinders                   0.002359\nnum_doors                       0.001591\norigin=USA                      0.000555\norigin=Europe                   0.000520\norigin=Asia                     0.000476\ndrivetrain=All-wheel drive      0.000382\nfuel_type=Diesel                0.000344\nfuel_type=Gasoline              0.000337\ndrivetrain=Front-wheel drive    0.000312\ndtype: float64\n\n\n\nsns.barplot(x=feature_importances.values, y=feature_importances.index)"
+  },
+  {
+    "objectID": "06_trees.html#xgboost-regressor",
+    "href": "06_trees.html#xgboost-regressor",
+    "title": "Trees",
+    "section": "XGBoost Regressor",
+    "text": "XGBoost Regressor\n\nfeatures = dv.get_feature_names_out().tolist()\ndtrain = xgb.DMatrix(X_train, label=y_train, feature_names=features)\ndval = xgb.DMatrix(X_val, label=y_val, feature_names=features)\nwatchlist = [(dtrain, 'train'), (dval, 'val')]\n\n\nxgb_params = {\n    'eta': 0.3, \n    'max_depth': 6,\n    'min_child_weight': 1,\n    \n    'objective': 'reg:squarederror',\n    'nthread': 8,\n    \n    'seed': 1,\n    'verbosity': 1,\n}\nmodel = xgb.train(xgb_params, dtrain, num_boost_round=100)\n\ny_pred = model.predict(dval)\nrmse(y_val, y_pred)\n\nnp.float64(0.45017755678087246)\n\n\n\nxgb_params = {\n    'eta': 0.1, \n    'max_depth': 6,\n    'min_child_weight': 1,\n    \n    'objective': 'reg:squarederror',\n    'nthread': 8,\n    \n    'seed': 1,\n    'verbosity': 1,\n}\n\nmodel = xgb.train(xgb_params, dtrain, num_boost_round=100)\n\ny_pred = model.predict(dval)\nrmse(y_val, y_pred)\n\nnp.float64(0.42622800553359225)\n\n\nThe best RMSE score is achieved from eta=0.1 with 0.426"
+  }
+]
