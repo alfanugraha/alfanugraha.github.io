@@ -3922,6 +3922,10 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <a class="nav-link" href="./05_development.html"> 
 <span class="menu-text">Deployment</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./06_trees.html"> 
+<span class="menu-text">Trees</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -3994,7 +3998,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 
 <section id="load-library" class="level2">
 <h2 class="anchored" data-anchor-id="load-library">Load library</h2>
-<div id="551419be" class="cell" data-execution_count="1">
+<div id="4a3d61c5" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4006,7 +4010,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="define-function" class="level2">
 <h2 class="anchored" data-anchor-id="define-function">Define function</h2>
-<div id="c62c3e20" class="cell" data-execution_count="2">
+<div id="b7910c64" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_linear_regression(X, y):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    ones <span class="op">=</span> np.ones(X.shape[<span class="dv">0</span>])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.column_stack([ones, X])</span>
@@ -4038,7 +4042,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
-<div id="6614ff4f" class="cell" data-execution_count="3">
+<div id="5b34a10b" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>car <span class="op">=</span> pd.read_csv(<span class="st">&#39;https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv&#39;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>car.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -4139,7 +4143,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 </div>
-<div id="eac5b591" class="cell" data-execution_count="4">
+<div id="fb16ce29" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> [<span class="st">&#39;engine_displacement&#39;</span>, <span class="st">&#39;horsepower&#39;</span>, <span class="st">&#39;vehicle_weight&#39;</span>, <span class="st">&#39;model_year&#39;</span>, <span class="st">&#39;fuel_efficiency_mpg&#39;</span>]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> car[base].copy()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4207,7 +4211,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 <section id="distribution-of-fuel-mpg" class="level3">
 <h3 class="anchored" data-anchor-id="distribution-of-fuel-mpg">Distribution of fuel mpg</h3>
-<div id="a1d12e29" class="cell" data-execution_count="5">
+<div id="9f2ab154" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sns.histplot(df.fuel_efficiency_mpg, bins<span class="op">=</span><span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -4221,7 +4225,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="handling-missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="handling-missing-values">Handling missing values</h3>
-<div id="60275acf" class="cell" data-execution_count="6">
+<div id="b45f39dd" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>engine_displacement      0
@@ -4236,7 +4240,7 @@ dtype: int64</code></pre>
 </section>
 <section id="median-of-horsepower" class="level3">
 <h3 class="anchored" data-anchor-id="median-of-horsepower">Median of <code>horsepower</code></h3>
-<div id="7378a294" class="cell" data-execution_count="7">
+<div id="1c49e861" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>median_horsepower <span class="op">=</span> df.horsepower.median()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>median_horsepower</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -4247,7 +4251,7 @@ dtype: int64</code></pre>
 </section>
 <section id="setup-the-framework" class="level2">
 <h2 class="anchored" data-anchor-id="setup-the-framework">Setup the framework</h2>
-<div id="6c260f2c" class="cell" data-execution_count="8">
+<div id="a86b8ab5" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(df)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>n_val <span class="op">=</span> <span class="bu">int</span>(n <span class="op">*</span> <span class="fl">0.2</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>n_test <span class="op">=</span> <span class="bu">int</span>(n <span class="op">*</span> <span class="fl">0.2</span>)</span>
@@ -4260,7 +4264,7 @@ dtype: int64</code></pre>
 <section id="data-partitioning" class="level3">
 <h3 class="anchored" data-anchor-id="data-partitioning">Data partitioning</h3>
 <p>Split the data in train/val/test sets, with 60%/20%/20% distribution.</p>
-<div id="02533f0c" class="cell" data-execution_count="9">
+<div id="8ef01fc4" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>n_val, n_test, n_train</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(1940, 1940, 5824)</code></pre>
@@ -4270,7 +4274,7 @@ dtype: int64</code></pre>
 <section id="data-shuffling" class="level3">
 <h3 class="anchored" data-anchor-id="data-shuffling">Data shuffling</h3>
 <p>Shuffle the dataset, I use seed <code>42</code>.</p>
-<div id="fa8d9df8" class="cell" data-execution_count="10">
+<div id="fdefdd91" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># let&#39;s shuffle the records with index</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> np.arange(n)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
@@ -4343,7 +4347,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="789ff8a1" class="cell" data-execution_count="11">
+<div id="34de0f27" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df_train), <span class="bu">len</span>(df_val), <span class="bu">len</span>(df_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>(5824, 1940, 1940)</code></pre>
@@ -4352,7 +4356,7 @@ dtype: int64</code></pre>
 </section>
 <section id="restating-the-index" class="level3">
 <h3 class="anchored" data-anchor-id="restating-the-index">Restating the index</h3>
-<div id="0202d7d0" class="cell" data-execution_count="12">
+<div id="714bd33c" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> df_train.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df_val <span class="op">=</span> df_val.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> df_test.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
@@ -4375,7 +4379,7 @@ dtype: int64</code></pre>
 </section>
 <section id="baseline-model-to-predict-fuel_efficiency_mpg" class="level2">
 <h2 class="anchored" data-anchor-id="baseline-model-to-predict-fuel_efficiency_mpg">Baseline model to predict <code>fuel_efficiency_mpg</code></h2>
-<div id="63f9e4b1" class="cell" data-execution_count="13">
+<div id="48e730f7" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">&#39;engine_displacement&#39;</span>, <span class="st">&#39;horsepower&#39;</span>, <span class="st">&#39;vehicle_weight&#39;</span>, <span class="st">&#39;model_year&#39;</span>]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prepare_X_0(df):</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.copy()</span>
@@ -4400,7 +4404,7 @@ dtype: int64</code></pre>
 </div>
 <section id="with-0-for-missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="with-0-for-missing-values">With <code>0</code> for missing values</h3>
-<div id="92cc7e82" class="cell" data-execution_count="14">
+<div id="62c09473" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> prepare_X_0(df_train)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>w0, w <span class="op">=</span> train_linear_regression(X_train, y_train)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> w0 <span class="op">+</span> X_train.dot(w)</span>
@@ -4413,7 +4417,7 @@ dtype: int64</code></pre>
 </section>
 <section id="with-mean-for-missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="with-mean-for-missing-values">With <code>mean</code> for missing values</h3>
-<div id="55f55cd5" class="cell" data-execution_count="15">
+<div id="1fec79f8" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> prepare_X_mean(df_train)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>w0, w <span class="op">=</span> train_linear_regression(X_train, y_train)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> w0 <span class="op">+</span> X_train.dot(w)</span>
@@ -4427,7 +4431,7 @@ dtype: int64</code></pre>
 <section id="which-options-gives-better-rmse" class="level3">
 <h3 class="anchored" data-anchor-id="which-options-gives-better-rmse">Which options gives better RMSE?</h3>
 <p>Improve model with validation data set</p>
-<div id="43279a28" class="cell" data-execution_count="16">
+<div id="7c3a8f45" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> prepare_X_0(df_train)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>w0, w <span class="op">=</span> train_linear_regression(X_train, y_train)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4439,7 +4443,7 @@ dtype: int64</code></pre>
 <pre><code>np.float64(0.52)</code></pre>
 </div>
 </div>
-<div id="454b4a39" class="cell" data-execution_count="17">
+<div id="9bef53d3" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> prepare_X_mean(df_train)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>w0, w <span class="op">=</span> train_linear_regression(X_train, y_train)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4456,7 +4460,7 @@ dtype: int64</code></pre>
 </section>
 <section id="best-regularization-parameter" class="level2">
 <h2 class="anchored" data-anchor-id="best-regularization-parameter">Best regularization parameter</h2>
-<div id="c6ed9eda" class="cell" data-execution_count="18">
+<div id="89b42eb4" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> [<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">100</span>]:</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    X_train <span class="op">=</span> prepare_X_0(df_train)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    w0, w <span class="op">=</span> train_linear_regression_reg(X_train, y_train, r<span class="op">=</span>r)</span>
@@ -4480,7 +4484,7 @@ dtype: int64</code></pre>
 </section>
 <section id="rmse-standard-deviation" class="level2">
 <h2 class="anchored" data-anchor-id="rmse-standard-deviation">RMSE Standard Deviation</h2>
-<div id="e4f6be13" class="cell" data-execution_count="19">
+<div id="3c60ddb9" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>all_scores <span class="op">=</span> []</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seed <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]:</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    np.random.seed(seed)</span>
@@ -4526,7 +4530,7 @@ dtype: int64</code></pre>
 9 27.513852582351465 0.513186590829269</code></pre>
 </div>
 </div>
-<div id="0953356e" class="cell" data-execution_count="20">
+<div id="ba4ca723" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>np.std(all_scores).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>np.float64(0.007)</code></pre>
@@ -4535,7 +4539,7 @@ dtype: int64</code></pre>
 </section>
 <section id="evaluation-on-test" class="level2">
 <h2 class="anchored" data-anchor-id="evaluation-on-test">Evaluation on test</h2>
-<div id="c08308b5" class="cell" data-execution_count="21">
+<div id="f0b6eb9d" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">9</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> np.arange(n)</span>
