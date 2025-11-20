@@ -3926,6 +3926,10 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <a class="nav-link active" href="./06_trees.html" aria-current="page"> 
 <span class="menu-text">Trees</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./stroke.html"> 
+<span class="menu-text">Study Case</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -3988,7 +3992,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 
 <section id="import-library" class="level2">
 <h2 class="anchored" data-anchor-id="import-library">Import library</h2>
-<div id="ec0a7d47" class="cell" data-execution_count="1">
+<div id="8a6fbb0d" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4014,7 +4018,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
-<div id="f87c54f1" class="cell" data-execution_count="2">
+<div id="66eca5b8" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/alexeygrigorev/datasets/master/car_fuel_efficiency.csv&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -4115,7 +4119,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 </div>
-<div id="cb66e207" class="cell" data-execution_count="3">
+<div id="653a7f44" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_car <span class="op">=</span> df.fillna(<span class="dv">0</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -4135,7 +4139,7 @@ dtype: int64</code></pre>
 </div>
 <section id="partitioning-data" class="level3">
 <h3 class="anchored" data-anchor-id="partitioning-data">Partitioning data</h3>
-<div id="cc5e9bcc" class="cell" data-execution_count="4">
+<div id="31bb46d2" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_full_train, df_test <span class="op">=</span> train_test_split(df_car, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_train, df_val <span class="op">=</span> train_test_split(df_full_train, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4154,7 +4158,7 @@ dtype: int64</code></pre>
 </section>
 <section id="one-hot-encoding" class="level3">
 <h3 class="anchored" data-anchor-id="one-hot-encoding">One-hot encoding</h3>
-<div id="6c59c1af" class="cell" data-execution_count="5">
+<div id="e4c17e2f" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>train_dicts <span class="op">=</span> df_train.to_dict(orient<span class="op">=</span><span class="st">&quot;records&quot;</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>val_dicts <span class="op">=</span> df_val.to_dict(orient<span class="op">=</span><span class="st">&quot;records&quot;</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4167,7 +4171,7 @@ dtype: int64</code></pre>
 </section>
 <section id="decision-tree-regressor" class="level2">
 <h2 class="anchored" data-anchor-id="decision-tree-regressor">Decision tree regressor</h2>
-<div id="ea2f21ef" class="cell" data-execution_count="6">
+<div id="e4b30e3f" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dt.fit(X_train, y_train)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4184,7 +4188,7 @@ dtype: int64</code></pre>
 </section>
 <section id="random-forest-regressor" class="level2">
 <h2 class="anchored" data-anchor-id="random-forest-regressor">Random forest regressor</h2>
-<div id="228fb0ad" class="cell" data-execution_count="7">
+<div id="360fcef4" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">1</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rf.fit(X_train, y_train)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4198,7 +4202,7 @@ dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="tuning-hyperparameter">Tuning hyperparameter</h3>
 <section id="number-of-estimators" class="level4">
 <h4 class="anchored" data-anchor-id="number-of-estimators">Number of estimators</h4>
-<div id="91e7e629" class="cell" data-execution_count="8">
+<div id="3d1a8b3a" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> []</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">201</span>, <span class="dv">10</span>):</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    rf <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span>n, random_state<span class="op">=</span><span class="dv">1</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
@@ -4232,7 +4236,7 @@ n_estimators=190 RMSE=0.443
 n_estimators=200 RMSE=0.443</code></pre>
 </div>
 </div>
-<div id="cfb1f744" class="cell" data-execution_count="9">
+<div id="ccf557e5" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_scores <span class="op">=</span> pd.DataFrame(scores, columns<span class="op">=</span>[<span class="st">&#39;n_estimators&#39;</span>, <span class="st">&#39;rmse&#39;</span>])</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(df_scores.n_estimators, df_scores.rmse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -4246,7 +4250,7 @@ n_estimators=200 RMSE=0.443</code></pre>
 </section>
 <section id="max-depth" class="level4">
 <h4 class="anchored" data-anchor-id="max-depth">Max depth</h4>
-<div id="e05da8bf" class="cell" data-execution_count="10">
+<div id="334e5d3c" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> []</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>mean_rmse <span class="op">=</span> []</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> d <span class="kw">in</span> [<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>]:</span>
@@ -4353,11 +4357,11 @@ n_estimators=200 RMSE=0.443</code></pre>
 </div>
 </div>
 </div>
-<div id="f3909f65" class="cell" data-execution_count="11">
+<div id="9dc1ca1f" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mean_rmse</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>[(10, np.float64(0.44232130237115186)),
- (15, np.float64(0.4450599992013743)),
+ (15, np.float64(0.44505999920137435)),
  (20, np.float64(0.4456441321803526)),
  (25, np.float64(0.44566060000292457))]</code></pre>
 </div>
@@ -4366,7 +4370,7 @@ n_estimators=200 RMSE=0.443</code></pre>
 </section>
 <section id="feature-importance" class="level3">
 <h3 class="anchored" data-anchor-id="feature-importance">Feature importance</h3>
-<div id="41d9aaeb" class="cell" data-execution_count="12">
+<div id="7a8475b8" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">10</span>, max_depth<span class="op">=</span><span class="dv">20</span>, random_state<span class="op">=</span><span class="dv">1</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>rf.fit(X_train, y_train)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4392,7 +4396,7 @@ drivetrain=Front-wheel drive    0.000312
 dtype: float64</code></pre>
 </div>
 </div>
-<div id="35a1769c" class="cell" data-execution_count="13">
+<div id="1d58b1a0" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span>feature_importances.values, y<span class="op">=</span>feature_importances.index)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -4406,13 +4410,13 @@ dtype: float64</code></pre>
 </section>
 <section id="xgboost-regressor" class="level2">
 <h2 class="anchored" data-anchor-id="xgboost-regressor">XGBoost Regressor</h2>
-<div id="ec12d6f7" class="cell" data-execution_count="14">
+<div id="dfe3efa2" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> dv.get_feature_names_out().tolist()</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dtrain <span class="op">=</span> xgb.DMatrix(X_train, label<span class="op">=</span>y_train, feature_names<span class="op">=</span>features)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>dval <span class="op">=</span> xgb.DMatrix(X_val, label<span class="op">=</span>y_val, feature_names<span class="op">=</span>features)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>watchlist <span class="op">=</span> [(dtrain, <span class="st">&#39;train&#39;</span>), (dval, <span class="st">&#39;val&#39;</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="bdd6d3a7" class="cell" data-execution_count="15">
+<div id="f7f53ae4" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>xgb_params <span class="op">=</span> {</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;eta&#39;</span>: <span class="fl">0.3</span>, </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;max_depth&#39;</span>: <span class="dv">6</span>,</span>
@@ -4432,7 +4436,7 @@ dtype: float64</code></pre>
 <pre><code>np.float64(0.45017755678087246)</code></pre>
 </div>
 </div>
-<div id="73d564db" class="cell" data-execution_count="16">
+<div id="7d04f146" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>xgb_params <span class="op">=</span> {</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;eta&#39;</span>: <span class="fl">0.1</span>, </span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;max_depth&#39;</span>: <span class="dv">6</span>,</span>
