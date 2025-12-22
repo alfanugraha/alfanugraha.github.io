@@ -319,13 +319,76 @@
     "href": "index.html#median-value-of-horsepower",
     "title": "Introduction",
     "section": "Median value of horsepower",
-    "text": "Median value of horsepower\n\ncar.horsepower\n\n0       159.0\n1        97.0\n2        78.0\n3         NaN\n4       140.0\n        ...  \n9699    164.0\n9700    154.0\n9701    138.0\n9702    177.0\n9703    140.0\nName: horsepower, Length: 9704, dtype: float64\n\n\n\nmed_before = car.horsepower.median()\nmed_before\n\nnp.float64(149.0)\n\n\n\nmost_freq = car.horsepower.mode()[0]\nmost_freq\n\nnp.float64(152.0)\n\n\n\ncar.horsepower = car.horsepower.fillna(most_freq)\ncar.horsepower\n\n0       159.0\n1        97.0\n2        78.0\n3       152.0\n4       140.0\n        ...  \n9699    164.0\n9700    154.0\n9701    138.0\n9702    177.0\n9703    140.0\nName: horsepower, Length: 9704, dtype: float64\n\n\n\nmed_after = car.horsepower.median()\nmed_after\n\nnp.float64(152.0)"
+    "text": "Median value of horsepower\n\ncar.horsepower\n\n0       159.0\n1        97.0\n2        78.0\n3         NaN\n4       140.0\n        ...  \n9699    164.0\n9700    154.0\n9701    138.0\n9702    177.0\n9703    140.0\nName: horsepower, Length: 9704, dtype: float64\n\n\n\nmed_before = car.horsepower.median()\nmed_before\n\n149.0\n\n\n\nmost_freq = car.horsepower.mode()[0]\nmost_freq\n\n152.0\n\n\n\ncar.horsepower = car.horsepower.fillna(most_freq)\ncar.horsepower\n\n0       159.0\n1        97.0\n2        78.0\n3       152.0\n4       140.0\n        ...  \n9699    164.0\n9700    154.0\n9701    138.0\n9702    177.0\n9703    140.0\nName: horsepower, Length: 9704, dtype: float64\n\n\n\nmed_after = car.horsepower.median()\nmed_after\n\n152.0"
   },
   {
     "objectID": "index.html#sum-of-weights",
     "href": "index.html#sum-of-weights",
     "title": "Introduction",
     "section": "Sum of weights",
-    "text": "Sum of weights\n\nasian_car = car[car['origin'] == 'Asia']\nasian_car\n\n\n\n\n\n\n\n\nengine_displacement\nnum_cylinders\nhorsepower\nvehicle_weight\nacceleration\nmodel_year\norigin\nfuel_type\ndrivetrain\nnum_doors\nfuel_efficiency_mpg\n\n\n\n\n8\n250\n1.0\n174.0\n2714.219310\n10.3\n2016\nAsia\nDiesel\nFront-wheel drive\n-1.0\n16.823554\n\n\n12\n320\n5.0\n145.0\n2783.868974\n15.1\n2010\nAsia\nDiesel\nAll-wheel drive\n1.0\n16.175820\n\n\n14\n200\n6.0\n160.0\n3582.687368\n14.9\n2007\nAsia\nDiesel\nAll-wheel drive\n0.0\n11.871091\n\n\n20\n150\n3.0\n197.0\n2231.808142\n18.7\n2011\nAsia\nGasoline\nFront-wheel drive\n1.0\n18.889083\n\n\n21\n160\n4.0\n133.0\n2659.431451\nNaN\n2016\nAsia\nGasoline\nFront-wheel drive\n-1.0\n16.077730\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n9688\n260\n4.0\n152.0\n3948.404625\n15.5\n2018\nAsia\nDiesel\nAll-wheel drive\n-1.0\n11.054830\n\n\n9692\n180\n3.0\n188.0\n3680.341381\n18.0\n2016\nAsia\nGasoline\nFront-wheel drive\n1.0\n11.711653\n\n\n9693\n280\n2.0\n148.0\n2545.070139\n15.6\n2012\nAsia\nDiesel\nAll-wheel drive\n0.0\n17.202782\n\n\n9698\n180\n1.0\n131.0\n3107.427820\n13.2\n2005\nAsia\nGasoline\nFront-wheel drive\n-2.0\n13.933716\n\n\n9703\n270\n3.0\n140.0\n2908.043477\n14.7\n2005\nAsia\nDiesel\nAll-wheel drive\n-1.0\n14.884467\n\n\n\n\n3247 rows × 11 columns\n\n\n\n\nsel_asian_car = asian_car[['vehicle_weight', 'model_year']].head(7)\nsel_asian_car \n\n\n\n\n\n\n\n\nvehicle_weight\nmodel_year\n\n\n\n\n8\n2714.219310\n2016\n\n\n12\n2783.868974\n2010\n\n\n14\n3582.687368\n2007\n\n\n20\n2231.808142\n2011\n\n\n21\n2659.431451\n2016\n\n\n34\n2844.227534\n2014\n\n\n38\n3761.994038\n2019\n\n\n\n\n\n\n\n\nX = sel_asian_car.values\nX\n\narray([[2714.21930965, 2016.        ],\n       [2783.86897424, 2010.        ],\n       [3582.68736772, 2007.        ],\n       [2231.8081416 , 2011.        ],\n       [2659.43145076, 2016.        ],\n       [2844.22753389, 2014.        ],\n       [3761.99403819, 2019.        ]])\n\n\n\nXTX = X.T.dot(X)\nXTX_inv = np.linalg.inv(XTX)\ny = np.array([1100, 1300, 800, 900, 1000, 1100, 1200])\nw = XTX_inv.dot(X.T).dot(y)\nw.sum()\n\nnp.float64(0.5187709081074016)"
+    "text": "Sum of weights\n\nasian_car = car[car['origin'] == 'Asia']\nasian_car\n\n\n\n\n\n\n\n\nengine_displacement\nnum_cylinders\nhorsepower\nvehicle_weight\nacceleration\nmodel_year\norigin\nfuel_type\ndrivetrain\nnum_doors\nfuel_efficiency_mpg\n\n\n\n\n8\n250\n1.0\n174.0\n2714.219310\n10.3\n2016\nAsia\nDiesel\nFront-wheel drive\n-1.0\n16.823554\n\n\n12\n320\n5.0\n145.0\n2783.868974\n15.1\n2010\nAsia\nDiesel\nAll-wheel drive\n1.0\n16.175820\n\n\n14\n200\n6.0\n160.0\n3582.687368\n14.9\n2007\nAsia\nDiesel\nAll-wheel drive\n0.0\n11.871091\n\n\n20\n150\n3.0\n197.0\n2231.808142\n18.7\n2011\nAsia\nGasoline\nFront-wheel drive\n1.0\n18.889083\n\n\n21\n160\n4.0\n133.0\n2659.431451\nNaN\n2016\nAsia\nGasoline\nFront-wheel drive\n-1.0\n16.077730\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n9688\n260\n4.0\n152.0\n3948.404625\n15.5\n2018\nAsia\nDiesel\nAll-wheel drive\n-1.0\n11.054830\n\n\n9692\n180\n3.0\n188.0\n3680.341381\n18.0\n2016\nAsia\nGasoline\nFront-wheel drive\n1.0\n11.711653\n\n\n9693\n280\n2.0\n148.0\n2545.070139\n15.6\n2012\nAsia\nDiesel\nAll-wheel drive\n0.0\n17.202782\n\n\n9698\n180\n1.0\n131.0\n3107.427820\n13.2\n2005\nAsia\nGasoline\nFront-wheel drive\n-2.0\n13.933716\n\n\n9703\n270\n3.0\n140.0\n2908.043477\n14.7\n2005\nAsia\nDiesel\nAll-wheel drive\n-1.0\n14.884467\n\n\n\n\n3247 rows × 11 columns\n\n\n\n\nsel_asian_car = asian_car[['vehicle_weight', 'model_year']].head(7)\nsel_asian_car \n\n\n\n\n\n\n\n\nvehicle_weight\nmodel_year\n\n\n\n\n8\n2714.219310\n2016\n\n\n12\n2783.868974\n2010\n\n\n14\n3582.687368\n2007\n\n\n20\n2231.808142\n2011\n\n\n21\n2659.431451\n2016\n\n\n34\n2844.227534\n2014\n\n\n38\n3761.994038\n2019\n\n\n\n\n\n\n\n\nX = sel_asian_car.values\nX\n\narray([[2714.21930965, 2016.        ],\n       [2783.86897424, 2010.        ],\n       [3582.68736772, 2007.        ],\n       [2231.8081416 , 2011.        ],\n       [2659.43145076, 2016.        ],\n       [2844.22753389, 2014.        ],\n       [3761.99403819, 2019.        ]])\n\n\n\nXTX = X.T.dot(X)\nXTX_inv = np.linalg.inv(XTX)\ny = np.array([1100, 1300, 800, 900, 1000, 1100, 1200])\nw = XTX_inv.dot(X.T).dot(y)\nw.sum()\n\n0.5187709081074007"
+  },
+  {
+    "objectID": "09_serverless.html",
+    "href": "09_serverless.html",
+    "title": "Serveless",
+    "section": "",
+    "text": "This work is based on the previous one. Need to download the data here:\n\nhttps://github.com/alexeygrigorev/large-datasets/releases/download/hairstyle/hair_classifier_v1.onnx\nhttps://github.com/alexeygrigorev/large-datasets/releases/download/hairstyle/hair_classifier_v1.onnx"
+  },
+  {
+    "objectID": "09_serverless.html#dataset",
+    "href": "09_serverless.html#dataset",
+    "title": "Serveless",
+    "section": "",
+    "text": "This work is based on the previous one. Need to download the data here:\n\nhttps://github.com/alexeygrigorev/large-datasets/releases/download/hairstyle/hair_classifier_v1.onnx\nhttps://github.com/alexeygrigorev/large-datasets/releases/download/hairstyle/hair_classifier_v1.onnx"
+  },
+  {
+    "objectID": "09_serverless.html#library-function",
+    "href": "09_serverless.html#library-function",
+    "title": "Serveless",
+    "section": "Library & function",
+    "text": "Library & function\n\nimport numpy as np\nimport onnxruntime as ort\n\nfrom io import BytesIO\nfrom urllib import request\n\nfrom PIL import Image\n\ndef download_image(url):\n    with request.urlopen(url) as resp:\n        buffer = resp.read()\n    stream = BytesIO(buffer)\n    img = Image.open(stream)\n    return img\n\ndef prepare_image(img, target_size):\n    if img.mode != 'RGB':\n        img = img.convert('RGB')\n    img = img.resize(target_size, Image.NEAREST)\n    return img"
+  },
+  {
+    "objectID": "09_serverless.html#load-model",
+    "href": "09_serverless.html#load-model",
+    "title": "Serveless",
+    "section": "Load model",
+    "text": "Load model\n\nonnx_model_path = \"../data/hair_classifier_v1.onnx\"\nsession = ort.InferenceSession(onnx_model_path, providers=[\"CPUExecutionProvider\"])\n\n\ninputs = session.get_inputs()\ninput_name = inputs[0].name\ninput_name\n\n'input'\n\n\n\noutputs = session.get_outputs()\noutput_name = outputs[0].name\noutputs[0]\n\n&lt;onnxruntime.capi.onnxruntime_pybind11_state.NodeArg at 0x2c680022270&gt;"
+  },
+  {
+    "objectID": "09_serverless.html#image-size",
+    "href": "09_serverless.html#image-size",
+    "title": "Serveless",
+    "section": "Image size",
+    "text": "Image size\n\nimg_url = \"https://habrastorage.org/webt/yf/_d/ok/yf_dokzqy3vcritme8ggnzqlvwa.jpeg\"\nimg = download_image(img_url)\n\nx = np.array(img)\nx.shape\n\n(1024, 1024, 3)\n\n\nResize\n\nimg_rz = prepare_image(img, (200, 200))\nimg_rz"
+  },
+  {
+    "objectID": "09_serverless.html#preprocessing",
+    "href": "09_serverless.html#preprocessing",
+    "title": "Serveless",
+    "section": "Preprocessing",
+    "text": "Preprocessing\n\nx = np.array(img_rz)\n\nx = x / 255.0 # scale to 0-1 (like ToTensor does)\n\n# normalize with ImageNet mean and std\nmean = np.array([0.485, 0.456, 0.406])\nstd = np.array([0.229, 0.224, 0.225])\nx = (x - mean) / std\n\nx[0, 0, 0]\n\n-1.0732939463995204"
+  },
+  {
+    "objectID": "09_serverless.html#model-output",
+    "href": "09_serverless.html#model-output",
+    "title": "Serveless",
+    "section": "Model output",
+    "text": "Model output\n\n# from (Height, Width, Channel) to (C, H, W) for PyTorch format\n# (200, 200, 3) -&gt; (3, 200, 200)\nx = np.transpose(x, (2, 0, 1))\n\n# For batch dimension: (C, H, W) -&gt; (1, C, H, W)\n# (3, 200, 200) -&gt; (1, 3, 200, 200)\nx = np.expand_dims(x, axis=0)\n\n# Convert to float32\nx = x.astype(np.float32)\n\nresult = session.run([output_name], {input_name: x})\nresult[0]\n\narray([[0.08927415]], dtype=float32)"
+  },
+  {
+    "objectID": "09_serverless.html#work-with-docker",
+    "href": "09_serverless.html#work-with-docker",
+    "title": "Serveless",
+    "section": "Work with docker",
+    "text": "Work with docker\ndocker images"
+  },
+  {
+    "objectID": "09_serverless.html#model-output-docker",
+    "href": "09_serverless.html#model-output-docker",
+    "title": "Serveless",
+    "section": "Model output docker",
+    "text": "Model output docker\ndocker run -it -rm --entrypoint=base hw09 -c \"python q6.py\""
   }
 ]
