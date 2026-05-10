@@ -1,0 +1,8 @@
+/.quarto/
+*_cache/
+.Rproj.user/
+*.Rproj
+
+**/*.quarto_ipynb
+*.qmd
+*.yml
