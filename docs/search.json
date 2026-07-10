@@ -11,7 +11,7 @@
     "href": "publications.html#journal-articles",
     "title": "Publications",
     "section": "Journal Articles",
-    "text": "Journal Articles\nA study protocol for a baseline community-based cross-sectional study to investigate malaria and dengue transmission dynamics in a development area of new capital city, Indonesia (2026) Pradana A, Oktaviani M, Prameswari H et al. Wellcome Open Research, 11:89.\n\nLand Use Change Modelling Using Logistic Regression, Random Forest and Additive Logistic Regression in Kubu Raya Regency, West Kalimantan (2023) Pradana, A.N., Djuraidah, A., and Soleh, A.M. Forum Geografi, 37(2), 149–163.\n\nAnalysis of the Effectiveness of Flash Floods Disaster Mitigation in Java Island (2022) Pradana, A.N., Fathina, A.N.F., Fitrianto, A., Sartono, B. and Oktarina, S.D. Sriwijaya Journal of Environment, 7(2), pp. 91–99."
+    "text": "Journal Articles\nA study protocol for a baseline community-based cross-sectional study to investigate malaria and dengue transmission dynamics in a development area of new capital city, Indonesia (2026) Pradana A, Oktaviani M, Prameswari H et al. Wellcome Open Research, 11:89. https://doi.org/10.12688/wellcomeopenres.25303.1\n\nLand Use Change Modelling Using Logistic Regression, Random Forest and Additive Logistic Regression in Kubu Raya Regency, West Kalimantan (2023) Pradana, A.N., Djuraidah, A., and Soleh, A.M. Forum Geografi, 37(2), 149–163. http://dx.doi.org/10.23917/forgeo.v37i2.23270\n\nAnalysis of the Effectiveness of Flash Floods Disaster Mitigation in Java Island (2022) Pradana, A.N., Fathina, A.N.F., Fitrianto, A., Sartono, B. and Oktarina, S.D. Sriwijaya Journal of Environment, 7(2), pp. 91–99. https://doi.org/10.22135/sje.2022.7.2.91-99"
   },
   {
     "objectID": "publications.html#popular-science-articles",
@@ -39,7 +39,7 @@
     "href": "index.html#skills",
     "title": "Alfa Nugraha Pradana",
     "section": "Skills",
-    "text": "Skills\n\n\nProgramming R · Python · C++ · HTML · CSS · JavaScript\nDatabases MySQL · PostgreSQL · MariaDB · MongoDB · Geodatabase\n\nData Visualisation Shiny · Streamlit · Earth Engine Apps · Tableau · Power BI\nTools Git · Quarto · R Markdown · LaTeX · QGIS · ArcGIS"
+    "text": "Skills\n\n\nProgramming R · Python · C++ · HTML · CSS · JavaScript\nDatabases MySQL · PostgreSQL · MariaDB · MongoDB · Geodatabase\n\nData Visualisation Shiny · Streamlit · Earth Engine Apps · Tableau · Power BI\nTools Git · Quarto · R Markdown · QGIS · ArcGIS"
   },
   {
     "objectID": "contact.html",
@@ -67,7 +67,7 @@
     "href": "blog/index.html",
     "title": "Blog",
     "section": "",
-    "text": "Welcome to My Blog\n\n\n\ngeneral\n\n\n\nAn introduction to this blog and what to expect.\n\n\n\n\n\nMay 10, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara\n\n\nMapping the Buffer Zone of Indonesia’s New Capital (IKN)\n\n\n\nGIS\n\nspatial analysis\n\nhealth\n\nQGIS\n\nIKN\n\nPenajam Paser Utara\n\n\n\nAnalysing accessibility of 18 healthcare facilities against the population of 54 villages in Penajam Paser Utara District, the buffer zone of Indonesia’s new capital IKN.\n\n\n\n\n\nJul 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome to My Blog\n\n\n\n\n\n\ngeneral\n\n\n\nAn introduction to this blog and what to expect.\n\n\n\n\n\nMay 10, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog/posts/welcome/index.html",
@@ -123,13 +123,90 @@
     "href": "cv.html#certifications",
     "title": "Curriculum Vitae",
     "section": "Certifications",
-    "text": "Certifications\nACA Cloud Computing Certification · Alibaba Cloud · May 2024 Credential ID: IACA01240500118126L\nData Science Certification · IFPRI · January 2021 Credential ID: 3PCGP6SC65WP"
+    "text": "Certifications\nGIS Analyst — Uji Kompetensi BNSP · Badan Nasional Sertifikasi Profesi (BNSP) · May 2026 Status: Kompeten (assessed 30 May 2026; certificate in process)\nBootcamp SIG: QGIS Level Dasar-Lanjutan · Geoaccess Indonesia · May 2026 Credential ID: 2382.P/Geoaccess/V/2026 Certificate\nGEE Training: Membangun Data Iklim Time Series · Geoaccess Indonesia · May 2026 Credential ID: 2267.P/Geoaccess/V/2026 Certificate\nGEE Training: Analisis Bahaya Kekeringan · Geoaccess Indonesia · May 2026 Credential ID: 2342.P/Geoaccess/V/2026 Certificate\nACA Cloud Computing Certification · Alibaba Cloud · May 2024 Credential ID: IACA01240500118126L\nData Science Certification · IFPRI · January 2021 Credential ID: 3PCGP6SC65WP\nSpatial Data Science: The New Frontier in Analytics · Esri · April 2020 Certificate"
   },
   {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "Selected tools, dashboards, and course materials I have developed.\n\n\nCourse Materials — Quarto & R Markdown\nTools: R, Quarto, R Markdown\nA collection of course materials published via RPubs, covering Computational Statistics, Statistical Data Management, Network Analysis, Spatial Statistics, and Machine Learning.\nView on RPubs\n\n\n\nIntroductory Statistics & Data Analysis — Shiny App\nTools: R, Shiny\nAn interactive web application introducing fundamental concepts in statistics and data analysis, designed for students in introductory statistics courses at IPB University.\nOpen app\n\n\n\nStatistical Modelling on Geospatial Data — Bookdown\nTools: R, Bookdown\nAn open online book on statistical modelling applied to geospatial data, covering spatial regression, small area estimation, and related topics.\nRead book\n\n\n\nInter-Regional Input-Output Analytical Dashboard\nTools: Python, Streamlit\nAn analytical dashboard for exploring Table Inter Regional Input Output (IRIO) data, enabling economic sector analysis across Indonesian regions.\nOpen dashboard\n\n\n\nAHP Simulation Dashboard\nTools: R, Shiny\nAn Analytic Hierarchy Process (AHP) simulation dashboard for supporting land use decision-making, built as part of landscape planning tools for natural resource management.\nOpen dashboard\n\n\n\nLUMENS — Land Use Planning for Multiple Environmental Services\nTools: Python, R, C++, HTML\nLed and contributed to the design, development, testing, and documentation of LUMENS — a modular application suite for sustainable landscape management used across Indonesia and Southeast Asia, developed at ICRAF/CIFOR-ICRAF (2013–2024)."
+    "text": "Selected tools, dashboards, and course materials I have developed.\n\n\nLUMENS — Land Use Planning for Multiple Environmental Services\nTools: Python, R, C++, HTML\nLed and contributed to the design, development, testing, and documentation of LUMENS — a modular application suite for sustainable landscape management used across Indonesia and Southeast Asia, developed at ICRAF/CIFOR-ICRAF (2013–2024).\nLUMENS official website\n\n\n\nStatistical Modelling on Geospatial Data — Bookdown\nTools: R, Bookdown\nAn open online book on statistical modelling applied to geospatial data, covering spatial regression, small area estimation, and related topics.\nRead book\n\n\n\nInter-Regional Input-Output Analytical Dashboard\nTools: Python, Streamlit\nAn analytical dashboard for exploring Table Inter Regional Input Output (IRIO) data, enabling economic sector analysis across Indonesian regions.\nOpen dashboard\n\n\n\nAHP Simulation Dashboard\nTools: R, Shiny\nAn Analytic Hierarchy Process (AHP) simulation dashboard for supporting land use decision-making, built as part of landscape planning tools for natural resource management.\nOpen dashboard\n\n\n\nCourse Materials — Quarto & R Markdown\nTools: R, Quarto, R Markdown\nA collection of course materials published via RPubs, covering Computational Statistics, Statistical Data Management, Network Analysis, Spatial Statistics, and Machine Learning.\nView on RPubs\n\n\n\nIntroductory Statistics & Data Analysis — Shiny App\nTools: R, Shiny\nAn interactive web application introducing fundamental concepts in statistics and data analysis, designed for students in introductory statistics courses at IPB University.\nOpen app"
+  },
+  {
+    "objectID": "cv.html#awards-scholarships",
+    "href": "cv.html#awards-scholarships",
+    "title": "Curriculum Vitae",
+    "section": "Awards & Scholarships",
+    "text": "Awards & Scholarships\nScholarship — MIDSEA Summer School 2026 · Universiti Malaysia Sarawak (UNIMAS), Kuching, Sarawak · 2026 Awarded a competitive scholarship to participate in the MIDSEA (Malaria in the Islands of Southeast Asia) Summer School, focusing on malaria epidemiology and surveillance in the Southeast Asian island context."
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "",
+    "text": "Penajam Paser Utara sits in the buffer zone of Indonesia’s new capital, IKN, whose rapid development is putting pressure on existing public services.\nI’ve just completed a spatial analysis project on the accessibility of healthcare facilities in Penajam Paser Utara (PPU) District, East Kalimantan, which serves as the buffer zone for Indonesia’s new capital city, Ibu Kota Nusantara (IKN). The study aimed to evaluate how well the existing healthcare infrastructure meets the needs of the local population, especially in light of the rapid development associated with IKN.\nThis project is also part of my journey toward the BNSP GIS Analyst Level 6 professional competency certification, where I applied geospatial analysis techniques to real-world public health challenges.\nThe analysis is fairly straightforward, buffer zones (1/3/5 km) from 18 healthcare facilities, intersected against 54 village boundaries, but the findings deserve attention. Even at 5 km radius, ~42% of population still lacks access to a healthcare facility, with Waru sub-district being the most critical area (18.3% coverage) and several coastal villages in Penajam having 0% coverage.\nPenajam Paser Utara (PPU) District, East Kalimantan — the buffer zone of Ibu Kota Nusantara (IKN)"
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html#rationale",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html#rationale",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "Rationale",
+    "text": "Rationale\nAccessibility of Healthcare Facilities — The distance to healthcare facilities (HF) is a key factor in the uptake of services. Remote areas are at high risk of delays in medical treatment.\nContext of IKN — PPU is a district that supports IKN. The rapid increase in the labor force and infrastructure development requires a well-planned healthcare system.\nSignificance of GIS — Spatial analysis can quantitatively identify gaps in health care coverage, supporting evidence-based planning.\n\nWhat percentage of PPU’s population has access to health facilities within a 1/3/5 km radius, and which villages are in the most critical condition?"
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html#aims-data",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html#aims-data",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "Aims & Data",
+    "text": "Aims & Data\n\nProject Aims\n\nTo map the location of 18 healthcare facilities across 4 sub-districts (kecamatan) in PPU\nTo analyse service coverage with 1/3/5 km buffers\nTo identify villages or sub-districts without access to healthcare facilities\nTo estimate the population both within and outside the coverage area\nTo formulate priority recommendations for the development of new healthcare facilities\n\n\n\nSource of Data\n\n\n\n\n\n\n\n\nData\nSource\nFormat\n\n\n\n\nPPU boundaries\nMinistry of Home Affairs\nSHP\n\n\nHealthcare facilities (n=18)\nHealth Agency PPU / Google Maps\nCSV → SHP\n\n\nPopulation Data\nStatistics Agency, PPU District\nTable (join)\n\n\nBasemap\nXYZ Tiles (ESRI)\nRaster\n\n\nProjection System\nUTM Zone 50S (EPSG:32750)\n—"
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html#project-workflow",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html#project-workflow",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "Project Workflow",
+    "text": "Project Workflow\n\nInput Data — PPU boundaries (54 polygons, UTM 50S), facility locations (18 points verified), population data (202,067 people)\nPreprocessing — Reproject (WGS84 → UTM 50S), geometric validation (topology checking & CRS), join attribute (population → boundaries)\nGeoprocessing — Buffer (1 km / 3 km / 5 km), dissolve buffer (remove overlap), intersect (buffer ∩ boundaries), proportion & classification (% area & population estimation)\nOutput — Accessibility layer (.shp, open in QGIS), statistics (.csv, 54 villages), report"
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html#accessibility-map",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html#accessibility-map",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "Accessibility Map",
+    "text": "Accessibility Map\n\n\n\nHealthcare Facility Accessibility Map, Kab. Penajam Paser Utara — showing Puskesmas, Rumah Sakit and Klinik locations with 3 km and 5 km buffers, classified by accessibility level."
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html#results-population-coverage-by-buffer-radius",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html#results-population-coverage-by-buffer-radius",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "Results: Population Coverage by Buffer Radius",
+    "text": "Results: Population Coverage by Buffer Radius\n\n\n\nBuffer\nPopulation Covered\nCoverage\n\n\n\n\n1 km\n13,201 people\n6.5% · 0 villages accessible\n\n\n3 km\n66,280 people\n32.8% · 10 villages accessible\n\n\n5 km\n116,567 people\n57.7% · 29 villages accessible"
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html#priority-villages-not-within-a-5-km-radius",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html#priority-villages-not-within-a-5-km-radius",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "Priority Villages: Not Within a 5 km Radius",
+    "text": "Priority Villages: Not Within a 5 km Radius\n\n\n\nSub-district\nVillage\nPopulation\nCov. 5km (%)\nNotes\n\n\n\n\nWaru\nWaru\n9,871\n8.6%\nThe largest population, has only 1 HF\n\n\nWaru\nSesulu\n4,142\n9.3%\nThe isolated southern region\n\n\nBabulu\nLabangka\n4,021\n1.6%\nA vast area, away from Babulu HF\n\n\nPenajam\nJenebora\n3,475\n0.0%\nCoastal — 0% (no access)\n\n\nPenajam\nGersik\n2,690\n0.0%\nCoastal — 0% (no access)\n\n\nWaru\nApi-Api\n2,505\n0.0%\nCoastal — 0% (no access)\n\n\nPenajam\nRiko\n2,247\n2.0%\nBlocked by the terrain\n\n\nPenajam\nPantai Lango\n2,073\n0.0%\nCoastal — 0% (no access)\n\n\nSepaku\nKarang Jinawi\n1,198\n6.3%\nBorder, remote area\n\n\nPenajam\nBukit Subur\n982\n0.0%\n0% — an isolated hill\n\n\nSepaku\nMentawir\n802\n0.0%\nThe coast of Makassar Strait\n\n\n\n⚠ Total: 34,006 people (16.8% of the total PPU population) don’t have access to healthcare facilities within a 5 km radius."
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html#analysis-recommendations",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html#analysis-recommendations",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "Analysis & Recommendations",
+    "text": "Analysis & Recommendations\n01 — Waru Sub-district: CRITICAL\nOnly 18.3% of the population is covered, even within a 5 km radius. The single Waru Community Health Centre is insufficient to serve 21,412 people across four villages. The top priority is the construction of new healthcare facilities, particularly in the villages of Sesulu & Api-Api.\n02 — Remote Coastal Areas\nThe villages of Jenebora, Pantai Lango, Gersik (Penajam Sub-district) and Api-Api (Waru Sub-district) have 0% coverage. The nature of the coastal environment requires a specialised approach: mobile health centres or floating clinics.\n03 — Momentum IKN\nThe development of Sepaku District General Hospital and new healthcare facilities in Sepaku Sub-district for IKN workers has the potential to improve coverage in the villages surrounding the authority’s area. Synergy in the planning of public facilities is crucial.\n04 — Database for Planning\nThis accessibility dataset can serve as input for the PPU District Community Health Centre Master Plan. Further MCDA (multi-criteria decision analysis of land suitability) spatial analysis will help to identify the optimal locations for new healthcare facilities."
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html#conclusion",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html#conclusion",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nThe 18 healthcare facilities are unevenly distributed: Penajam has the most, whilst Waru has the fewest (one community health centre for every four villages).\nWithin a 5 km radius: 57.7% of the population (116,567 people) is covered. There are still 11 villages (34,006 people) that are not covered.\nWaru sub-district is the most critical area (18.3%), followed by the coastal villages in Penajam, which have 0% coverage.\nThe momentum of the IKN development must be harnessed to ensure the equitable distribution of healthcare facilities in PPU in a planned manner based on spatial data.\nBuffer and intersection-based analysis has proven effective for quantifying access to healthcare services at the village level.\n\n\nBootcamp QGIS SKKNI · Prepared by Alfa Nugraha Pradana"
+  },
+  {
+    "objectID": "blog/posts/healthcare-accessibility-ppu/index.html#background",
+    "href": "blog/posts/healthcare-accessibility-ppu/index.html#background",
+    "title": "Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara",
+    "section": "Background",
+    "text": "Background\nAccessibility of Healthcare Facilities — The distance to healthcare facilities (HF) is a key factor in the uptake of services. Remote areas are at high risk of delays in medical treatment.\nContext of IKN — PPU is a district that supports IKN. The rapid increase in the labor force and infrastructure development requires a well-planned healthcare system.\nSignificance of GIS — Spatial analysis can quantitatively identify gaps in health care coverage, supporting evidence-based planning.\n\nWhat percentage of PPU’s population has access to health facilities within a 1/3/5 km radius, and which villages are in the most critical condition?"
   }
 ]

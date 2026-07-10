@@ -80,9 +80,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -201,7 +201,7 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Z2VuZXJhbA==">general <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Z2VuZXJhbA==">general <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R0lT">GIS <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aGVhbHRo">health <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SUtO">IKN <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGVuYWphbSUyMFBhc2VyJTIwVXRhcmE=">Penajam Paser Utara <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UUdJUw==">QGIS <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c3BhdGlhbCUyMGFuYWx5c2lz">spatial analysis <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -230,7 +230,47 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Z2VuZXJhbA==" data-listing-date-sort="1778346000000" data-listing-file-modified-sort="1778406043655" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="62">
+<div class="quarto-post image-right" data-index="0" data-categories="R0lTJTJDc3BhdGlhbCUyMGFuYWx5c2lzJTJDaGVhbHRoJTJDUUdJUyUyQ0lLTiUyQ1BlbmFqYW0lMjBQYXNlciUyMFV0YXJh" data-listing-date-sort="1783616400000" data-listing-file-modified-sort="1783698549622" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1049">
+<div class="thumbnail"><a href="../blog/posts/healthcare-accessibility-ppu/index.html" class="no-external">
+
+<p class="card-img-top"><img src="posts\healthcare-accessibility-ppu\images\ikn-construction.jpg"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../blog/posts/healthcare-accessibility-ppu/index.html" class="no-external">Spatial Analysis of Accessibility to Healthcare Facilities in Penajam Paser Utara</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../blog/posts/healthcare-accessibility-ppu/index.html" class="no-external">Mapping the Buffer Zone of Indonesia’s New Capital (IKN)</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('R0lT'); return false;">GIS</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('c3BhdGlhbCUyMGFuYWx5c2lz'); return false;">spatial analysis</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('aGVhbHRo'); return false;">health</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UUdJUw=='); return false;">QGIS</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SUtO'); return false;">IKN</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGVuYWphbSUyMFBhc2VyJTIwVXRhcmE='); return false;">Penajam Paser Utara</div>
+
+</div>
+<div class="delink listing-description"><a href="../blog/posts/healthcare-accessibility-ppu/index.html" class="no-external">
+<p>Analysing accessibility of 18 healthcare facilities against the population of 54 villages in Penajam Paser Utara District, the buffer zone of Indonesia’s new capital IKN.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../blog/posts/healthcare-accessibility-ppu/index.html" class="no-external">
+<div class="listing-date">
+Jul 10, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Z2VuZXJhbA==" data-listing-date-sort="1778346000000" data-listing-file-modified-sort="1778406043655" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="62">
 <div class="thumbnail"><a href="../blog/posts/welcome/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -240,6 +280,9 @@ window.Quarto = {
 <h3 class="no-anchor listing-title">
 <a href="../blog/posts/welcome/index.html" class="no-external">Welcome to My Blog</a>
 </h3>
+<div class="listing-subtitle">
+<a href="../blog/posts/welcome/index.html" class="no-external"></a>
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('Z2VuZXJhbA=='); return false;">general</div>
